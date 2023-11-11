@@ -9,6 +9,7 @@ import { AuthService } from '../../services/auth.service';
 })
 export class SignUpComponent {
   signUpForm: FormGroup;
+errorMessages: any;
 
   constructor(private formBuilder: FormBuilder, private authService: AuthService) {
     this.signUpForm = this.formBuilder.group({
