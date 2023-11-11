@@ -1,0 +1,28 @@
+<!-- registro.component.html -->
+
+<div>
+    <h2>Registro</h2>
+    <form [formGroup]="signUpForm" (ngSubmit)="onSubmit()">
+      <div>
+        <label for="usuario">Usuario</label>
+        <input id="usuario" formControlName="usuario" type="text">
+      </div>
+      <div>
+        <label for="email">Email</label>
+        <input id="email" formControlName="email" type="email">
+      </div>
+      <div>
+        <label for="pwd">Contraseña</label>
+        <input id="pwd" formControlName="pwd" type="password">
+      </div>
+      <div>
+        <label for="edad">Edad</label>
+        <input id="edad" formControlName="edad" type="number">
+      </div>
+      <div>
+        <button type="submit" [disabled]="!signUpForm.valid">Registrarse</button>
+      </div>
+    </form>
+  </div>
+  
+  
