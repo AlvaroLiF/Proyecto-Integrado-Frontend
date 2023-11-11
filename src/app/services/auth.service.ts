@@ -15,7 +15,7 @@ export class AuthService {
   }
 
   register(username: string, password: string, email: string): Observable<any> {
-    const url = `${this.url}/register`;
+    const url = `${this.url}/user/register`;
     const headers = this.getHeaders();
     const body = { username, password, email };
     return this.http.post(url, body, { headers: headers });
