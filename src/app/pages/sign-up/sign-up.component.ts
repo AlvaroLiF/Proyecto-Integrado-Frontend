@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 
 @Component({
@@ -9,30 +9,40 @@ import { AuthService } from '../../services/auth.service';
 })
 export class SignUpComponent {
   signUpForm: FormGroup;
-errorMessages: any;
 
-  constructor(private formBuilder: FormBuilder, private authService: AuthService) {
-    this.signUpForm = this.formBuilder.group({
-      username: ['', Validators.required],
-      password: ['', [Validators.required, Validators.minLength(6)]],
-      email: ['', [Validators.required, Validators.email]],
+  constructor(private authService: AuthService) {
+    this.signUpForm = new FormGroup({
+      username: new FormControl('', Validators.required),
+      password: new FormControl('', [Validators.required, Validators.minLength(6)]),
+      email: new FormControl('', [Validators.required, Validators.email]),
     });
   }
 
-  onSubmit() {
-    if (this.signUpForm.valid) {
-      const { username, password, email } = this.signUpForm.value; // Desestructurar los valores del formulario
-      this.authService.register(username, password, email).subscribe(
-        (response) => {
-          console.log(response); // Manejar la respuesta del servidor
-          // Realizar acciones adicionales según sea necesario, como redirigir a otra página
-        },
-        (error) => {
-          console.error(error); // Manejar el error de la petición
-          // Mostrar un mensaje de error al usuario o tomar otras acciones
-        }
-      );
+  onSubmit(){
+
+    if(this.signUpForm.valid){
+      
+    const username = this.signUpForm.controls['username'].value.replace(/\s+/g, '');
+    const password = this.signUpForm.controls['password'].value.trim();
+    const email = this.signUpForm.controls['email'].value.trim().toLowerCase();
+    this.authService.register(username, password, email).subscribe(
+          (response) => {
+            console.log(response);
+            // Realizar acciones adicionales según sea necesario, como redirigir a otra página
+          },
+          (error) => {
+            console.error(error);
+            // Mostrar un mensaje de error al usuario o tomar otras acciones
+          }
+        );
+      }
     }
   }
+  
+  
+  
+  
+  
+  
 
-}
+
