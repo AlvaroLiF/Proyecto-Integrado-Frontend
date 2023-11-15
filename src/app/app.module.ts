@@ -10,6 +10,7 @@ import { OrderHistoryComponent } from './components/order-history/order-history.
 import { SignInComponent } from './pages/sign-in/sign-in.component';
 import { SignUpComponent } from './pages/sign-up/sign-up.component';
 import { HttpClientModule } from '@angular/common/http';
+import { HomeComponent } from './pages/home/home.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { HttpClientModule } from '@angular/common/http';
     OrderHistoryComponent,
     SignInComponent,
     SignUpComponent,
+    HomeComponent,
   ],
   imports: [
     BrowserModule,
