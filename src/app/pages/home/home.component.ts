@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { ProductService } from 'src/app/services/product.service';
 
 @Component({
   selector: 'app-home',
@@ -8,14 +8,24 @@ import { Router } from '@angular/router';
 })
 export class HomeComponent {
 
-  constructor(private router: Router) {}
+  products!: any[];
 
-  navigateToSignUp() {
-    this.router.navigate(['/signup']);
+  constructor(private productService: ProductService) { }
+
+  ngOnInit(): void {
+    this.productService.getAllProducts().subscribe(
+      (data: any[]) => {
+        this.products = data;
+      },
+      (error) => {
+        console.error('Error al obtener productos:', error);
+      }
+    );
   }
 
-  navigateToSignIn() {
-    this.router.navigate(['/signin']);
+  getFirstImage(photos: string[] | undefined): string {
+    return photos && photos.length > 0 ? photos[0] : 'ruta_por_defecto.jpg';
   }
+
 
 }
