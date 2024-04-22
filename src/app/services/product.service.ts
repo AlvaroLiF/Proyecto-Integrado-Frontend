@@ -27,4 +27,16 @@ export class ProductService {
     return this.http.get(url, {headers:headers});
   }
 
+  getProductDetails(productId: string): Observable<any> {
+    const url = `${this.url}/products/${productId}`;
+    const headers = this.getHeaders();
+    return this.http.get(url, {headers:headers});
+  }
+
+  searchProducts(searchTerm: string): Observable<any[]> {
+    const url = `${this.url}/search?searchTerm=${searchTerm}`;
+    const headers = this.getHeaders();
+    return this.http.get<any[]>(url, {headers:headers});
+  }
+
 }

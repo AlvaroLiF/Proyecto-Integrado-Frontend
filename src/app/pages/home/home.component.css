@@ -23,24 +23,6 @@ header {
     height: 80px; /* Ajusta la altura según tu logo */
 }
 
-.search-bar {
-    flex-grow: 1;
-    margin: 0 20px;
-}
-
-.search-bar input {
-    padding: 5px;
-    width: 80%;
-    margin-right: 10px;
-}
-
-.search-bar button {
-    padding: 7px 15px;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-}
-
 .user-actions a {
     color: white;
     margin-right: 20px;
@@ -82,4 +64,20 @@ footer {
     position: fixed; /* Cambiado a relative en lugar de fixed */
     bottom: 0;
     width: 100%;
+}
+
+.userName {
+    cursor: pointer;
+    background-color: whitesmoke;
+    padding: 15%;
+    border-radius: 20px;
+    margin-bottom: 15%;
+  }
+
+.userName:hover{
+    background-color: rgb(199, 199, 199);
+}
+
+.user-actions{
+    margin-right: 2%;
 }

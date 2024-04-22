@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-sign-up',
@@ -10,7 +11,7 @@ import { AuthService } from '../../services/auth.service';
 export class SignUpComponent {
   signUpForm: FormGroup;
 
-  constructor(private authService: AuthService) {
+  constructor(private authService: AuthService, private router: Router) {
     this.signUpForm = new FormGroup({
       username: new FormControl('', Validators.required),
       password: new FormControl('', [Validators.required, Validators.minLength(6)]),
@@ -18,31 +19,55 @@ export class SignUpComponent {
     });
   }
 
-  onSubmit(){
+  onSubmit() {
 
-    if(this.signUpForm.valid){
-      
-    const username = this.signUpForm.controls['username'].value.replace(/\s+/g, '');
-    const password = this.signUpForm.controls['password'].value.trim();
-    const email = this.signUpForm.controls['email'].value.trim().toLowerCase();
-    this.authService.register(username, password, email).subscribe(
-          (response) => {
-            console.log(response);
-            // Realizar acciones adicionales según sea necesario, como redirigir a otra página
-          },
-          (error) => {
-            console.error(error);
-            // Mostrar un mensaje de error al usuario o tomar otras acciones
-          }
-        );
-      }
+    if (this.signUpForm.valid) {
+
+      const username = this.signUpForm.controls['username'].value.replace(/\s+/g, '');
+      const password = this.signUpForm.controls['password'].value.trim();
+      const email = this.signUpForm.controls['email'].value.trim().toLowerCase();
+
+      // Registra al usuario
+      this.authService.register(username, password, email).subscribe(
+        (response) => {
+          console.log(response);
+          // Si el registro es exitoso, inicia sesión automáticamente
+          this.authService.login(username, password).subscribe(
+            (loginResponse) => {
+              
+              localStorage.setItem('token', loginResponse.accessToken);
+              localStorage.setItem('userId', loginResponse.id);
+              localStorage.setItem('userRole', loginResponse.roles);
+              localStorage.setItem('userName', loginResponse.username);
+
+              const rol = localStorage.getItem('userRole');
+
+              if (rol?.includes("ROLE_ADMIN")) {
+                this.router.navigate(['/admin-home'])
+              } else {
+                this.router.navigate(['/home']);
+              }
+            },
+            (error) => {
+              console.error('Error al iniciar sesión:', error);
+              // Mostrar un mensaje de error al usuario o tomar otras acciones
+            }
+          );
+        },
+        (error) => {
+          console.error('Error al registrar usuario:', error);
+          // Mostrar un mensaje de error al usuario o tomar otras acciones
+        }
+      );
     }
   }
-  
-  
-  
-  
-  
-  
+}
+
+
+
+
+
+
+
 
 

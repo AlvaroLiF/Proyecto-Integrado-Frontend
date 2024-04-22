@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -8,31 +9,47 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./sign-in.component.css']
 })
 export class SignInComponent {
-  signUpForm: FormGroup;
+  signInForm: FormGroup;
 
-  constructor(private authService: AuthService) {
-    this.signUpForm = new FormGroup({
+  constructor(private authService: AuthService, private router: Router) {
+    this.signInForm = new FormGroup({
       username: new FormControl('', Validators.required),
       password: new FormControl('', [Validators.required, Validators.minLength(6)]),
     });
   }
 
-  onSubmit(){
+  onSubmit() {
+    if (this.signInForm.valid) {
+      const username = this.signInForm.controls['username'].value.replace(/\s+/g, '');
+      const password = this.signInForm.controls['password'].value.trim();
+      this.authService.login(username, password).subscribe(
+        (response) => {
 
-    if(this.signUpForm.valid){
-      
-    const username = this.signUpForm.controls['username'].value.replace(/\s+/g, '');
-    const password = this.signUpForm.controls['password'].value.trim();
-    this.authService.login(username, password).subscribe(
-          (response) => {
-            console.log(response);
-            // Realizar acciones adicionales según sea necesario, como redirigir a otra página
-          },
-          (error) => {
-            console.error(error);
-            // Mostrar un mensaje de error al usuario o tomar otras acciones
+          localStorage.setItem('token', response.accessToken);
+          localStorage.setItem('userId', response.id);
+          localStorage.setItem('userRole', response.roles);
+          localStorage.setItem('userName', response.username);
+
+          const rol = localStorage.getItem('userRole');
+
+          if (rol?.includes("ROLE_ADMIN")) {
+            this.router.navigate(['/admin-home'])
+          } else {
+            this.router.navigate(['/home']);
           }
-        );
-      }
+
+          console.log(response);
+
+          console.log('Inicio de sesión exitoso');
+
+          
+        },
+        (error) => {
+          console.error('Error al obtener el nombre de usuario:', error);
+        }
+      );
     }
+
   }
+
+}
