@@ -1,0 +1,9 @@
+.cart {
+    position: relative; /* Cambiado a relative en lugar de fixed */
+}
+
+.cart img {
+    height: 30px; /* Ajusta la altura según tu icono de carrito */
+    margin-right: 5px;
+}
+

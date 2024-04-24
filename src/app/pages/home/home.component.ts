@@ -11,9 +11,8 @@ export class HomeComponent {
 
   products!: any[];
   featuredProducts!: any[];
-  showDropdown: boolean = false;
 
-  constructor(private productService: ProductService, private authService: AuthService) { }
+  constructor(private productService: ProductService) { }
 
   ngOnInit(): void {
     this.productService.getAllProducts().subscribe(
@@ -32,22 +31,6 @@ export class HomeComponent {
         console.error('Error al obtener productos destacados:', error);
       }
     );
-  }
-
-  isLoggedIn(): boolean {
-    return this.authService.loggedIn();
-  }
-
-  getUsername(): string {
-    return this.authService.getUsername();
-  }
-
-  logOut() {
-    this.authService.logOut();
-  }
-
-  toggleDropdown() {
-    this.showDropdown = !this.showDropdown;
   }
 
 }

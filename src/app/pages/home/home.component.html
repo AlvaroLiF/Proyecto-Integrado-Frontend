@@ -1,32 +1,9 @@
-<!-- app.component.html -->
+<body>
 
-<div id="app">
-  <header>
-    <div class="logo">
-      <img src="assets/images/_313f08d0-65d8-4139-8445-1340ae681071.jpg" alt="Componentx Logo">
-    </div>
-    <app-search-bar></app-search-bar>
-    <div class="user-actions">
-      <ng-container *ngIf="isLoggedIn(); else loginLinks">
-        <button mat-button [matMenuTriggerFor]="menu" class="userName">{{ getUsername() }}</button>
-        <mat-menu #menu="matMenu">
-          <button mat-menu-item (click)="logOut()">Cerrar sesión</button>
-        </mat-menu>
-      </ng-container>
-      <ng-template #loginLinks>
-        <div class="login-links">
-          <a href="/signin">Iniciar sesión</a>
-          <a href="/signup">Registrarse</a>
-        </div>
-      </ng-template>
-      <div class="cart">
-        <img src="assets/images/carrito-de-compras.png" alt="Carrito de compras"><span>0</span>
-      </div>
-    </div>
-  </header>
-  
+  <app-header></app-header>
 
-  <main>
+  <div class="content">
+
     <section class="featured-products">
       <div *ngIf="products && products.length > 0">
         <h2>Productos</h2>
@@ -41,6 +18,7 @@
         <p>No hay productos disponibles.</p>
       </div>
     </section>
+
     <section class="featured-products">
       <div *ngIf="featuredProducts && featuredProducts.length > 0">
         <h2>Productos Destacados</h2>
@@ -55,9 +33,9 @@
         <p>No hay productos disponibles.</p>
       </div>
     </section>
-  </main>
 
-  <footer>
-    <p>&copy; Componentx 2024</p>
-  </footer>
-</div>
+  </div>
+
+  <app-footer></app-footer>
+
+</body>

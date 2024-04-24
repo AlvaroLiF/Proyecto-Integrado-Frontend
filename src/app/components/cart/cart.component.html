@@ -1,1 +1,29 @@
-<p>cart works!</p>
+ <!-- <div class="cart" (click)="toggleCartDropdown()">
+    <img src="assets/images/carrito-de-compras.png" alt="Carrito de compras">
+    <span></span>
+  </div>
+  
+  <div class="cart-dropdown" *ngIf="showCartDropdown">
+    <div *ngFor="let item of cart">
+      {{ item.name }} - Cantidad: {{ item.quantity }} - Precio: {{ item.price * item.quantity }}
+    </div>
+    <div>Total: </div>
+  </div>  -->
+  
+  <div class="cart-container" *ngIf="cart">
+    <a class="cart" (click)="toggleCartDropdown()"><img src="assets/images/carrito-de-compras.png" alt="Carrito de compras"></a>
+    <div class="cart-dropdown" *ngIf="showCartDropdown">
+      <div *ngIf="cart.items.length > 0; else emptyCart">
+        <ul>
+          <li *ngFor="let item of cart.items">
+            <div>{{ item.product.name }}</div>
+            <div>{{ item.quantity }}</div>
+            <button (click)="removeFromCart(item.product._id)">Remove</button>
+          </li>
+        </ul>
+      </div>
+      <ng-template #emptyCart>
+        <p>No items in cart</p>
+      </ng-template>
+    </div>
+  </div>

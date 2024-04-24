@@ -40,6 +40,10 @@ export class AuthService {
     return localStorage.getItem('userName') || '';
   }
 
+  getUserId(): string {
+    return localStorage.getItem('userID') || '';
+  }
+
   loggedIn(): boolean {
     return !!localStorage.getItem('token');
   }

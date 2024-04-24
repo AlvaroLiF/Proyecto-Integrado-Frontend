@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { CartService } from 'src/app/services/cart.service';
 import { ProductService } from 'src/app/services/product.service';
 
 @Component({
@@ -15,7 +16,7 @@ export class ProductDetailsComponent {
   quantities: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
 
-  constructor(private route: ActivatedRoute, private productService: ProductService, private router:Router) {}
+  constructor(private route: ActivatedRoute, private productService: ProductService, private router: Router, private cartService: CartService) { }
 
   ngOnInit(): void {
     // Obtén el ID del producto de los parámetros de la URL
@@ -37,18 +38,26 @@ export class ProductDetailsComponent {
     }
   }
 
-  addToCart(product: any, quantity: number) {
-    // Aquí podrías realizar acciones adicionales antes de redirigir, si es necesario
-
-    // Redirige a la página de compra y pasa los parámetros necesarios
-    this.router.navigate(['/checkout'], {
-      queryParams: { productId: product._id, quantity },
-    });
-  }
-
   getSpecificationKeys(): string[] {
     const keys = Object.keys(this.product.specifications);
     return keys;
   }
 
+  addToCart(productId: string, quantity: number): void {
+    if (productId && quantity) {
+      this.cartService.addToCart(productId, quantity).subscribe(
+        (response) => {
+          console.log('Producto añadido al carrito:', response);
+          // Aquí puedes redirigir al usuario a la página del carrito o mostrar un mensaje de éxito
+          //this.router.navigate(['/cart']);
+        },
+        (error) => {
+          console.error('Error al agregar producto al carrito:', error);
+          // Aquí puedes mostrar un mensaje de error al usuario
+        }
+      );
+
+    }
+  }
 }
+

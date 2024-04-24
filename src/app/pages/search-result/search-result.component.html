@@ -1,22 +1,32 @@
-<h1>Resultados de búsqueda para "{{ searchTerm }}"</h1>
+<body>
 
+  <app-header></app-header>
 
+  <div class="content">
 
-<section class="featured-products">
-  <div *ngIf="searchResults && searchResults.length > 0">
-    <h2>Productos</h2>
-    <div class="card-container">
-      <div *ngFor="let product of searchResults">
-        <app-product-card [product]="product"></app-product-card>
+    <h1>Resultados de búsqueda para "{{ searchTerm }}"</h1>
+
+    <section>
+      <div *ngIf="searchResults && searchResults.length > 0">
+        <h2>Productos</h2>
+        <div class="card-container">
+          <div *ngFor="let product of searchResults">
+            <app-product-card [product]="product"></app-product-card>
+          </div>
+        </div>
       </div>
-    </div>
+
+      <div *ngIf="!searchResults || searchResults.length === 0">
+        <p>No hay productos disponibles.</p>
+      </div>
+    </section>
+
+    <ng-template #noResults>
+      <p>No se encontraron resultados para "{{ searchTerm }}".</p>
+    </ng-template>
+
   </div>
 
-  <div *ngIf="!searchResults || searchResults.length === 0">
-    <p>No hay productos disponibles.</p>
-  </div>
-</section>
+  <app-footer></app-footer>
 
-<ng-template #noResults>
-  <p>No se encontraron resultados para "{{ searchTerm }}".</p>
-</ng-template>
+</body>
