@@ -1,29 +1,26 @@
- <!-- <div class="cart" (click)="toggleCartDropdown()">
+<div class="cart-container" *ngIf="cart">
+  <a class="cart" (click)="toggleCartDropdown()">
     <img src="assets/images/carrito-de-compras.png" alt="Carrito de compras">
-    <span></span>
-  </div>
-  
-  <div class="cart-dropdown" *ngIf="showCartDropdown">
-    <div *ngFor="let item of cart">
-      {{ item.name }} - Cantidad: {{ item.quantity }} - Precio: {{ item.price * item.quantity }}
+  </a>
+  <div class="cart-dropdown" [ngClass]="{'active': showCartDropdown}">
+    <div *ngIf="cart.items.length > 0; else emptyCart">
+      <ul>
+        <li *ngFor="let item of cart.items">
+          <img class="item-photo"
+            [src]="item.product.photos && item.product.photos.length > 0 ? item.product.photos[0] : 'ruta_a_imagen_predeterminada.jpg'"
+            alt="{{ item.product.name }}">
+          <div>{{ item.product.name }}</div>
+          <div>Unidades: {{ item.quantity }}</div>
+          <div>Precio: {{ item.product.price }}€</div>
+          
+          <img class="trash-icon" src="assets/icons/trash-can-solid.svg" alt="Eliminar"
+            (click)="removeFromCart(item.product._id)">
+        </li>
+      </ul>
     </div>
-    <div>Total: </div>
-  </div>  -->
-  
-  <div class="cart-container" *ngIf="cart">
-    <a class="cart" (click)="toggleCartDropdown()"><img src="assets/images/carrito-de-compras.png" alt="Carrito de compras"></a>
-    <div class="cart-dropdown" *ngIf="showCartDropdown">
-      <div *ngIf="cart.items.length > 0; else emptyCart">
-        <ul>
-          <li *ngFor="let item of cart.items">
-            <div>{{ item.product.name }}</div>
-            <div>{{ item.quantity }}</div>
-            <button (click)="removeFromCart(item.product._id)">Remove</button>
-          </li>
-        </ul>
-      </div>
-      <ng-template #emptyCart>
-        <p>No items in cart</p>
-      </ng-template>
-    </div>
+    <ng-template #emptyCart>
+      <p>No hay productos en el carrito</p>
+    </ng-template>
+    <div>Precio total: {{ cart.totalPrice }}€</div>
   </div>
+</div>

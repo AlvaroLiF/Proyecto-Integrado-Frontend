@@ -1,9 +1,77 @@
 .cart {
-    position: relative; /* Cambiado a relative en lugar de fixed */
+  position: relative;
+  /* Cambiado a relative en lugar de fixed */
 }
 
 .cart img {
-    height: 30px; /* Ajusta la altura según tu icono de carrito */
-    margin-right: 5px;
+  height: 30px;
+  /* Ajusta la altura según tu icono de carrito */
+  margin-right: 5px;
 }
 
+.cart-container {
+  position: relative;
+}
+
+.cart-dropdown {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 500px;
+  /* Ancho del menú del carrito */
+  height: 100vh;
+  background-color: darkred;
+  border: 1px solid #ccc;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  z-index: 999;
+  padding: 10px;
+  display: none;
+  /* Ocultar inicialmente el menú */
+}
+
+.cart-dropdown.active {
+  display: block;
+  /* Mostrar el menú cuando tiene la clase 'active' */
+}
+
+.cart-dropdown ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.cart-dropdown ul li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px 0;
+}
+
+.cart-dropdown ul li a {
+  color: #aaa;
+}
+
+.cart-dropdown ul li a:hover {
+  color: #000;
+}
+
+.trash-icon {
+  width: 3%;
+  transition: background-color 0.3s ease;
+  padding: 0.5%;
+  cursor: pointer;
+  border-radius: 15%;
+}
+
+.trash-icon:hover {
+  background-color: gray;
+  /* Cambia el color de fondo al pasar el ratón por encima */
+}
+
+.trash-icon:active {
+  cursor: grabbing;
+  /* Cambia el cursor al hacer clic en la papelera */
+}
+
+.item-photo{
+  width: 10%;
+}

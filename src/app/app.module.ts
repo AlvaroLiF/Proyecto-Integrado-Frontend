@@ -25,6 +25,7 @@ import { SearchBarComponent } from './components/search-bar/search-bar.component
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -54,7 +55,7 @@ import { FooterComponent } from './components/footer/footer.component';
     MatSelectModule,
     MatMenuModule,
     MatIconModule,
-    FormsModule
+    FormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
