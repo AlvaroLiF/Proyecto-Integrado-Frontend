@@ -1,21 +1,25 @@
 <header>
-    <div class="logo">
+  <div class="logo">
+    <a href="/home">
       <img src="assets/images/_313f08d0-65d8-4139-8445-1340ae681071.jpg" alt="Componentx Logo">
-    </div>
-    <app-search-bar></app-search-bar>
-    <div class="user-actions">
-      <ng-container *ngIf="isLoggedIn(); else loginLinks">
-        <button mat-button [matMenuTriggerFor]="menu" class="userName">{{ getUsername() }}</button>
-        <mat-menu #menu="matMenu">
-          <button mat-menu-item (click)="logOut()">Cerrar sesión</button>
-        </mat-menu>
-      </ng-container>
-      <ng-template #loginLinks>
-        <div class="login-links">
-          <a href="/signin">Iniciar sesión</a>
-          <a href="/signup">Registrarse</a>
-        </div>
-      </ng-template>
+    </a>
+  </div>
+  <app-search-bar></app-search-bar>
+  <div class="user-actions">
+    <ng-container *ngIf="isLoggedIn(); else loginLinks">
+      <button mat-button [matMenuTriggerFor]="menu" class="userName">{{ getUsername() }}</button>
       <app-cart></app-cart>
-    </div>
-  </header>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item routerLink="/admin-home" *ngIf="isAdmin()">Administración</button>
+        <button mat-menu-item (click)="logOut()">Cerrar sesión</button>
+      </mat-menu>
+    </ng-container>
+    <ng-template #loginLinks>
+      <div class="login-links">
+        <a href="/signin">Iniciar sesión</a>
+        <a href="/signup">Registrarse</a>
+      </div>
+    </ng-template>
+
+  </div>
+</header>

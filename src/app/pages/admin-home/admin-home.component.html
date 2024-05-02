@@ -1,1 +1,78 @@
-<p>admin-home works!</p>
+<app-header></app-header>
+<div class="admin-home">
+    <h1>Panel de Administrador</h1>
+  
+    <!-- Sección para agregar un nuevo producto -->
+    <!-- create-product.component.html -->
+
+<div class="section">
+  <h2>Crear Nuevo Producto</h2>
+  <form>
+    <div class="form-group">
+      <label for="name">Nombre:</label>
+      <input type="text" class="form-control" id="name" [(ngModel)]="productData.name" name="name" required>
+    </div>
+    <div class="form-group">
+      <label for="price">Precio:</label>
+      <input type="number" class="form-control" id="price" [(ngModel)]="productData.price" name="price" required>
+    </div>
+    <div class="form-group">
+      <label for="description">Descripción:</label>
+      <textarea class="form-control" id="description" [(ngModel)]="productData.description" name="description" required></textarea>
+    </div>
+    <div class="form-group">
+      <label for="features">Características:</label>
+      <textarea class="form-control" id="features" [(ngModel)]="productData.features" name="features"></textarea>
+    </div>
+    <div class="form-group">
+      <label for="specificationKey">Clave de la especificación:</label>
+      <textarea class="form-control"  id="specificationKey" [(ngModel)]="specificationKey" name="specificationKey"></textarea>
+    </div>
+    <div class="form-group">
+      <label for="specificationValue">Clave del valor de la especificación:</label>
+      <textarea class="form-control"  id="specificationValueKey" [(ngModel)]="specificationValueKey" name="specificationValueKey"></textarea>
+    </div>
+    <div class="form-group">
+      <label for="specificationValue">Valor del valor de la especificación:</label>
+      <textarea class="form-control"  id="specificationValueValue" [(ngModel)]="specificationValueValue" name="specificationValueValue"></textarea>
+    </div>
+    <button (click)="addSpecification()">Agregar Especificación</button>
+    <div class="form-group">
+      <label for="photos">Fotos:</label>
+      <input type="text" class="form-control" id="photos" [(ngModel)]="productData.photos" name="photos">
+    </div>
+    
+    <div class="form-group">
+      <label for="category">Categoría:</label>
+  <select class="form-control" id="category" [(ngModel)]="productData.category" name="category">
+    <option *ngFor="let category of categories" [value]="category._id">{{ category.name }}</option>
+  </select>
+    </div>
+    <div class="form-group">
+      <label for="featured">Destacado:</label>
+      <input type="checkbox" class="form-check-input" id="featured" [(ngModel)]="productData.featured" name="featured">
+    </div>
+    <button (click)="onSubmit()">Crear Producto</button>
+  </form>
+</div>
+
+  
+    <!-- Sección para editar un producto existente -->
+    <div class="section">
+      <h2>Editar Producto Existente</h2>
+      <!-- Aquí colocarías la lista de productos existentes y un formulario para editarlos -->
+    </div>
+  
+    <!-- Sección para eliminar un producto existente -->
+    <div class="section">
+      <h2>Eliminar Producto Existente</h2>
+      <!-- Aquí colocarías la lista de productos existentes y botones para eliminarlos -->
+    </div>
+  
+    <!-- Sección para otorgar permisos de administrador -->
+    <div class="section">
+      <h2>Otorgar Permisos de Administrador</h2>
+      <!-- Aquí colocarías la lista de usuarios y botones para otorgarles permisos de administrador -->
+    </div>
+  </div>
+  

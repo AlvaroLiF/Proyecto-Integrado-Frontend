@@ -7,13 +7,13 @@ import { Observable, BehaviorSubject, tap } from 'rxjs';
 })
 export class CartService {
 
-  private cartSubject: BehaviorSubject<any[]> = new BehaviorSubject<any[]>([]);
+  private cartSubject: BehaviorSubject<any> = new BehaviorSubject<any>({ items: [] });
   cart$: Observable<any[]> = this.cartSubject.asObservable();
 
   constructor(private http: HttpClient) { }
 
-  //private url = 'http://localhost:3000';
-  private url = 'https://componentx.onrender.com';
+  private url = 'http://localhost:3000';
+  //private url = 'https://componentx.onrender.com';
   
   private getHeaders(): HttpHeaders {
     return new HttpHeaders().set('Content-Type', 'application/json');

@@ -9,8 +9,8 @@ export class ProductService {
 
   constructor(private http: HttpClient) { }
   
-  //private url = 'http://localhost:3000';
-  private url = 'https://componentx.onrender.com';
+  private url = 'http://localhost:3000';
+  //private url = 'https://componentx.onrender.com';
   private getHeaders(): HttpHeaders {
     return new HttpHeaders().set('Content-Type', 'application/json');
   }
@@ -37,6 +37,18 @@ export class ProductService {
     const url = `${this.url}/search?searchTerm=${searchTerm}`;
     const headers = this.getHeaders();
     return this.http.get<any[]>(url, {headers:headers});
+  }
+
+  createProduct(productData: any): Observable<any> {
+    const url = `${this.url}/product/add`; // Endpoint para crear un producto
+    const headers = this.getHeaders();
+    return this.http.post(url, productData, { headers: headers });
+  }
+
+  getCategories(): Observable<any> {
+    const url = `${this.url}/categories`;
+    const headers = this.getHeaders();
+    return this.http.get(url, {headers:headers});
   }
 
 }

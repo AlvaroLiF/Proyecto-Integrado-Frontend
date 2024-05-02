@@ -9,8 +9,8 @@ export class AuthService {
 
   constructor(private http: HttpClient) { }
 
-  //private url = 'http://localhost:3000';
-  private url = 'https://componentx.onrender.com';
+  private url = 'http://localhost:3000';
+  //private url = 'https://componentx.onrender.com';
   private getHeaders(): HttpHeaders {
     return new HttpHeaders().set('Content-Type', 'application/json');
   }
@@ -53,6 +53,15 @@ export class AuthService {
     localStorage.removeItem('userId');
     localStorage.removeItem('userRole');
     localStorage.removeItem('userName');
+  }
+
+  isAdmin(): boolean {
+    const userRoles = localStorage.getItem('userRole');
+    return !!userRoles && userRoles.includes('ROLE_ADMIN');
+  }
+
+  getToken():string {
+    return localStorage.getItem('token') || '';
   }
 
 }

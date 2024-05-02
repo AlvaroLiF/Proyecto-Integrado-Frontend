@@ -7,6 +7,7 @@ import { ProductDetailsComponent } from './pages/product-details/product-details
 import { CheckoutComponent } from './pages/checkout/checkout.component';
 import { AdminHomeComponent } from './pages/admin-home/admin-home.component';
 import { SearchResultComponent } from './pages/search-result/search-result.component';
+import { AuthGuard } from './guards/auth.guard';
 
 const routes: Routes = [
   { path: 'signup', component: SignUpComponent },
@@ -15,7 +16,7 @@ const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'product-details/:id', component: ProductDetailsComponent },
   { path: 'checkout', component: CheckoutComponent },
-  { path: 'admin-home', component: AdminHomeComponent },
+  { path: 'admin-home', component: AdminHomeComponent, canActivate: [AuthGuard] },
   { path: 'search', component: SearchResultComponent },
 
 ];
