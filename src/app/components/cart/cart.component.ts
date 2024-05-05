@@ -10,6 +10,8 @@ export class CartComponent {
 
   cart: any;
   showCartDropdown: boolean = false;
+  distinctProductCount: number = 0;
+
 
   constructor(private cartService: CartService) { }
 
@@ -18,9 +20,15 @@ export class CartComponent {
       (data) => {
         this.cart = data;
         console.log(this.cart);
+        this.calculateDistinctProductCount();
       },
       (error) => {
         console.error('Error al obtener el carrito:', error);
+      }
+    );
+    this.cartService.isCartOpen$.subscribe(
+      (isOpen) => {
+        this.showCartDropdown = isOpen;
       }
     );
     this.getCart();
@@ -45,6 +53,14 @@ export class CartComponent {
     this.showCartDropdown = !this.showCartDropdown;
   }
 
+  calculateDistinctProductCount(): void {
+    const uniqueProductIds = new Set<string>();
+    this.cart.items.forEach((item: any) => {
+      uniqueProductIds.add(item.product._id); // Agrega el ID del producto al conjunto
+    });
+    this.distinctProductCount = uniqueProductIds.size; // Obtiene la longitud del conjunto
+  }
+
   @HostListener('document:click', ['$event'])
   onClick(event: MouseEvent) {
     // Verifica si el clic se produjo fuera del menú desplegable
@@ -55,7 +71,4 @@ export class CartComponent {
       this.showCartDropdown = false;
     }
   }
-
-  
-
 }

@@ -9,8 +9,8 @@ export class AuthService {
 
   constructor(private http: HttpClient) { }
 
-  //private url = 'http://localhost:3000';
-  private url = 'https://componentx.onrender.com';
+  private url = 'http://localhost:3000';
+  //private url = 'https://componentx.onrender.com';
   private getHeaders(): HttpHeaders {
     return new HttpHeaders().set('Content-Type', 'application/json');
   }
@@ -62,6 +62,12 @@ export class AuthService {
 
   getToken():string {
     return localStorage.getItem('token') || '';
+  }
+
+  getUsers(): Observable<any> {
+    const url = `${this.url}/users`;
+    const headers = this.getHeaders();
+    return this.http.get(url, {headers:headers});
   }
 
 }

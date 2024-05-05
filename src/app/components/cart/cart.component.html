@@ -2,6 +2,8 @@
 <div class="cart-container">
   <a class="cart" (click)="toggleCartDropdown()">
     <img src="assets/images/carrito-de-compras.png" alt="Carrito de compras">
+    <span class="product-count">{{ distinctProductCount }}</span>
+
   </a>
 
   <!-- Modal del carrito -->

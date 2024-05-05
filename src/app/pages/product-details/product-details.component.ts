@@ -49,7 +49,7 @@ export class ProductDetailsComponent {
         (response) => {
           console.log('Producto añadido al carrito:', response);
           // Aquí puedes redirigir al usuario a la página del carrito o mostrar un mensaje de éxito
-          //this.router.navigate(['/cart']);
+          this.cartService.openCart();
         },
         (error) => {
           console.error('Error al agregar producto al carrito:', error);

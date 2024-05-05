@@ -9,11 +9,13 @@ export class CartService {
 
   private cartSubject: BehaviorSubject<any> = new BehaviorSubject<any>({ items: [] });
   cart$: Observable<any[]> = this.cartSubject.asObservable();
+  private isCartOpenSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  public isCartOpen$: Observable<boolean> = this.isCartOpenSubject.asObservable();
 
   constructor(private http: HttpClient) { }
 
-  //private url = 'http://localhost:3000';
-  private url = 'https://componentx.onrender.com';
+  private url = 'http://localhost:3000';
+  //private url = 'https://componentx.onrender.com';
   
   private getHeaders(): HttpHeaders {
     return new HttpHeaders().set('Content-Type', 'application/json');
@@ -55,5 +57,13 @@ export class CartService {
 
   private updateCart() {
     this.getCart().subscribe();
+  }
+
+  openCart() {
+    this.isCartOpenSubject.next(true);
+  }
+
+  closeCart() {
+    this.isCartOpenSubject.next(false);
   }
 }

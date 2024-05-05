@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AuthService } from 'src/app/services/auth.service';
 import { ProductService } from 'src/app/services/product.service';
 
 @Component({
@@ -8,6 +9,7 @@ import { ProductService } from 'src/app/services/product.service';
 })
 export class AdminHomeComponent {
 
+  users!: any[];
   categories!: any[]; // Suponiendo que cada categoría tiene un id y un nombre
   specificationsData: { [key: string]: { [key: string]: string } } = {};
   specificationKey: string = '';
@@ -26,10 +28,11 @@ export class AdminHomeComponent {
   };
 
 
-  constructor(private productService: ProductService) { }
+  constructor(private productService: ProductService, private authService: AuthService) { }
 
   ngOnInit(): void {
     this.getCategories();
+    this.getUsers();
   }
 
   getCategories(): void {
@@ -77,7 +80,17 @@ export class AdminHomeComponent {
       console.log('Especificación agregada:', this.specificationsData);
     }
   }
-  
-  
+
+  getUsers(): void {
+    this.authService.getUsers().subscribe(
+      users => {
+        this.users = users;
+        console.log(users);
+      },
+      error => {
+        console.error('Error al obtener las categorías:', error);
+      }
+    );
+  }
   
 }
