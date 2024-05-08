@@ -55,6 +55,10 @@ export class CartService {
     );
   }
 
+  getCartState(): any {
+    return this.cartSubject.getValue();
+  }
+
   private updateCart() {
     this.getCart().subscribe();
   }

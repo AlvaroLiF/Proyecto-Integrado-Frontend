@@ -16,7 +16,6 @@ import { MatCardModule } from '@angular/material/card';
 import { ProductCardComponent } from './components/product-card/product-card.component'
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
-import { CheckoutComponent } from './pages/checkout/checkout.component';
 import { AdminHomeComponent } from './pages/admin-home/admin-home.component';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
@@ -24,6 +23,10 @@ import { SearchResultComponent } from './pages/search-result/search-result.compo
 import { SearchBarComponent } from './components/search-bar/search-bar.component';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { CartPageComponent } from './pages/cart-page/cart-page.component';
+import { HeaderOrderComponent } from './components/header-order/header-order.component';
+import { AddressComponent } from './pages/address/address.component';
+import { PaymentComponent } from './pages/payment/payment.component';
 
 
 @NgModule({
@@ -37,12 +40,15 @@ import { FooterComponent } from './components/footer/footer.component';
     SignUpComponent,
     HomeComponent,
     ProductCardComponent,
-    CheckoutComponent,
     AdminHomeComponent,
     SearchResultComponent,
     SearchBarComponent,
     HeaderComponent,
     FooterComponent,
+    CartPageComponent,
+    HeaderOrderComponent,
+    AddressComponent,
+    PaymentComponent,
   ],
   imports: [
     BrowserModule,

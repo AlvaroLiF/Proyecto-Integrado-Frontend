@@ -1,0 +1,53 @@
+<body>
+    <app-header-order></app-header-order>
+    <div class="content">
+        <h1>Dirección de envío</h1>
+
+        <form (ngSubmit)="submitShippingAddress()">
+            <div class="form-group">
+              <label for="firstName">Nombre:</label>
+              <input type="text" class="form-control" id="firstName" name="firstName" [(ngModel)]="shippingAddress.firstName" required>
+            </div>
+            <div class="form-group">
+              <label for="lastName">Apellidos:</label>
+              <input type="text" class="form-control" id="lastName" name="lastName" [(ngModel)]="shippingAddress.lastName" required>
+            </div>
+            <div class="form-group">
+              <label for="addressLine1">Dirección:</label>
+              <input type="text" class="form-control" id="addressLine1" name="addressLine1" [(ngModel)]="shippingAddress.addressLine1" required>
+            </div>
+            <div class="form-group">
+              <label for="addressLine2">Datos adicionales:</label>
+              <input type="text" class="form-control" id="addressLine2" name="addressLine2" [(ngModel)]="shippingAddress.addressLine2">
+            </div>
+            <div class="form-group">
+              <label for="city">Ciudad:</label>
+              <input type="text" class="form-control" id="city" name="city" [(ngModel)]="shippingAddress.city" required>
+            </div>
+            <div class="form-group">
+              <label for="postalCode">Código postal:</label>
+              <input type="text" class="form-control" id="postalCode" name="postalCode" [(ngModel)]="shippingAddress.postalCode" required>
+            </div>
+            <div class="form-group">
+              <label for="country">País:</label>
+              <input type="text" class="form-control" id="country" name="country" [(ngModel)]="shippingAddress.country" required>
+            </div>
+            <div class="form-group">
+                <label for="state">Provincia:</label>
+                <input type="text" class="form-control" id="state" name="state" [(ngModel)]="shippingAddress.state" required>
+              </div>
+              <div class="form-group">
+                <label for="additionalInfo">Información adicional:</label>
+                <input type="text" class="form-control" id="additionalInfo" name="additionalInfo" [(ngModel)]="shippingAddress.additionalInfo">
+              </div>
+            <div class="form-group">
+              <label for="phone">Teléfono:</label>
+              <input type="tel" class="form-control" id="phone" name="phone" [(ngModel)]="shippingAddress.phone" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Guardar y continuar</button>
+          </form>
+          
+    </div>
+
+    <app-footer></app-footer>
+</body>

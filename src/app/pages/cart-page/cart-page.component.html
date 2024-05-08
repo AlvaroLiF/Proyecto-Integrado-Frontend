@@ -1,0 +1,39 @@
+<body>
+    <app-header-order></app-header-order>
+
+    <div class="content">
+        
+
+        <div class="cart-items">
+            <h1>Mi cesta</h1>
+            <span class="product-count">{{ distinctProductCount }} artículos</span>
+            <div *ngIf="cart.items.length > 0; else emptyCart">
+                <ul>
+                    <li *ngFor="let item of cart.items">
+                        <img class="item-photo"
+                            [src]="item.product.photos && item.product.photos.length > 0 ? item.product.photos[0] : 'ruta_a_imagen_predeterminada.jpg'"
+                            alt="{{ item.product.name }}">
+                        <div>{{ item.product.name }}</div>
+                        <div>Unidades: {{ item.quantity }}</div>
+                        <div>Precio: {{ item.product.price }}€</div>
+                        <img class="trash-icon" src="assets/icons/trash-can-solid.svg" alt="Eliminar"
+                            (click)="removeFromCart(item.product._id)">
+                    </li>
+                </ul>
+            </div>
+            <ng-template #emptyCart>
+                <p>No hay productos en el carrito</p>
+            </ng-template>
+        </div>
+
+        <div class="order-summary">
+            <h2>Resumen</h2>
+            <p>Subtotal artículos {{ cart.totalPrice }}€</p>
+            <hr>
+            <h3>Total(Impuestos incluidos) {{ cart.totalPrice }}€</h3>
+            <button (click)="createOrder()" routerLink="/cart/address">Realizar pedido</button>
+        </div>
+    </div>
+
+    <app-footer></app-footer>
+</body>
