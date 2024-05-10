@@ -10,6 +10,7 @@ import { AuthGuard } from './guards/auth.guard';
 import { CartPageComponent } from './pages/cart-page/cart-page.component';
 import { AddressComponent } from './pages/address/address.component';
 import { PaymentComponent } from './pages/payment/payment.component';
+import { ResumeComponent } from './pages/resume/resume.component';
 
 const routes: Routes = [
   { path: 'signup', component: SignUpComponent },
@@ -20,8 +21,9 @@ const routes: Routes = [
   { path: 'admin-home', component: AdminHomeComponent, canActivate: [AuthGuard] },
   { path: 'search', component: SearchResultComponent },
   { path: 'cart', component: CartPageComponent },
-  { path: 'cart/address', component: AddressComponent },
-  { path: 'cart/payment', component: PaymentComponent },
+  { path: 'order/address', component: AddressComponent },
+  { path: 'order/payment', component: PaymentComponent },
+  { path: 'order/resume', component: ResumeComponent },
 
 ];
 

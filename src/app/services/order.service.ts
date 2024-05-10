@@ -8,8 +8,6 @@ import { CartService } from './cart.service';
 })
 export class OrderService {
 
-  private orderId!: string; // Propiedad para almacenar el ID del pedido
-
   constructor(private http: HttpClient, private cartService:CartService) { }
 
   private url = 'http://localhost:3000';
@@ -25,12 +23,15 @@ export class OrderService {
     const body = { userId, cart: this.cartService.getCartState() }; // Obtén el estado actual del carrito
     return this.http.post(url, body, { headers: headers }).pipe(
       tap((order: any) => {
-        // Guardar el ID del pedido en el estado de la aplicación
-        this.orderId = order._id;
+        if (!localStorage.getItem('orderId')) {
+          localStorage.setItem('orderId', order._id);
         console.log(order._id);
+        }
       })
     );
   }
+
+  //CUANDO SE TERMINE EL PEDIDO, ELIMINAR EL ORDERID DEL LOCALSTORAGE
   
 
   createShippingAddress(shippingAddress: any, orderId: string): Observable<any> {
@@ -40,4 +41,16 @@ export class OrderService {
     return this.http.post(url, body, { headers: headers });
   }
 
+  createPaymentMethod(paymentMethod: any, orderId: string): Observable<any> {
+    const url = `${this.url}/newPayment`; // Ruta para crear la dirección de envío en el backend
+    const headers = this.getHeaders();
+    const body = { ...paymentMethod, orderId }; // Combina los datos de la dirección de envío con el ID del pedido
+    return this.http.post(url, body, { headers: headers });
+  }
+
+  getOrderById(orderId: string): Observable<any> {
+    const url = `${this.url}/${orderId}`; // URL para obtener un pedido por su ID
+    const headers = this.getHeaders();
+    return this.http.get(url, {headers:headers});
+  }
 }

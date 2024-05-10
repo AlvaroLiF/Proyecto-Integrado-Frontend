@@ -27,6 +27,7 @@ import { CartPageComponent } from './pages/cart-page/cart-page.component';
 import { HeaderOrderComponent } from './components/header-order/header-order.component';
 import { AddressComponent } from './pages/address/address.component';
 import { PaymentComponent } from './pages/payment/payment.component';
+import { ResumeComponent } from './pages/resume/resume.component';
 
 
 @NgModule({
@@ -49,6 +50,7 @@ import { PaymentComponent } from './pages/payment/payment.component';
     HeaderOrderComponent,
     AddressComponent,
     PaymentComponent,
+    ResumeComponent,
   ],
   imports: [
     BrowserModule,

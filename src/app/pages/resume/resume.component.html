@@ -1,0 +1,17 @@
+<body>
+    <app-header-order></app-header-order>
+    <div class="content">
+        <h1>Resumen del pedido</h1>
+        <p>Número de Pedido: {{ order.orderNumber }}</p>
+        <p>Estado: {{ order.status }}</p>
+        <h3>Artículos:</h3>
+        <ul>
+            <li *ngFor="let item of order.items">
+                {{ item.product.name }} - {{ item.quantity }} x {{ item.product.price }}
+            </li>
+        </ul>
+        <p>Total: {{ order.totalPrice }}</p>
+    </div>
+
+    <app-footer></app-footer>
+</body>
