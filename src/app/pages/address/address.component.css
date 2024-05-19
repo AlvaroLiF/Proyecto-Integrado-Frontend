@@ -13,3 +13,16 @@ body {
 h1 {
     font-weight: 500;
 }
+
+.order-summary {
+    width: 20%;
+    height: 30vh;
+    /* Reducir la altura del resumen del pedido */
+    border: 1px solid black;
+    padding: 1rem;
+    margin-top: 5rem;
+    /* Modificar el margen superior */
+    margin-left: 1rem;
+    margin-right: 5%;
+    border-radius: 1%;
+}

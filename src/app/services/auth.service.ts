@@ -53,6 +53,8 @@ export class AuthService {
     localStorage.removeItem('userId');
     localStorage.removeItem('userRole');
     localStorage.removeItem('userName');
+    localStorage.removeItem('orderId');
+
   }
 
   isAdmin(): boolean {

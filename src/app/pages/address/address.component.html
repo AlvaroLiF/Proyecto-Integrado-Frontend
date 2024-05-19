@@ -1,53 +1,95 @@
 <body>
-    <app-header-order></app-header-order>
-    <div class="content">
-        <h1>Dirección de envío</h1>
+  <app-header-order></app-header-order>
+  <div class="content">
+    <h1>Dirección de envío</h1>
 
-        <form (ngSubmit)="submitShippingAddress()">
-            <div class="form-group">
-              <label for="firstName">Nombre:</label>
-              <input type="text" class="form-control" id="firstName" name="firstName" [(ngModel)]="shippingAddress.firstName" required>
-            </div>
-            <div class="form-group">
-              <label for="lastName">Apellidos:</label>
-              <input type="text" class="form-control" id="lastName" name="lastName" [(ngModel)]="shippingAddress.lastName" required>
-            </div>
-            <div class="form-group">
-              <label for="addressLine1">Dirección:</label>
-              <input type="text" class="form-control" id="addressLine1" name="addressLine1" [(ngModel)]="shippingAddress.addressLine1" required>
-            </div>
-            <div class="form-group">
-              <label for="addressLine2">Datos adicionales:</label>
-              <input type="text" class="form-control" id="addressLine2" name="addressLine2" [(ngModel)]="shippingAddress.addressLine2">
-            </div>
-            <div class="form-group">
-              <label for="city">Ciudad:</label>
-              <input type="text" class="form-control" id="city" name="city" [(ngModel)]="shippingAddress.city" required>
-            </div>
-            <div class="form-group">
-              <label for="postalCode">Código postal:</label>
-              <input type="text" class="form-control" id="postalCode" name="postalCode" [(ngModel)]="shippingAddress.postalCode" required>
-            </div>
-            <div class="form-group">
-              <label for="country">País:</label>
-              <input type="text" class="form-control" id="country" name="country" [(ngModel)]="shippingAddress.country" required>
-            </div>
-            <div class="form-group">
-                <label for="state">Provincia:</label>
-                <input type="text" class="form-control" id="state" name="state" [(ngModel)]="shippingAddress.state" required>
-              </div>
-              <div class="form-group">
-                <label for="additionalInfo">Información adicional:</label>
-                <input type="text" class="form-control" id="additionalInfo" name="additionalInfo" [(ngModel)]="shippingAddress.additionalInfo">
-              </div>
-            <div class="form-group">
-              <label for="phone">Teléfono:</label>
-              <input type="tel" class="form-control" id="mobile" name="mobile" [(ngModel)]="shippingAddress.mobile" required>
-            </div>
-            <button type="submit" class="btn btn-primary">Guardar y continuar</button>
-          </form>
-          
+    <form [formGroup]="shippingAddressForm" (ngSubmit)="createShippingAddress()">
+      <div>
+        <label for="firstName">First Name</label>
+        <input id="firstName" formControlName="firstName">
+        <div *ngIf="shippingAddressForm.get('firstName')?.invalid && shippingAddressForm.get('firstName')?.touched">
+          First name is required.
+        </div>
+      </div>
+
+      <div>
+        <label for="lastName">Last Name</label>
+        <input id="lastName" formControlName="lastName">
+        <div *ngIf="shippingAddressForm.get('lastName')?.invalid && shippingAddressForm.get('lastName')?.touched">
+          Last name is required.
+        </div>
+      </div>
+
+      <div>
+        <label for="country">Country</label>
+        <input id="country" formControlName="country">
+        <div *ngIf="shippingAddressForm.get('country')?.invalid && shippingAddressForm.get('country')?.touched">
+          Country is required.
+        </div>
+      </div>
+
+      <div>
+        <label for="mobile">Mobile</label>
+        <input id="mobile" formControlName="mobile">
+        <div *ngIf="shippingAddressForm.get('mobile')?.invalid && shippingAddressForm.get('mobile')?.touched">
+          Enter a valid mobile number (10-15 digits).
+        </div>
+      </div>
+
+      <div>
+        <label for="addressLine1">Address Line 1</label>
+        <input id="addressLine1" formControlName="addressLine1">
+        <div
+          *ngIf="shippingAddressForm.get('addressLine1')?.invalid && shippingAddressForm.get('addressLine1')?.touched">
+          Address Line 1 is required.
+        </div>
+      </div>
+
+      <div>
+        <label for="addressLine2">Address Line 2</label>
+        <input id="addressLine2" formControlName="addressLine2">
+      </div>
+
+      <div>
+        <label for="postalCode">Postal Code</label>
+        <input id="postalCode" formControlName="postalCode">
+        <div *ngIf="shippingAddressForm.get('postalCode')?.invalid && shippingAddressForm.get('postalCode')?.touched">
+          Postal code is required.
+        </div>
+      </div>
+
+      <div>
+        <label for="city">City</label>
+        <input id="city" formControlName="city">
+        <div *ngIf="shippingAddressForm.get('city')?.invalid && shippingAddressForm.get('city')?.touched">
+          City is required.
+        </div>
+      </div>
+
+      <div>
+        <label for="state">State</label>
+        <input id="state" formControlName="state">
+        <div *ngIf="shippingAddressForm.get('state')?.invalid && shippingAddressForm.get('state')?.touched">
+          State is required.
+        </div>
+      </div>
+
+      <div>
+        <label for="additionalInfo">Additional Info</label>
+        <textarea id="additionalInfo" formControlName="additionalInfo"></textarea>
+      </div>
+
+    </form>
+
+    <div class="order-summary">
+      <h2>Resumen</h2>
+      <p>Subtotal artículos {{ cart.totalPrice }}€</p>
+      <hr>
+      <h3>Total(Impuestos incluidos) {{ cart.totalPrice }}€</h3>
+      <button (click)="createShippingAddress()">Guardar y continuar</button>
     </div>
 
-    <app-footer></app-footer>
+  </div>
+
+  <app-footer></app-footer>
 </body>

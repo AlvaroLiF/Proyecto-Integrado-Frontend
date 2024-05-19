@@ -8,7 +8,7 @@ import { CartService } from './cart.service';
 })
 export class OrderService {
 
-  constructor(private http: HttpClient, private cartService:CartService) { }
+  constructor(private http: HttpClient, private cartService: CartService) { }
 
   private url = 'http://localhost:3000';
   //private url = 'https://componentx.onrender.com';
@@ -23,16 +23,14 @@ export class OrderService {
     const body = { userId, cart: this.cartService.getCartState() }; // Obtén el estado actual del carrito
     return this.http.post(url, body, { headers: headers }).pipe(
       tap((order: any) => {
-        if (!localStorage.getItem('orderId')) {
-          localStorage.setItem('orderId', order._id);
+        localStorage.setItem('orderId', order._id);
         console.log(order._id);
-        }
       })
     );
   }
 
   //CUANDO SE TERMINE EL PEDIDO, ELIMINAR EL ORDERID DEL LOCALSTORAGE
-  
+
 
   createShippingAddress(shippingAddress: any, orderId: string): Observable<any> {
     const url = `${this.url}/newShipping`; // Ruta para crear la dirección de envío en el backend
@@ -49,8 +47,14 @@ export class OrderService {
   }
 
   getOrderById(orderId: string): Observable<any> {
-    const url = `${this.url}/${orderId}`; // URL para obtener un pedido por su ID
+    const url = `${this.url}/orders/${orderId}`; // URL para obtener un pedido por su ID
     const headers = this.getHeaders();
-    return this.http.get(url, {headers:headers});
+    return this.http.get(url, { headers: headers });
+  }
+
+  deleteOrderById(orderId: string): Observable<any> {
+    const url = `${this.url}/orders/${orderId}`; // URL para obtener un pedido por su ID
+    const headers = this.getHeaders();
+    return this.http.delete(url, { headers: headers });
   }
 }

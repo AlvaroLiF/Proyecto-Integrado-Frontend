@@ -1,4 +1,5 @@
 import { Component, HostListener } from '@angular/core';
+import { Router } from '@angular/router';
 import { CartService } from 'src/app/services/cart.service';
 
 @Component({
@@ -12,8 +13,7 @@ export class CartComponent {
   showCartDropdown: boolean = false;
   distinctProductCount: number = 0;
 
-
-  constructor(private cartService: CartService) { }
+  constructor(private cartService: CartService, private router: Router) { }
 
   ngOnInit() {
     this.cartService.cart$.subscribe(
@@ -47,6 +47,25 @@ export class CartComponent {
         console.error('Error al eliminar del carrito:', error);
       }
     );
+  }
+
+  clearCart(userId: string): void {
+    this.cartService.clearCart(userId).subscribe(
+      () => {
+        console.log("Carrito vaciado.");
+      },
+      (error) => {
+        console.error('Error al vaciar el carrito:', error);
+      }
+    );
+  }
+
+  goToHomePage() {
+    if (this.router.url === '/home') {
+      window.location.reload(); // Recargar la página si ya estamos en la página de inicio
+    } else {
+      this.router.navigateByUrl('/home'); // Navegar a la página de inicio si estamos en otra página
+    }
   }
 
   toggleCartDropdown() {

@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { CartService } from 'src/app/services/cart.service';
 import { OrderService } from 'src/app/services/order.service';
 
 @Component({
@@ -8,44 +9,64 @@ import { OrderService } from 'src/app/services/order.service';
   templateUrl: './address.component.html',
   styleUrls: ['./address.component.css']
 })
-export class AddressComponent {
+export class AddressComponent implements OnInit {
+  cart: any;
+  shippingAddressForm: FormGroup;
 
-  shippingAddress: any = {
-    firstName:'',
-      lastName:'',
-      country:'',
-      mobile:'',
-      addressLine1:'',
-      addressLine2:'',
-      postalCode:'',
-      city:'',
-      state:'',
-      additionalInfo:'',
-  };
+  constructor(
+    private fb: FormBuilder,
+    private router: Router,
+    private orderService: OrderService,
+    private cartService: CartService
+  ) {
+    this.shippingAddressForm = this.fb.group({
+      firstName: ['', Validators.required],
+      lastName: ['', Validators.required],
+      country: ['', Validators.required],
+      mobile: ['', [Validators.required, Validators.pattern('^[0-9]{10,15}$')]],
+      addressLine1: ['', Validators.required],
+      addressLine2: [''],
+      postalCode: ['', Validators.required],
+      city: ['', Validators.required],
+      state: ['', Validators.required],
+      additionalInfo: [''],
+    });
+  }
 
-  constructor(private router:Router, private orderService:OrderService){}
+  ngOnInit() {
+    this.cartService.cart$.subscribe(
+      (data) => {
+        this.cart = data;
+        console.log(this.cart);
+      },
+      (error) => {
+        console.error('Error al obtener el carrito:', error);
+      }
+    );
+    this.getCart();
+  }
 
-  getOrderId():string{
+  getCart(): void {
+    this.cartService.getCart().subscribe();
+  }
+
+  getOrderId(): string {
     return localStorage.getItem('orderId') || '';
   }
 
-  submitShippingAddress(): void {
-    console.log(localStorage.getItem('orderId'));
-    this.orderService.createShippingAddress(this.shippingAddress, this.getOrderId()).subscribe(
+  createShippingAddress(): void {
+    if (this.shippingAddressForm.invalid) {
+      return; // Si el formulario no es válido, no proceder
+    }
+
+    this.orderService.createShippingAddress(this.shippingAddressForm.value, this.getOrderId()).subscribe(
       (response) => {
-        // Manejar la respuesta del backend, si es necesario
         console.log('Dirección de envío creada:', response);
-        // Redirigir al siguiente paso, por ejemplo, la página de pago
         this.router.navigate(['order/payment']);
       },
       (error) => {
         console.error('Error al crear la dirección de envío:', error);
-        // Manejar el error, mostrar un mensaje al usuario, etc.
       }
     );
   }
-  
-    
-  }
-
-
+}

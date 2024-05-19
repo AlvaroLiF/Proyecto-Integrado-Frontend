@@ -55,6 +55,16 @@ export class CartPageComponent {
     );
   }
 
+  clearCart(userId: string): void {
+    this.cartService.clearCart(userId).subscribe(
+      () => {
+        console.log("Carrito vaciado.");
+      },
+      (error) => {
+        console.error('Error al vaciar el carrito:', error);
+      }
+    );
+  }
 
   calculateDistinctProductCount(): void {
     const uniqueProductIds = new Set<string>();

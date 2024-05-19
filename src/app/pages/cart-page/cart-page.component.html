@@ -2,12 +2,10 @@
     <app-header-order></app-header-order>
 
     <div class="content">
-        
-
-        <div class="cart-items">
+        <div *ngIf="cart.items.length > 0; else emptyCart">
             <h1>Mi cesta</h1>
             <span class="product-count">{{ distinctProductCount }} artículos</span>
-            <div *ngIf="cart.items.length > 0; else emptyCart">
+            <div class="cart-items">
                 <ul>
                     <li *ngFor="let item of cart.items">
                         <img class="item-photo"
@@ -20,20 +18,26 @@
                             (click)="removeFromCart(item.product._id)">
                     </li>
                 </ul>
+                <button (click)="clearCart(cart.user)">Vaciar el carrito</button>
             </div>
-            <ng-template #emptyCart>
-                <p>No hay productos en el carrito</p>
-            </ng-template>
+            <div class="order-summary">
+                <h2>Resumen</h2>
+                <p>Subtotal artículos {{ cart.totalPrice }}€</p>
+                <hr>
+                <h3>Total(Impuestos incluidos) {{ cart.totalPrice }}€</h3>
+                <button (click)="createOrder()" routerLink="/order/address">Realizar pedido</button>
+            </div>
         </div>
-
-        <div class="order-summary">
-            <h2>Resumen</h2>
-            <p>Subtotal artículos {{ cart.totalPrice }}€</p>
-            <hr>
-            <h3>Total(Impuestos incluidos) {{ cart.totalPrice }}€</h3>
-            <button (click)="createOrder()" routerLink="/order/address">Realizar pedido</button>
-        </div>
+        <ng-template #emptyCart>
+            <div class="empty-cart">
+                <h1>Mi cesta</h1>
+                <h2>Tu cesta está vacía</h2>
+                <p>No hay productos en tu cesta.</p>
+                <button routerLink="/">Ir a la página de inicio</button>
+            </div>
+        </ng-template>
     </div>
+
 
     <app-footer></app-footer>
 </body>

@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
+import { CartService } from 'src/app/services/cart.service';
 import { OrderService } from 'src/app/services/order.service';
 
 @Component({
@@ -7,15 +8,27 @@ import { OrderService } from 'src/app/services/order.service';
   styleUrls: ['./resume.component.css']
 })
 export class ResumeComponent {
-  order: any; // Variable para almacenar el pedido
+  order: any = {}; // Variable para almacenar el pedido
 
-  constructor( private orderService: OrderService) { }
+  constructor(private orderService: OrderService, private cartService:CartService) { }
 
   getOrderId(): string {
     return localStorage.getItem('orderId') || '';
   }
 
+  getUserId(): string {
+    return localStorage.getItem('userId') || '';
+  }
+
   ngOnInit(): void {
+    this.cartService.clearCart(this.getUserId()).subscribe(
+      () => {
+        console.log('Carrito vaciado con éxito');
+      },
+      (error) => {
+        console.error('Error al vaciar el carrito:', error);
+      }
+    );
     // Obtener el ID del pedido de los parámetros de la ruta
     // Llamar al método del servicio de pedido para obtener el pedido por su ID
     this.orderService.getOrderById(this.getOrderId()).subscribe(
@@ -28,4 +41,23 @@ export class ResumeComponent {
       }
     );
   }
+
+  @HostListener('window:beforeunload', ['$event'])
+  unloadNotification($event: any): void {
+    localStorage.removeItem('orderId');
+  }
+
+  clearCart(userId: string): void {
+    this.cartService.clearCart(userId).subscribe(
+      () => {
+        console.log("Carrito vaciado.");
+      },
+      (error) => {
+        console.error('Error al vaciar el carrito:', error);
+      }
+    );
+  }
+
+
 }
+

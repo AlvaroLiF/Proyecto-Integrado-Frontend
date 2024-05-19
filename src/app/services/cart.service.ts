@@ -55,6 +55,16 @@ export class CartService {
     );
   }
 
+  clearCart(userId: string): Observable<any> {
+    const url = `${this.url}/cart/remove/${userId}`;
+    const headers = this.getHeaders();
+    return this.http.delete(url, { headers: headers }).pipe(
+      tap(() => {
+        this.updateCart();
+      })
+    );
+  }
+
   getCartState(): any {
     return this.cartSubject.getValue();
   }

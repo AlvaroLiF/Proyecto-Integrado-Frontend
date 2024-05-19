@@ -1,0 +1,28 @@
+<div>
+  <h1>Lista de Usuarios</h1>
+  <table>
+    <thead>
+      <tr>
+        <th>Nombre de Usuario</th>
+        <th>Email</th>
+        <th>Roles</th>
+        <th>Carrito</th>
+        <th>Pedido</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of users">
+        <td>{{ user.username }}</td>
+        <td>{{ user.email }}</td>
+        <td>
+          <span *ngFor="let role of user.roles">{{ role.name }}<span *ngIf="!isLast(user.roles, role)">, </span></span>
+        </td>
+        <td>{{ user.cart }}</td>
+        <td>{{ user.orders }}</td>
+        <td><button>Eliminar</button></td>
+
+      </tr>
+    </tbody>
+  </table>
+</div>

@@ -11,6 +11,10 @@ import { CartPageComponent } from './pages/cart-page/cart-page.component';
 import { AddressComponent } from './pages/address/address.component';
 import { PaymentComponent } from './pages/payment/payment.component';
 import { ResumeComponent } from './pages/resume/resume.component';
+import { AddProductComponent } from './pages/add-product/add-product.component';
+import { EditProductComponent } from './pages/edit-product/edit-product.component';
+import { DeleteProductComponent } from './pages/delete-product/delete-product.component';
+import { UserManagementComponent } from './pages/user-management/user-management.component';
 
 const routes: Routes = [
   { path: 'signup', component: SignUpComponent },
@@ -19,6 +23,10 @@ const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'product-details/:id', component: ProductDetailsComponent },
   { path: 'admin-home', component: AdminHomeComponent, canActivate: [AuthGuard] },
+  { path: 'admin-home/add-product', component: AddProductComponent, canActivate: [AuthGuard] },
+  { path: 'admin-home/edit-product', component: EditProductComponent, canActivate: [AuthGuard] },
+  { path: 'admin-home/delete-product', component: DeleteProductComponent, canActivate: [AuthGuard] },
+  { path: 'admin-home/user-management', component: UserManagementComponent, canActivate: [AuthGuard] },
   { path: 'search', component: SearchResultComponent },
   { path: 'cart', component: CartPageComponent },
   { path: 'order/address', component: AddressComponent },

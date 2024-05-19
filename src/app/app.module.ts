@@ -28,6 +28,10 @@ import { HeaderOrderComponent } from './components/header-order/header-order.com
 import { AddressComponent } from './pages/address/address.component';
 import { PaymentComponent } from './pages/payment/payment.component';
 import { ResumeComponent } from './pages/resume/resume.component';
+import { AddProductComponent } from './pages/add-product/add-product.component';
+import { EditProductComponent } from './pages/edit-product/edit-product.component';
+import { DeleteProductComponent } from './pages/delete-product/delete-product.component';
+import { UserManagementComponent } from './pages/user-management/user-management.component';
 
 
 @NgModule({
@@ -51,6 +55,10 @@ import { ResumeComponent } from './pages/resume/resume.component';
     AddressComponent,
     PaymentComponent,
     ResumeComponent,
+    AddProductComponent,
+    EditProductComponent,
+    DeleteProductComponent,
+    UserManagementComponent,
   ],
   imports: [
     BrowserModule,
@@ -64,6 +72,7 @@ import { ResumeComponent } from './pages/resume/resume.component';
     MatMenuModule,
     MatIconModule,
     FormsModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

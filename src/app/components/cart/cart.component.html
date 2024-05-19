@@ -3,7 +3,6 @@
   <a class="cart" (click)="toggleCartDropdown()">
     <img src="assets/images/carrito-de-compras.png" alt="Carrito de compras">
     <span class="product-count">{{ distinctProductCount }}</span>
-
   </a>
 
   <!-- Modal del carrito -->
@@ -24,12 +23,17 @@
               (click)="removeFromCart(item.product._id)">
           </li>
         </ul>
+        <button (click)="clearCart(cart.user)">Vaciar el carrito</button>
+        <div>Precio total: {{ cart.totalPrice }}€</div>
+        <button mat-menu-item routerLink="/cart">Ver artículos en tu cesta</button>
       </div>
       <ng-template #emptyCart>
-        <p>No hay productos en el carrito</p>
+        <div class="empty-cart">
+            <h2>Tu cesta está vacía</h2>
+            <p>No hay productos en tu cesta.</p>
+            <button (click)="goToHomePage()">Ir a la página de inicio</button>
+        </div>
       </ng-template>
-      <div>Precio total: {{ cart.totalPrice }}€</div>
-      <button mat-menu-item routerLink="/cart">Ver artículos en tu cesta</button>
     </div>
   </div>
 </div>

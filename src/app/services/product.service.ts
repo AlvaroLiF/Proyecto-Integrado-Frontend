@@ -51,4 +51,17 @@ export class ProductService {
     return this.http.get(url, {headers:headers});
   }
 
+  deleteProduct(productId: string): Observable<any> {
+    const url = `${this.url}/products/${productId}`; // URL para obtener un pedido por su ID
+    const headers = this.getHeaders();
+    return this.http.delete(url, { headers: headers });
+  }
+
+  updateProduct(productId: string, productData: any): Observable<any> {
+    const url = `${this.url}/products/${productId}`;
+    const headers = this.getHeaders();
+    return this.http.put(url, productData, { headers: headers });
+  }
+  
+
 }
