@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 })
 export class SignUpComponent {
   signUpForm: FormGroup;
+  errorMessage: string | null = null;
 
   constructor(private authService: AuthService, private router: Router) {
     this.signUpForm = new FormGroup({
@@ -20,54 +21,41 @@ export class SignUpComponent {
   }
 
   onSubmit() {
+    this.errorMessage = null; // Reset error message before submission
 
     if (this.signUpForm.valid) {
-
       const username = this.signUpForm.controls['username'].value.replace(/\s+/g, '');
       const password = this.signUpForm.controls['password'].value.trim();
       const email = this.signUpForm.controls['email'].value.trim().toLowerCase();
 
-      // Registra al usuario
       this.authService.register(username, password, email).subscribe(
         (response) => {
-          console.log(response);
-          // Si el registro es exitoso, inicia sesión automáticamente
+          // Registro exitoso, inicia sesión automáticamente
           this.authService.login(username, password).subscribe(
             (loginResponse) => {
-              
               localStorage.setItem('token', loginResponse.accessToken);
               localStorage.setItem('userId', loginResponse.id);
               localStorage.setItem('userRole', loginResponse.roles);
               localStorage.setItem('userName', loginResponse.username);
 
               const rol = localStorage.getItem('userRole');
-
               if (rol?.includes("ROLE_ADMIN")) {
-                this.router.navigate(['/admin-home'])
+                this.router.navigate(['/admin-home']);
               } else {
                 this.router.navigate(['/home']);
               }
             },
             (error) => {
               console.error('Error al iniciar sesión:', error);
-              // Mostrar un mensaje de error al usuario o tomar otras acciones
+              this.errorMessage = 'Error al iniciar sesión.';
             }
           );
         },
         (error) => {
           console.error('Error al registrar usuario:', error);
-          // Mostrar un mensaje de error al usuario o tomar otras acciones
+          this.errorMessage = error.error.message || 'Error al registrar usuario.';
         }
       );
     }
   }
 }
-
-
-
-
-
-
-
-
-

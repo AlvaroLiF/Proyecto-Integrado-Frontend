@@ -6,7 +6,6 @@ import { AppComponent } from './app.component';
 import { ProductListComponent } from './components/product-list/product-list.component';
 import { ProductDetailsComponent } from './pages/product-details/product-details.component';
 import { CartComponent } from './components/cart/cart.component';
-import { OrderHistoryComponent } from './components/order-history/order-history.component';
 import { SignInComponent } from './pages/sign-in/sign-in.component';
 import { SignUpComponent } from './pages/sign-up/sign-up.component';
 import { HttpClientModule } from '@angular/common/http';
@@ -32,6 +31,7 @@ import { AddProductComponent } from './pages/add-product/add-product.component';
 import { EditProductComponent } from './pages/edit-product/edit-product.component';
 import { DeleteProductComponent } from './pages/delete-product/delete-product.component';
 import { UserManagementComponent } from './pages/user-management/user-management.component';
+import { UserOrdersComponent } from './pages/user-orders/user-orders.component';
 
 
 @NgModule({
@@ -40,7 +40,6 @@ import { UserManagementComponent } from './pages/user-management/user-management
     ProductListComponent,
     ProductDetailsComponent,
     CartComponent,
-    OrderHistoryComponent,
     SignInComponent,
     SignUpComponent,
     HomeComponent,
@@ -59,6 +58,7 @@ import { UserManagementComponent } from './pages/user-management/user-management
     EditProductComponent,
     DeleteProductComponent,
     UserManagementComponent,
+    UserOrdersComponent,
   ],
   imports: [
     BrowserModule,

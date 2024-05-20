@@ -9,10 +9,14 @@ export class AuthService {
 
   constructor(private http: HttpClient) { }
 
-  private url = 'http://localhost:3000';
-  //private url = 'https://componentx.onrender.com';
-  private getHeaders(): HttpHeaders {
-    return new HttpHeaders().set('Content-Type', 'application/json');
+  //private url = 'http://localhost:3000';
+  private url = 'https://componentx.onrender.com';
+  getHeaders(): HttpHeaders {
+    const token = this.getToken();
+    return new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': token
+    })
   }
 
   login(username: string, password: string): Observable<any> {
@@ -41,7 +45,7 @@ export class AuthService {
   }
 
   getUserId(): string {
-    return localStorage.getItem('userID') || '';
+    return localStorage.getItem('userId') || '';
   }
 
   loggedIn(): boolean {
@@ -62,14 +66,32 @@ export class AuthService {
     return !!userRoles && userRoles.includes('ROLE_ADMIN');
   }
 
-  getToken():string {
+  getToken(): string {
     return localStorage.getItem('token') || '';
   }
 
   getUsers(): Observable<any> {
     const url = `${this.url}/users`;
     const headers = this.getHeaders();
-    return this.http.get(url, {headers:headers});
+    return this.http.get(url, { headers: headers });
+  }
+
+  addAdminRole(userId: string): Observable<any> {
+    const url = `${this.url}/users/${userId}/addAdminRole`;
+    const headers = this.getHeaders();
+    return this.http.patch(url, { headers: headers });
+  }
+
+  removeAdminRole(userId: string): Observable<any> {
+    const url = `${this.url}/users/${userId}/removeAdminRole`;
+    const headers = this.getHeaders();
+    return this.http.patch(url, { headers: headers });
+  }
+
+  deleteUser(userId: string): Observable<any> {
+    const url = `${this.url}/users/${userId}`;
+    const headers = this.getHeaders();
+    return this.http.delete(url, { headers: headers });
   }
 
 }

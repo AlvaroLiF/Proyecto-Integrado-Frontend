@@ -15,6 +15,7 @@ import { AddProductComponent } from './pages/add-product/add-product.component';
 import { EditProductComponent } from './pages/edit-product/edit-product.component';
 import { DeleteProductComponent } from './pages/delete-product/delete-product.component';
 import { UserManagementComponent } from './pages/user-management/user-management.component';
+import { UserOrdersComponent } from './pages/user-orders/user-orders.component';
 
 const routes: Routes = [
   { path: 'signup', component: SignUpComponent },
@@ -32,6 +33,8 @@ const routes: Routes = [
   { path: 'order/address', component: AddressComponent },
   { path: 'order/payment', component: PaymentComponent },
   { path: 'order/resume', component: ResumeComponent },
+  { path: 'user/orders', component: UserOrdersComponent },
+
 
 ];
 

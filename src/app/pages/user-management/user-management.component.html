@@ -8,6 +8,7 @@
         <th>Roles</th>
         <th>Carrito</th>
         <th>Pedido</th>
+        <th>Admin</th>
         <th>Acciones</th>
       </tr>
     </thead>
@@ -20,8 +21,10 @@
         </td>
         <td>{{ user.cart }}</td>
         <td>{{ user.orders }}</td>
-        <td><button>Eliminar</button></td>
-
+        <td>
+          <input type="checkbox" [checked]="hasAdminRole(user)" (change)="toggleAdminRole(user)">
+        </td>
+        <td><button (click)="deleteUser(user._id)" class="btn btn-danger">Eliminar</button></td>
       </tr>
     </tbody>
   </table>

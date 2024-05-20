@@ -1,0 +1,22 @@
+<div>
+    <h1>Mis Pedidos</h1>
+    <table>
+      <thead>
+        <tr>
+          <th>Número de Pedido</th>
+          <th>Fecha</th>
+          <th>Estado</th>
+          <th>Total</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let order of orders">
+          <td>{{ order.orderNumber }}</td>
+          <td>{{ order.createdAt | date }}</td>
+          <td>{{ order.status }}</td>
+          <td>{{ order.totalPrice | currency }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  

@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, BehaviorSubject, tap } from 'rxjs';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,19 +13,15 @@ export class CartService {
   private isCartOpenSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   public isCartOpen$: Observable<boolean> = this.isCartOpenSubject.asObservable();
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private authService: AuthService) { }
 
-  private url = 'http://localhost:3000';
-  //private url = 'https://componentx.onrender.com';
-  
-  private getHeaders(): HttpHeaders {
-    return new HttpHeaders().set('Content-Type', 'application/json');
-  }
+  //private url = 'http://localhost:3000';
+  private url = 'https://componentx.onrender.com';
 
   addToCart(productId: string, quantity: number): Observable<any> {
     const userId = localStorage.getItem('userId');
     const url = `${this.url}/cart/add`;
-    const headers = this.getHeaders();
+    const headers = this.authService.getHeaders();
     const body = { productId, quantity, userId };
     return this.http.post(url, body, { headers: headers }).pipe(
       tap(() => {
@@ -36,7 +33,7 @@ export class CartService {
   getCart(): Observable<any[]> {
     const userId = localStorage.getItem('userId');
     const url = `${this.url}/cart/${userId}`;
-    const headers = this.getHeaders();
+    const headers = this.authService.getHeaders();
     return this.http.get<any[]>(url, { headers: headers }).pipe(
       tap((cartItems: any[]) => {
         this.cartSubject.next(cartItems);
@@ -47,7 +44,7 @@ export class CartService {
   removeFromCart(productId: string): Observable<any> {
     const userId = localStorage.getItem('userId');
     const url = `${this.url}/cart/remove/${userId}/${productId}`;
-    const headers = this.getHeaders();
+    const headers = this.authService.getHeaders();
     return this.http.delete(url, { headers: headers }).pipe(
       tap(() => {
         this.updateCart();
@@ -57,7 +54,7 @@ export class CartService {
 
   clearCart(userId: string): Observable<any> {
     const url = `${this.url}/cart/remove/${userId}`;
-    const headers = this.getHeaders();
+    const headers = this.authService.getHeaders();
     return this.http.delete(url, { headers: headers }).pipe(
       tap(() => {
         this.updateCart();
