@@ -22,7 +22,7 @@
           </div>
           <p>Precio total: {{ order.totalPrice | currency:'EUR':'symbol':'1.2-2':'es' }}</p>
         </div>
-        <button (click)="cancelOrder(order.id)">Cancelar Pedido</button>
+        <button (click)="cancelOrder(order._id)">Cancelar Pedido</button>
       </div>
     </div>
   </div>
