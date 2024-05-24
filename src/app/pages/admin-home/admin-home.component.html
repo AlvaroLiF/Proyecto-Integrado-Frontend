@@ -1,34 +1,30 @@
-<app-header></app-header>
-<div class="admin-home">
-    <h1>Panel de Administrador</h1>
-  
-    <!-- Sección para agregar un nuevo producto -->
-    <!-- create-product.component.html -->
+<body>
+  <app-header></app-header>
+  <div class="content">
+    <div class="admin-home">
+      <h1>Panel de Administrador</h1>
+      <div class="panel">
+        <div class="section">
+          <h2>Crear Nuevo Producto</h2>
+          <button routerLink="/admin-home/add-product">Añadir producto</button>
+        </div>
 
-<div class="section">
-  <h2>Crear Nuevo Producto</h2>
- <button routerLink="/admin-home/add-product">Añadir producto</button>
-</div>
+        <div class="section">
+          <h2>Editar Producto Existente</h2>
+          <button routerLink="/admin-home/edit-product">Editar producto</button>
+        </div>
 
+        <div class="section">
+          <h2>Eliminar Producto Existente</h2>
+          <button routerLink="/admin-home/delete-product">Eliminar producto</button>
+        </div>
 
-
-  
-    <!-- Sección para editar un producto existente -->
-    <div class="section">
-      <h2>Editar Producto Existente</h2>
-      <button routerLink="/admin-home/edit-product">Editar producto</button>
-    </div>
-  
-    <!-- Sección para eliminar un producto existente -->
-    <div class="section">
-      <h2>Eliminar Producto Existente</h2>
-      <button routerLink="/admin-home/delete-product">Eliminar producto</button>
-    </div>
-  
-    <!-- Sección para otorgar permisos de administrador -->
-    <div class="section">
-      <h2>Otorgar Permisos de Administrador</h2>
-      <button routerLink="/admin-home/user-management">Gestión de usuarios</button>
+        <div class="section">
+          <h2>Otorgar Permisos de Administrador</h2>
+          <button routerLink="/admin-home/user-management">Gestión de usuarios</button>
+        </div>
+      </div>
     </div>
   </div>
-  
+  <app-footer></app-footer>
+</body>

@@ -1,34 +1,79 @@
-mat-card img {
-    width: 50%;
-    height: auto;
-}
+/* product-card.component.css */
 
-.card-container {
-    display: flex;
-    flex-wrap: wrap;
-    /* Permite que las tarjetas se envuelvan a la siguiente línea cuando no hay espacio */
-    justify-content: space-between;
-    /* Distribuye las tarjetas uniformemente en la fila */
+.product-link {
+    text-decoration: none;
+    color: inherit;
+    display: block; /* Hace que el enlace ocupe todo el ancho disponible */
 }
 
 mat-card {
-    margin: 2%;
-    /* Ajusta el porcentaje y el margen según tus necesidades */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 20px;
+    margin: 10px;
+    border: 1px solid #ccc; /* Borde */
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     box-sizing: border-box;
-    /* Asegura que el margen no afecte el ancho real */
-    display: inline-block;
-    /* Permite que las tarjetas se muestren en línea */
+    transition: box-shadow 0.3s ease, transform 0.3s ease; /* Transición */
+}
+
+mat-card:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transform: translateY(-5px); /* Efecto al pasar el mouse */
+}
+
+mat-card-header {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 15px;
+    padding: 0;
+}
+
+mat-card-title {
+    font-size: 1.2em;
+    margin-bottom: 5px;
+    overflow: hidden; /* Ocultar el texto que desborda el contenedor */
+    text-overflow: ellipsis;
+    width: 100%; /* Asegurar que el título no exceda el ancho del contenedor */
+    height: 4em; /* Altura fija para el título */
+}
+
+mat-card-subtitle {
+    font-size: 1em;
+    color: #555;
+}
+
+mat-card img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin-bottom: 15px;
 }
 
 @media (max-width: 1200px) {
     mat-card {
-        width: calc(33.33% - 20px);
+        width: calc(50% - 20px); /* Ajusta el tamaño para ocupar más espacio */
+    }
+    mat-card-title {
+        font-size: 1.1em;
+    }
+    mat-card-subtitle {
+        font-size: 0.9em;
     }
 }
 
 @media (max-width: 900px) {
     mat-card {
-        width: calc(50% - 20px);
+        width: calc(50% - 10px); /* Ajusta el tamaño para ocupar más espacio */
+    }
+    mat-card-title {
+        font-size: 1em;
+    }
+    mat-card-subtitle {
+        font-size: 0.8em;
     }
 }
 
@@ -36,10 +81,15 @@ mat-card {
     mat-card {
         width: 100%;
     }
+    mat-card-title {
+        font-size: 0.9em;
+    }
+    mat-card-subtitle {
+        font-size: 0.7em;
+    }
+    mat-card img {
+        width: 80%;
+        height: auto;
+        margin: 0 auto 15px auto;
+    }
 }
-
-.product-link {
-    text-decoration: none; /* Anula el subrayado del enlace */
-    display: block; /* Hace que el enlace ocupe todo el ancho disponible */
-  }
-  

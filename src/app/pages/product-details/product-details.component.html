@@ -1,55 +1,42 @@
 <body>
-
   <app-header></app-header>
-
   <div class="content">
-
-    <h2 *ngIf="product">Detalles del Producto: {{ product.name }}</h2>
-
-
-    <div *ngIf="product">
-
-      <img [src]="product.photos && product.photos.length > 0 ? product.photos[0] : 'ruta_a_imagen_predeterminada.jpg'"
-        alt="{{ product.name }}">
-
-
-      <div>
-        <h3>{{ product.name }}</h3>
-        <p>Precio: {{ product.price | currency }}</p>
-        <p>Descripción: {{ product.description }}</p>
-        <p>Características: {{ product.features.join(', ') }}</p>
-        <p>Especificaciones:</p>
-        <ul>
-          <li *ngFor="let category of getSpecificationKeys()">
-            {{ category }}:
-            <ul>
-              <li *ngFor="let spec of product.specifications[category] | keyvalue">
-                {{ spec.key }}: {{ spec.value }}
-              </li>
-            </ul>
-          </li>
-        </ul>
-
-
+    <h1 *ngIf="product">Detalles del Producto: {{ product.name }}</h1>
+    <div class="section">
+      <div *ngIf="product">
+        <img
+          [src]="product.photos && product.photos.length > 0 ? product.photos[0] : 'ruta_a_imagen_predeterminada.jpg'"
+          alt="{{ product.name }}">
+        <div>
+          <h3>{{ product.name }}</h3>
+          <p>Precio: {{ product.price | currency:'EUR':'symbol':'1.2-2':'es' }}</p>
+          <p>Descripción: {{ product.description }}</p>
+          <p>Características: {{ product.features.join(', ') }}</p>
+          <p>Especificaciones:</p>
+          <ul>
+            <li *ngFor="let category of getSpecificationKeys()">
+              {{ category }}:
+              <ul>
+                <li *ngFor="let spec of product.specifications[category] | keyvalue">
+                  {{ spec.key }}: {{ spec.value }}
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+        <mat-form-field appearance="fill">
+          <mat-label>Cantidad</mat-label>
+          <mat-select [(value)]="selectedQuantity">
+            <mat-option *ngFor="let quantity of quantities" [value]="quantity">
+              {{ quantity }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <button mat-button color="primary" (click)="addToCart(product._id, selectedQuantity)">
+          Comprar
+        </button>
       </div>
-      <mat-form-field appearance="fill">
-        <mat-label>Cantidad</mat-label>
-        <mat-select [(value)]="selectedQuantity">
-          <mat-option *ngFor="let quantity of quantities" [value]="quantity">
-            {{ quantity }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-
-
-      <button mat-button color="primary" (click)="addToCart(product._id, selectedQuantity)">
-        Comprar
-      </button>
-
     </div>
-
   </div>
-
   <app-footer></app-footer>
-
 </body>

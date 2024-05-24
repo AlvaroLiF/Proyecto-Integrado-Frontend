@@ -2,48 +2,50 @@
   <app-header-order></app-header-order>
   <div class="content">
     <h1>Método de pago</h1>
-    <form [formGroup]="paymentMethodForm" (ngSubmit)="createPaymentMethod()">
-      <div>
-        <label for="cardNumber">Card Number</label>
-        <input id="cardNumber" formControlName="cardNumber">
-        <div *ngIf="paymentMethodForm.get('cardNumber')?.invalid && paymentMethodForm.get('cardNumber')?.touched">
-          Enter a valid 16-digit card number.
+    <div class="form-and-summary">
+      <form [formGroup]="paymentMethodForm" (ngSubmit)="createPaymentMethod()">
+        <div>
+          <label for="cardNumber">Card Number</label>
+          <input id="cardNumber" formControlName="cardNumber">
+          <div *ngIf="paymentMethodForm.get('cardNumber')?.invalid && paymentMethodForm.get('cardNumber')?.touched">
+            Enter a valid 16-digit card number.
+          </div>
         </div>
-      </div>
 
-      <div>
-        <label for="expirationDate">Expiration Date (MM/YY)</label>
-        <input id="expirationDate" formControlName="expirationDate">
-        <div
-          *ngIf="paymentMethodForm.get('expirationDate')?.invalid && paymentMethodForm.get('expirationDate')?.touched">
-          Enter a valid expiration date (MM/YY).
+        <div>
+          <label for="expirationDate">Expiration Date (MM/YY)</label>
+          <input id="expirationDate" formControlName="expirationDate">
+          <div
+            *ngIf="paymentMethodForm.get('expirationDate')?.invalid && paymentMethodForm.get('expirationDate')?.touched">
+            Enter a valid expiration date (MM/YY).
+          </div>
         </div>
-      </div>
 
-      <div>
-        <label for="securityCode">Security Code</label>
-        <input id="securityCode" formControlName="securityCode">
-        <div *ngIf="paymentMethodForm.get('securityCode')?.invalid && paymentMethodForm.get('securityCode')?.touched">
-          Enter a valid security code (3 dígitos).
+        <div>
+          <label for="securityCode">Security Code</label>
+          <input id="securityCode" formControlName="securityCode">
+          <div *ngIf="paymentMethodForm.get('securityCode')?.invalid && paymentMethodForm.get('securityCode')?.touched">
+            Enter a valid security code (3 dígitos).
+          </div>
         </div>
-      </div>
 
-      <div>
-        <label for="cardholderName">Cardholder Name</label>
-        <input id="cardholderName" formControlName="cardholderName">
-        <div
-          *ngIf="paymentMethodForm.get('cardholderName')?.invalid && paymentMethodForm.get('cardholderName')?.touched">
-          Cardholder name is required.
+        <div>
+          <label for="cardholderName">Cardholder Name</label>
+          <input id="cardholderName" formControlName="cardholderName">
+          <div
+            *ngIf="paymentMethodForm.get('cardholderName')?.invalid && paymentMethodForm.get('cardholderName')?.touched">
+            Cardholder name is required.
+          </div>
         </div>
-      </div>
-    </form>
+      </form>
 
-    <div class="order-summary">
-      <h2>Resumen</h2>
-      <p>Subtotal artículos {{ cart.totalPrice }}€</p>
-      <hr>
-      <h3>Total(Impuestos incluidos) {{ cart.totalPrice }}€</h3>
-      <button (click)="createPaymentMethod()" routerLink="/order/address">Guardar y continuar</button>
+      <div class="order-summary">
+        <h2>Resumen</h2>
+        <p>Subtotal artículos {{ cart.totalPrice }}€</p>
+        <hr class="separator">
+        <h3>Total(Impuestos incluidos) {{ cart.totalPrice }}€</h3>
+        <button (click)="createPaymentMethod()" routerLink="/order/address">Guardar y continuar</button>
+      </div>
     </div>
   </div>
 

@@ -1,58 +1,69 @@
-<div class="section">
-    <h2>Lista de Productos</h2>
-    <table class="table">
-      <thead>
-        <tr>
-          <th>Nombre</th>
-          <th>Precio</th>
-          <th>Descripción</th>
-          <th>Acciones</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let product of products">
-          <td>{{ product.name }}</td>
-          <td>{{ product.price }}</td>
-          <td>{{ product.description }}</td>
-          <td>
-            <button (click)="editProduct(product)" class="btn btn-danger">Editar</button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+<body>
+  <app-header></app-header>
+  <div class="content">
+    <h1>Editar producto</h1>
+      <div class="section">
+        <h2>Lista de Productos</h2>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Nombre</th>
+              <th>Precio</th>
+              <th>Descripción</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let product of products">
+              <td>{{ product.name }}</td>
+              <td>{{ product.price }}</td>
+              <td>{{ product.description }}</td>
+              <td>
+                <button (click)="editProduct(product)" class="btn btn-danger">Editar</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
 
-<div class="section" *ngIf="productData._id">
-    <h2>Editar Producto</h2>
-    <form>
-      <div class="form-group">
-        <label for="name">Nombre:</label>
-        <input type="text" class="form-control" id="name" [(ngModel)]="productData.name" name="name" required>
+      <div class="section" *ngIf="productData._id">
+        <h2>Editar Producto</h2>
+        <form>
+          <div class="form-group">
+            <label for="name">Nombre:</label>
+            <input type="text" class="form-control" id="name" [(ngModel)]="productData.name" name="name" required>
+          </div>
+          <div class="form-group">
+            <label for="price">Precio:</label>
+            <input type="number" class="form-control" id="price" [(ngModel)]="productData.price" name="price" required>
+          </div>
+          <div class="form-group">
+            <label for="description">Descripción:</label>
+            <textarea class="form-control" id="description" [(ngModel)]="productData.description" name="description"
+              required></textarea>
+          </div>
+          <div class="form-group">
+            <label for="features">Características:</label>
+            <textarea class="form-control" id="features" [(ngModel)]="productData.features" name="features"></textarea>
+          </div>
+          <div class="form-group">
+            <label for="specificationKey">Clave de la especificación:</label>
+            <textarea class="form-control" id="specificationKey" [(ngModel)]="specificationKey"
+              name="specificationKey"></textarea>
+          </div>
+          <div class="form-group">
+            <label for="specificationValueKey">Clave del valor de la especificación:</label>
+            <textarea class="form-control" id="specificationValueKey" [(ngModel)]="specificationValueKey"
+              name="specificationValueKey"></textarea>
+          </div>
+          <div class="form-group">
+            <label for="specificationValueValue">Valor del valor de la especificación:</label>
+            <textarea class="form-control" id="specificationValueValue" [(ngModel)]="specificationValueValue"
+              name="specificationValueValue"></textarea>
+          </div>
+          <button (click)="updateProduct()" class="btn btn-success">Actualizar Producto</button>
+        </form>
       </div>
-      <div class="form-group">
-        <label for="price">Precio:</label>
-        <input type="number" class="form-control" id="price" [(ngModel)]="productData.price" name="price" required>
-      </div>
-      <div class="form-group">
-        <label for="description">Descripción:</label>
-        <textarea class="form-control" id="description" [(ngModel)]="productData.description" name="description" required></textarea>
-      </div>
-      <div class="form-group">
-        <label for="features">Características:</label>
-        <textarea class="form-control" id="features" [(ngModel)]="productData.features" name="features"></textarea>
-      </div>
-      <div class="form-group">
-        <label for="specificationKey">Clave de la especificación:</label>
-        <textarea class="form-control" id="specificationKey" [(ngModel)]="specificationKey" name="specificationKey"></textarea>
-      </div>
-      <div class="form-group">
-        <label for="specificationValueKey">Clave del valor de la especificación:</label>
-        <textarea class="form-control" id="specificationValueKey" [(ngModel)]="specificationValueKey" name="specificationValueKey"></textarea>
-      </div>
-      <div class="form-group">
-        <label for="specificationValueValue">Valor del valor de la especificación:</label>
-        <textarea class="form-control" id="specificationValueValue" [(ngModel)]="specificationValueValue" name="specificationValueValue"></textarea>
-      </div>
-      <button (click)="updateProduct()" class="btn btn-success">Actualizar Producto</button>
-    </form>
-  </div>
+    </div>
+  <app-footer></app-footer>
+</body>

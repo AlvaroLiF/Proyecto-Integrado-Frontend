@@ -1,3 +1,5 @@
+/* Adaptación del CSS para la página de Dirección de Envío */
+
 body {
     margin: 0;
     padding: 0;
@@ -8,21 +10,130 @@ body {
 
 .content {
     flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    width: 100%;
+    box-sizing: border-box;
+    padding-top: 30px;
+    background-color: #dfdece;
+    padding-top: 60px;
 }
 
 h1 {
-    font-weight: 500;
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 600px;
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
+    margin-bottom: 20px;
+}
+
+form div {
+    margin-bottom: 15px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+input,
+textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease;
+}
+
+input:focus,
+textarea:focus {
+    border-color: #838563;
+}
+
+textarea {
+    resize: vertical;
+}
+
+div.error-message {
+    color: red;
+    font-size: 0.9em;
+    margin-top: 5px;
+}
+
+button {
+    background: #838563;
+    color: #fff;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+    transition: background 0.3s ease;
+}
+
+button:hover {
+    background: #464735;
 }
 
 .order-summary {
-    width: 20%;
-    height: 30vh;
-    /* Reducir la altura del resumen del pedido */
-    border: 1px solid black;
-    padding: 1rem;
-    margin-top: 5rem;
-    /* Modificar el margen superior */
-    margin-left: 1rem;
-    margin-right: 5%;
-    border-radius: 1%;
+    width: 100%;
+    max-width: 600px;
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.order-summary .separator {
+    width: 100%;
+    border: none;
+    border-top: 1px solid #ccc;
+    margin: 20px 0;
+}
+
+.form-and-summary {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    box-sizing: border-box;
+    gap: 20px;
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+    .content {
+        padding: 20px 10px;
+    }
+
+    form {
+        max-width: 100%;
+        padding: 15px;
+    }
+
+    .order-summary {
+        max-width: 100%;
+        padding: 15px;
+    }
 }

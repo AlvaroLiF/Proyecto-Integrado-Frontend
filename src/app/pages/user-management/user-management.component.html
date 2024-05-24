@@ -1,31 +1,40 @@
-<div>
-  <h1>Lista de Usuarios</h1>
-  <table>
-    <thead>
-      <tr>
-        <th>Nombre de Usuario</th>
-        <th>Email</th>
-        <th>Roles</th>
-        <th>Carrito</th>
-        <th>Pedido</th>
-        <th>Admin</th>
-        <th>Acciones</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let user of users">
-        <td>{{ user.username }}</td>
-        <td>{{ user.email }}</td>
-        <td>
-          <span *ngFor="let role of user.roles">{{ role.name }}<span *ngIf="!isLast(user.roles, role)">, </span></span>
-        </td>
-        <td>{{ user.cart }}</td>
-        <td>{{ user.orders }}</td>
-        <td>
-          <input type="checkbox" [checked]="hasAdminRole(user)" (change)="toggleAdminRole(user)">
-        </td>
-        <td><button (click)="deleteUser(user._id)" class="btn btn-danger">Eliminar</button></td>
-      </tr>
-    </tbody>
-  </table>
-</div>
+<body>
+  <app-header></app-header>
+  <div class="content">
+    <h1>Lista de usuarios</h1>
+    <div class="section">
+      <div>
+        <table>
+          <thead>
+            <tr>
+              <th>Nombre de Usuario</th>
+              <th>Email</th>
+              <th>Roles</th>
+              <th>Carrito</th>
+              <th>Pedido</th>
+              <th>Admin</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let user of users">
+              <td>{{ user.username }}</td>
+              <td>{{ user.email }}</td>
+              <td>
+                <span *ngFor="let role of user.roles">{{ role.name }}<span *ngIf="!isLast(user.roles, role)">,
+                  </span></span>
+              </td>
+              <td>{{ user.cart }}</td>
+              <td>{{ user.orders }}</td>
+              <td>
+                <input type="checkbox" [checked]="hasAdminRole(user)" (change)="toggleAdminRole(user)">
+              </td>
+              <td><button (click)="deleteUser(user._id)" class="btn btn-danger">Eliminar</button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <app-footer></app-footer>
+</body>

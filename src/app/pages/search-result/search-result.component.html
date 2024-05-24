@@ -9,6 +9,7 @@
     <section>
       <div *ngIf="searchResults && searchResults.length > 0">
         <h2>Productos</h2>
+        <hr class="separator">
         <div class="card-container">
           <div *ngFor="let product of searchResults">
             <app-product-card [product]="product"></app-product-card>

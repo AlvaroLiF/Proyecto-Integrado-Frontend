@@ -51,7 +51,7 @@ export class OrderService {
   }
 
   deleteOrderById(orderId: string): Observable<any> {
-    const url = `${this.url}/orders/${orderId}`; // URL para obtener un pedido por su ID
+    const url = `${this.url}/user/orders/${orderId}`; // URL para obtener un pedido por su ID
     const headers = this.authService.getHeaders();
     return this.http.delete(url, { headers: headers });
   }

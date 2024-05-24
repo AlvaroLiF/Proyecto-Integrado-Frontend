@@ -29,4 +29,15 @@ export class UserOrdersComponent {
     );
   }
 
+  cancelOrder(orderId: string): void {
+    this.orderService.deleteOrderById(orderId).subscribe(
+      () => {
+        this.getOrders(); // Recargar los pedidos después de cancelar uno
+      },
+      (error) => {
+        console.error('Error al cancelar pedido:', error);
+      }
+    );
+  }
+
 }

@@ -5,10 +5,36 @@
   <div class="content">
 
     <section class="featured-products">
+      <div *ngIf="featuredProducts && featuredProducts.length > 0">
+        <h2>Productos Destacados</h2>
+        <hr class="separator">
+        <div class="card-container">
+          <div class="product-carousel">
+            <button class="carousel-button prev" (click)="prevSlide()">&#10094;</button>
+            <div class="carousel-container">
+              <div class="carousel-slide">
+                <div *ngFor="let product of products" class="product-card">
+                  <app-product-card [product]="product"></app-product-card>
+                </div>
+              </div>
+            </div>
+            <button class="carousel-button next" (click)="nextSlide()">&#10095;</button>
+          </div>
+
+        </div>
+      </div>
+
+      <div *ngIf="!featuredProducts || featuredProducts.length === 0">
+        <p>No hay productos disponibles.</p>
+      </div>
+    </section>
+
+    <section class="featured-products">
       <div *ngIf="products && products.length > 0">
         <h2>Productos</h2>
-        <div class="card-container">
-          <div *ngFor="let product of products">
+        <hr class="separator">
+        <div class="card-container-2">
+          <div *ngFor="let product of products" class="product-card">
             <app-product-card [product]="product"></app-product-card>
           </div>
         </div>
@@ -19,20 +45,7 @@
       </div>
     </section>
 
-    <section class="featured-products">
-      <div *ngIf="featuredProducts && featuredProducts.length > 0">
-        <h2>Productos Destacados</h2>
-        <div class="card-container">
-          <div *ngFor="let featuredProduct of featuredProducts">
-            <app-product-card [product]="featuredProduct"></app-product-card>
-          </div>
-        </div>
-      </div>
 
-      <div *ngIf="!featuredProducts || featuredProducts.length === 0">
-        <p>No hay productos disponibles.</p>
-      </div>
-    </section>
 
   </div>
 

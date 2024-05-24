@@ -11,6 +11,7 @@ export class AuthService {
 
   //private url = 'http://localhost:3000';
   private url = 'https://componentx.onrender.com';
+  
   getHeaders(): HttpHeaders {
     const token = this.getToken();
     return new HttpHeaders({

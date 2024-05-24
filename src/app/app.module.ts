@@ -32,7 +32,12 @@ import { EditProductComponent } from './pages/edit-product/edit-product.componen
 import { DeleteProductComponent } from './pages/delete-product/delete-product.component';
 import { UserManagementComponent } from './pages/user-management/user-management.component';
 import { UserOrdersComponent } from './pages/user-orders/user-orders.component';
+import { LOCALE_ID } from '@angular/core';
+import { registerLocaleData } from '@angular/common';
+import localeEs from '@angular/common/locales/es';
+import localeEsExtra from '@angular/common/locales/extra/es';
 
+registerLocaleData(localeEs, 'es', localeEsExtra);
 
 @NgModule({
   declarations: [
@@ -74,7 +79,7 @@ import { UserOrdersComponent } from './pages/user-orders/user-orders.component';
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [],
+  providers: [{ provide: LOCALE_ID, useValue: 'es' }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

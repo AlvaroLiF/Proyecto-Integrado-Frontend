@@ -1,4 +1,21 @@
-/* styles.css */
+body {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  width: 100%;
+  box-sizing: border-box;
+  margin-bottom: 60px; /* Espacio para evitar superposición con el footer */
+}
 
 form {
     width: 300px;

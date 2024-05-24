@@ -2,16 +2,28 @@
     <app-header-order></app-header-order>
     <div class="content">
         <h1>Resumen del pedido</h1>
-        <p>Número de Pedido: {{ order.orderNumber }}</p>
-        <p>Estado: {{ order.status }}</p>
-        <h3>Artículos:</h3>
-        <ul>
-            <li *ngFor="let item of order.items">
-                {{ item.product.name }} - {{ item.quantity }} x {{ item.product.price }}
-            </li>
-        </ul>
-        <p>Total: {{ order.totalPrice }}</p>
+        <div class="orders-container">
+            <div class="order-card">
+                <div class="order-header">
+                    <h3>Pedido #{{ order.orderNumber }}</h3>
+                    <p>Fecha: {{ order.createdAt | date:'fullDate':'':'es' }}</p>
+                    <p>Estado: {{ order.status }}</p>
+                </div>
+                <div class="order-items">
+                    <div *ngFor="let item of order.items" class="order-item">
+                        <img [src]="item.product.photos && item.product.photos.length > 0 ? item.product.photos[0] : 'ruta_a_imagen_predeterminada.jpg'"
+                            alt="{{ item.product.name }}">
+                        <div class="item-details">
+                            <p>{{ item.product.name }}</p>
+                            <p>Cantidad: {{ item.quantity }}</p>
+                            <p>Precio: {{ item.product.price | currency:'EUR':'symbol':'1.2-2':'es' }}</p>
+                        </div>
+                    </div>
+                    <p>Precio total: {{ order.totalPrice | currency:'EUR':'symbol':'1.2-2':'es' }}</p>
+                </div>
+                <button routerLink="/user/orders">Ver mis pedidos</button>
+            </div>
+        </div>
     </div>
-
     <app-footer></app-footer>
 </body>

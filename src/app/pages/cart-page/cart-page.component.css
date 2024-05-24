@@ -8,83 +8,130 @@ body {
 
 .content {
     flex: 1;
-    margin-left: 5%;
-    margin-top: 2rem;
     display: flex;
-    flex-wrap: wrap;
-    /* Permite que los elementos se envuelvan en filas adicionales */
-}
-
-.cart-items {
-    flex: 1;
-    margin-right: 5%;
-    /* Espacio entre el contenedor de los artículos y el resumen del pedido */
-    max-width: 70%;
-    /* Ajusta el tamaño máximo para evitar que el contenedor se haga demasiado ancho en pantallas grandes */
-}
-
-.order-summary {
-    width: 20%;
-    height: 30vh;
-    /* Reducir la altura del resumen del pedido */
-    border: 1px solid black;
-    padding: 1rem;
-    margin-top: 5rem;
-    /* Modificar el margen superior */
-    margin-left: 1rem;
-    margin-right: 5%;
-    border-radius: 1%;
-}
-
-.trash-icon {
-    width: 2%;
-    /* Ajusta el ancho del icono de la papelera */
-    transition: background-color 0.3s ease;
-    padding: 0.5%;
-    cursor: pointer;
-    border-radius: 15%;
-}
-
-.trash-icon:hover {
-    background-color: rgba(207, 205, 205, 0.5);
-    /* Cambia el color de fondo al pasar el ratón por encima */
-}
-
-.item-photo {
-    width: 20%;
-    /* Ajusta el ancho de la foto del artículo */
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    width: 100%;
+    box-sizing: border-box;
+    padding-top: 30px;
+    background-color: #dfdece;
+    padding-top: 60px;
 }
 
 h1 {
-    font-weight: 600;
-}
-
-ul {
-    list-style-type: none;
-    /* Esto quita los puntos de la lista */
-    padding-inline-start: 0;
-    /* Anula el padding a la izquierda */
-}
-
-li {
-    border: 1px solid black;
-    border-radius: 0.5%;
-    margin-bottom: 2%;
-    padding-left: 5%;
-    padding-top: 2%;
-    padding-bottom: 2%;
-    width: 100%;
-    /* Ajusta el ancho de los elementos li para ocupar todo el ancho del contenedor */
+    text-align: center;
+    margin-bottom: 60px;
 }
 
 button {
-    background-color: #333;
-    color: white;
-    width: 90%;
-    height: 3rem;
-    /* Ajusta la altura del botón */
-    margin-top: 1rem;
-    /* Añade un margen superior al botón */
-    margin-left: 5%;
-    margin-right: 5%;
+    background: #838563;
+    color: #fff;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+    transition: background 0.3s ease;
+}
+
+button:hover {
+    background: #464735;
+}
+
+.cart-and-summary {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    box-sizing: border-box;
+    gap: 20px;
+}
+
+.cart-items {
+    flex-grow: 2;
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.order-summary {
+    flex-grow: 1;
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    height: auto;
+    /* Permite que la altura sea ajustada automáticamente */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    /* Centra el contenido verticalmente */
+}
+
+.order-summary .separator {
+    width: 100%;
+    border: none;
+    border-top: 1px solid #ccc;
+    margin: 20px 0;
+}
+
+.cart-items ul {
+    list-style: none;
+    padding: 0;
+}
+
+.cart-items li {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+}
+
+.cart-items .item-photo {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    margin-right: 20px;
+}
+
+.cart-items .item-details {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.cart-items .trash-icon {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}
+
+.empty-cart {
+    text-align: center;
+}
+
+@media (max-width: 768px) {
+    .cart-and-summary {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .cart-items,
+    .order-summary {
+        max-width: 100%;
+    }
+
+    .cart-items {
+        flex: 1;
+        /* Reset flex-grow for small screens */
+    }
+
+    .order-summary {
+        flex: 1;
+        /* Reset flex-grow for small screens */
+    }
 }

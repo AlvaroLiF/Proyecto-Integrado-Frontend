@@ -1,0 +1,106 @@
+body {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.content {
+  flex: 1;
+  padding: 20px;
+  background-color: #dfdece;
+
+}
+
+
+.orders-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px;
+}
+
+.order-card {
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  margin: 10px 0;
+  width: 100%;
+  max-width: 800px;
+  /* Limitar el ancho máximo para mejorar la legibilidad en pantallas grandes */
+  padding: 15px;
+  box-sizing: border-box;
+  transition: transform 0.3s ease;
+}
+
+.order-card:hover {
+  transform: scale(1.02);
+}
+
+.order-header h3 {
+  margin: 0;
+}
+
+.order-header p {
+  margin: 5px 0;
+  color: #555;
+}
+
+.order-items {
+  margin-top: 10px;
+}
+
+.order-item {
+  display: flex;
+  margin-bottom: 10px;
+}
+
+.order-item img {
+  width: 50px;
+  height: 50px;
+  margin-right: 10px;
+  border-radius: 5px;
+  object-fit: cover;
+}
+
+.item-details p {
+  margin: 0;
+}
+
+h1{
+  text-align: center;
+  margin-bottom: 30px;
+  margin-top: 30px;
+}
+
+button {
+  background: #838563;
+  color: #fff;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 100%;
+  transition: background 0.3s ease;
+}
+
+button:hover {
+  background: #464735;
+}
+
+/* Responsive adjustments */
+@media (min-width: 600px) {
+  .order-item img {
+    width: 75px;
+    height: 75px;
+  }
+}
+
+@media (min-width: 900px) {
+  .order-item img {
+    width: 100px;
+    height: 100px;
+  }
+}

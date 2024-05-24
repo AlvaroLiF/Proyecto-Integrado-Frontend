@@ -17,14 +17,14 @@
               alt="{{ item.product.name }}">
             <div>{{ item.product.name }}</div>
             <div>Unidades: {{ item.quantity }}</div>
-            <div>Precio: {{ item.product.price }}€</div>
+            <div>Precio: {{ item.product.price | currency:'EUR':'symbol':'1.2-2':'es'}}</div>
             
             <img class="trash-icon" src="assets/icons/trash-can-solid.svg" alt="Eliminar"
               (click)="removeFromCart(item.product._id)">
           </li>
         </ul>
         <button (click)="clearCart(cart.user)">Vaciar el carrito</button>
-        <div>Precio total: {{ cart.totalPrice }}€</div>
+        <div>Precio total: {{ cart.totalPrice | currency:'EUR':'symbol':'1.2-2':'es'}}</div>
         <button mat-menu-item routerLink="/cart">Ver artículos en tu cesta</button>
       </div>
       <ng-template #emptyCart>

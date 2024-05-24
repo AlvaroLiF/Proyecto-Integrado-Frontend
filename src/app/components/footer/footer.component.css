@@ -1,8 +1,9 @@
 footer {
+    margin-top: auto; /* Empuja el footer al fondo */
+    padding: 20px;
     background-color: #333;
     color: white;
+    width: 100%;
     text-align: center;
-    padding: 1rem;
-    position:relative;
-    bottom: 0;
+    box-sizing: border-box;
 }
