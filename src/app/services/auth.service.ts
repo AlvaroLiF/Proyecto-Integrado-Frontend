@@ -9,8 +9,8 @@ export class AuthService {
 
   constructor(private http: HttpClient) { }
 
-  private url = 'http://localhost:3000';
-  //private url = 'https://componentx.onrender.com';
+  //private url = 'http://localhost:3000';
+  private url = 'https://componentx.onrender.com';
   
   getHeaders(): HttpHeaders {
     const token = this.getToken();
