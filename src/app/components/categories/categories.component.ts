@@ -28,11 +28,8 @@ export class CategoriesComponent implements OnInit {
   }
 
   goToCategory(categoryName: string) {
-    const categoryUrl = '/category/' + encodeURIComponent(categoryName);
-    this.router.navigateByUrl(categoryUrl).then(() => {
-      setTimeout(() => {
-        window.location.href = categoryUrl;
-      }, 100);
+    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+      this.router.navigate(['/category', categoryName]);
     });
   }
 }
