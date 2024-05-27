@@ -3,14 +3,26 @@
 header {
     background-color: #333;
     color: white;
-    padding: 1rem;
+    padding: 10px 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+
 }
 
 .logo img {
-    height: 80px; /* Ajusta la altura según tu logo */
+    height: 65px;
+    border-radius: 20px;
+}
+
+.search {
+    display: flex;
+    align-items: center;
+}
+
+.search app-categories,
+.search app-search-bar {
+    margin-right: 10px;
 }
 
 .user-actions a {
@@ -25,12 +37,22 @@ header {
     padding: 15%;
     border-radius: 20px;
     margin-bottom: 15%;
-  }
+}
 
-.userName:hover{
+.userName:hover {
     background-color: rgb(199, 199, 199);
 }
 
-.user-actions{
+.user-actions {
     margin-right: 2%;
+    display: flex;
+    align-items: center;
+}
+
+.user-actions button{
+    margin-left: 10%;
+}
+
+.user-actions .login-links a {
+    margin-right: 10px;
 }

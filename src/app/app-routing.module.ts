@@ -16,6 +16,7 @@ import { EditProductComponent } from './pages/edit-product/edit-product.componen
 import { DeleteProductComponent } from './pages/delete-product/delete-product.component';
 import { UserManagementComponent } from './pages/user-management/user-management.component';
 import { UserOrdersComponent } from './pages/user-orders/user-orders.component';
+import { CategoryProductsComponent } from './pages/category-products/category-products.component';
 
 const routes: Routes = [
   { path: 'signup', component: SignUpComponent },
@@ -34,8 +35,7 @@ const routes: Routes = [
   { path: 'order/payment', component: PaymentComponent },
   { path: 'order/resume', component: ResumeComponent },
   { path: 'user/orders', component: UserOrdersComponent },
-
-
+  { path: 'category/:categoryName', component: CategoryProductsComponent },
 ];
 
 @NgModule({

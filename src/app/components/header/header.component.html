@@ -4,11 +4,14 @@
       <img src="assets/images/_313f08d0-65d8-4139-8445-1340ae681071.jpg" alt="Componentx Logo">
     </a>
   </div>
-  <app-search-bar></app-search-bar>
+  <div class="search">
+    <app-categories></app-categories>
+    <app-search-bar></app-search-bar>
+  </div>
   <div class="user-actions">
     <ng-container *ngIf="isLoggedIn(); else loginLinks">
-      <button mat-button [matMenuTriggerFor]="menu" class="userName">{{ getUsername() }}</button>
       <app-cart></app-cart>
+      <button mat-button [matMenuTriggerFor]="menu" class="userName">{{ getUsername() }}</button>
       <mat-menu #menu="matMenu">
         <button mat-menu-item routerLink="/admin-home" *ngIf="isAdmin()">Administración</button>
         <button mat-menu-item routerLink="/user/orders">Pedidos</button>
@@ -21,6 +24,5 @@
         <a href="/signup">Registrarse</a>
       </div>
     </ng-template>
-
   </div>
 </header>

@@ -36,6 +36,9 @@ import { LOCALE_ID } from '@angular/core';
 import { registerLocaleData } from '@angular/common';
 import localeEs from '@angular/common/locales/es';
 import localeEsExtra from '@angular/common/locales/extra/es';
+import { CategoriesComponent } from './components/categories/categories.component';
+import { CategoryProductsComponent } from './pages/category-products/category-products.component';
+
 
 registerLocaleData(localeEs, 'es', localeEsExtra);
 
@@ -64,7 +67,10 @@ registerLocaleData(localeEs, 'es', localeEsExtra);
     DeleteProductComponent,
     UserManagementComponent,
     UserOrdersComponent,
+    CategoriesComponent,
+  CategoryProductsComponent,
   ],
+  
   imports: [
     BrowserModule,
     AppRoutingModule,

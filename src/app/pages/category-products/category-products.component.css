@@ -1,0 +1,70 @@
+body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+  
+  .content {
+    flex: 1;
+    padding: 20px;
+    background-color: #dfdece;
+  }
+  
+  .card-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start; /* Alinea las tarjetas al inicio */
+    gap: 10px; /* Espacio uniforme entre todas las tarjetas */
+  }
+  
+  .card-container > div {
+    flex: 0 1 calc(16.66% - 10px); /* 16.66% del contenedor menos un pequeño margen */
+    max-width: calc(16.66% - 10px);
+    box-sizing: border-box;
+    margin-bottom: 20px; /* Espacio entre filas */
+  }
+  
+  section {
+    margin-bottom: 40px;
+  }
+  
+  .card-container > div {
+    flex: 0 1 calc(16.66% - 10px);
+    max-width: calc(16.66% - 10px);
+    box-sizing: border-box;
+    margin-bottom: 20px;
+  }
+  
+  h2{
+    text-align: center;
+  }
+  
+  @media (max-width: 1200px) {
+    .card-container > div {
+      flex: 0 1 calc(25% - 10px); /* 4 tarjetas por fila en pantallas medianas */
+      max-width: calc(25% - 10px);
+    }
+  }
+  
+  @media (max-width: 900px) {
+    .card-container > div {
+      flex: 0 1 calc(33.33% - 10px); /* 3 tarjetas por fila en pantallas pequeñas */
+      max-width: calc(33.33% - 10px);
+    }
+  }
+  
+  @media (max-width: 600px) {
+    .card-container > div {
+      flex: 0 1 calc(50% - 10px); /* 2 tarjetas por fila en pantallas muy pequeñas */
+      max-width: calc(50% - 10px);
+    }
+  }
+  
+  @media (max-width: 400px) {
+    .card-container > div {
+      flex: 0 1 100%; /* 1 tarjeta por fila en pantallas muy pequeñas */
+      max-width: 100%;
+    }
+  }

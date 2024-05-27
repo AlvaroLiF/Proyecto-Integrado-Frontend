@@ -49,6 +49,12 @@ export class ProductService {
     return this.http.get(url, {headers:headers});
   }
 
+  getProductsByCategory(categoryName: string): Observable<any> {
+    const url = `${this.url}/category/${categoryName}`;
+    const headers = this.authService.getHeaders();
+    return this.http.get(url, {headers:headers});
+  }
+
   deleteProduct(productId: string): Observable<any> {
     const url = `${this.url}/products/${productId}`; // URL para obtener un pedido por su ID
     const headers = this.authService.getHeaders();
