@@ -3,6 +3,9 @@
   <div class="content">
     <div class="panel">
       <form [formGroup]="signInForm" (ngSubmit)="onSubmit()">
+        <div *ngIf="errorMessage" class="error-message">
+          {{ errorMessage }}
+        </div>
         <div>
           <label for="username">Usuario</label>
           <input id="username" type="text" formControlName="username" />

@@ -10,6 +10,8 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class SignInComponent {
   signInForm: FormGroup;
+  errorMessage: string | null = null;
+
 
   constructor(private authService: AuthService, private router: Router) {
     this.signInForm = new FormGroup({
@@ -19,6 +21,8 @@ export class SignInComponent {
   }
 
   onSubmit() {
+    this.errorMessage = null; // Reset error message before submission
+
     if (this.signInForm.valid) {
       const username = this.signInForm.controls['username'].value.replace(/\s+/g, '');
       const password = this.signInForm.controls['password'].value.trim();
@@ -46,6 +50,7 @@ export class SignInComponent {
         },
         (error) => {
           console.error('Error al obtener el nombre de usuario:', error);
+          this.errorMessage = error.error.message || 'Error al registrar usuario.';
         }
       );
     }

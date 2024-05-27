@@ -1,8 +1,8 @@
 <mat-menu #categoriesMenu="matMenu">
-    <button mat-menu-item *ngFor="let category of categories" (click)="goToCategory(category.name)">
-      {{ category.name }}
-    </button>
+    <ng-container *ngFor="let category of categories">
+      <button mat-menu-item [routerLink]="['/category', category.name]">{{ category.name }}</button>
+    </ng-container>
   </mat-menu>
-    
+  
   <button mat-button [matMenuTriggerFor]="categoriesMenu">Categorías</button>
   

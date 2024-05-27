@@ -3,11 +3,15 @@
     color: #ffffff;
     cursor: not-allowed;
   }
-
   div.error {
     color: red;
     margin-top: 5px;
     font-size: 14px;
+  }
+  
+  .error-message {
+    color: red;
+    margin-bottom: 10px;
   }
 
   body {
