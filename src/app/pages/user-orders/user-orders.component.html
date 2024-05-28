@@ -3,6 +3,7 @@
   <div class="content">
     <h1>Pedidos</h1>
     <div class="orders-container">
+      <div *ngIf="orders && orders.length > 0 else noResults">
       <div *ngFor="let order of orders" class="order-card">
         <div class="order-header">
           <h3>Pedido #{{ order.orderNumber }}</h3>
@@ -25,6 +26,12 @@
         <button (click)="cancelOrder(order._id)">Cancelar Pedido</button>
       </div>
     </div>
+    <ng-template #noResults>
+      <h1>No se encontraron pedidos
+      </h1>
+    </ng-template>
+    </div>
+    
   </div>
   <app-footer></app-footer>
 </body>
