@@ -11,6 +11,8 @@ import { Router } from '@angular/router';
 export class SignUpComponent {
   signUpForm: FormGroup;
   errorMessage: string | null = null;
+  showPassword = false;
+
 
   constructor(private authService: AuthService, private router: Router) {
     this.signUpForm = new FormGroup({
@@ -18,6 +20,10 @@ export class SignUpComponent {
       password: new FormControl('', [Validators.required, Validators.minLength(6)]),
       email: new FormControl('', [Validators.required, Validators.email]),
     });
+  }
+
+  togglePasswordVisibility(): void {
+    this.showPassword = !this.showPassword;
   }
 
   onSubmit() {

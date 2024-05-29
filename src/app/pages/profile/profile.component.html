@@ -1,0 +1,44 @@
+<body>
+  <app-header></app-header>
+  <div class="content">
+    <h1>Perfil de Usuario</h1>
+    <div class="panel">
+      <div *ngIf="userProfile">
+        <h2>Nombre de Usuario:</h2>
+          <span *ngIf="editingField !== 'username'">{{ userProfile.username }}</span>
+          <input *ngIf="editingField === 'username'" [(ngModel)]="userProfile.username">
+          <img class="edit-icon" src="assets/icons/pen-to-square-solid.svg" alt="Editar" (click)="editField('username')">
+        
+
+        <h2>Correo Electrónico:</h2> 
+          <span *ngIf="editingField !== 'email'">{{ userProfile.email }}</span>
+          <input *ngIf="editingField === 'email'" [(ngModel)]="userProfile.email">
+          <img class="edit-icon" src="assets/icons/pen-to-square-solid.svg" alt="Editar" (click)="editField('email')">
+        
+
+        <button *ngIf="editingField" (click)="saveField()">Guardar Cambios</button>
+
+        <h2>Cambiar Contraseña</h2>
+        <div *ngIf="passwordStep === 1">
+          <div class="password-input-container">
+          <input [type]="showPassword ? 'text' : 'password'" [(ngModel)]="currentPassword" placeholder="Contraseña actual">
+          <img [src]="showPassword ? 'assets/icons/eye-solid.svg' : 'assets/icons/eye-slash-solid.svg'" (click)="togglePasswordVisibility()" class="toggle-password-visibility">
+        </div>
+          <button (click)="verifyCurrentPassword()">Verificar Contraseña</button>
+        </div>
+        <div *ngIf="passwordStep === 2">
+          <div class="password-input-container">
+            <input [type]="showPassword ? 'text' : 'password'" [(ngModel)]="newPassword" placeholder="Nueva contraseña">
+            <img [src]="showPassword ? 'assets/icons/eye-solid.svg' : 'assets/icons/eye-slash-solid.svg'" (click)="togglePasswordVisibility()" class="toggle-password-visibility">
+          </div>
+          <div class="password-input-container">
+            <input [type]="showPassword ? 'text' : 'password'" [(ngModel)]="confirmPassword" placeholder="Confirmar nueva contraseña">
+            <img [src]="showPassword ? 'assets/icons/eye-solid.svg' : 'assets/icons/eye-slash-solid.svg'" (click)="togglePasswordVisibility()" class="toggle-password-visibility">
+          </div>
+          <button (click)="updatePassword()">Guardar Nueva Contraseña</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <app-footer></app-footer>
+</body>

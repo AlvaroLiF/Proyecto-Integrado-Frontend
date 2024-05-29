@@ -28,7 +28,11 @@
 
         <div>
           <label for="password">Contraseña</label>
-          <input id="password" type="password" formControlName="password" />
+          <div class="password-input-container">
+            <input id="password" type="password" formControlName="password" />
+            <img [src]="showPassword ? 'assets/icons/eye-solid.svg' : 'assets/icons/eye-slash-solid.svg'"
+              (click)="togglePasswordVisibility()" class="toggle-password-visibility">
+            </div>
           <div *ngIf="signUpForm.get('password')?.hasError('required') && signUpForm.get('password')?.touched">
             La contraseña es obligatoria.
           </div>

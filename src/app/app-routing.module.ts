@@ -17,6 +17,9 @@ import { DeleteProductComponent } from './pages/delete-product/delete-product.co
 import { UserManagementComponent } from './pages/user-management/user-management.component';
 import { UserOrdersComponent } from './pages/user-orders/user-orders.component';
 import { CategoryProductsComponent } from './pages/category-products/category-products.component';
+import { ProfileComponent } from './pages/profile/profile.component';
+import { ResetPasswordRequestComponent } from './pages/reset-password-request/reset-password-request.component';
+import { ResetPasswordComponent } from './pages/reset-password/reset-password.component';
 
 const routes: Routes = [
   { path: 'signup', component: SignUpComponent },
@@ -30,12 +33,17 @@ const routes: Routes = [
   { path: 'admin-home/delete-product', component: DeleteProductComponent, canActivate: [AuthGuard] },
   { path: 'admin-home/user-management', component: UserManagementComponent, canActivate: [AuthGuard] },
   { path: 'search', component: SearchResultComponent },
-  { path: 'cart', component: CartPageComponent },
+  { path: 'user/cart', component: CartPageComponent },
   { path: 'order/address', component: AddressComponent },
   { path: 'order/payment', component: PaymentComponent },
   { path: 'order/resume', component: ResumeComponent },
   { path: 'user/orders', component: UserOrdersComponent },
   { path: 'category/:categoryName', component: CategoryProductsComponent },
+  { path: 'user/profile', component: ProfileComponent },
+  { path: 'reset-password-request', component: ResetPasswordRequestComponent },
+  { path: 'reset-password/:token', component: ResetPasswordComponent },
+
+
 ];
 
 @NgModule({

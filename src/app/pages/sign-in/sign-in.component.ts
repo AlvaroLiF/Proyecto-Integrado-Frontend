@@ -11,13 +11,17 @@ import { AuthService } from 'src/app/services/auth.service';
 export class SignInComponent {
   signInForm: FormGroup;
   errorMessage: string | null = null;
-
+  showPassword = false;
 
   constructor(private authService: AuthService, private router: Router) {
     this.signInForm = new FormGroup({
       username: new FormControl('', Validators.required),
       password: new FormControl('', [Validators.required, Validators.minLength(6)]),
     });
+  }
+
+  togglePasswordVisibility(): void {
+    this.showPassword = !this.showPassword;
   }
 
   onSubmit() {

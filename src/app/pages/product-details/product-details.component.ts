@@ -14,6 +14,8 @@ export class ProductDetailsComponent {
   product: any;
   selectedQuantity: number = 1;
   quantities: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+  images: string[] = []; // Carga las imágenes del producto aquí
+  currentIndex: number = 0;
 
 
   constructor(private route: ActivatedRoute, private productService: ProductService, private router: Router, private cartService: CartService) { }
@@ -28,6 +30,10 @@ export class ProductDetailsComponent {
       this.productService.getProductDetails(this.productId).subscribe(
         (data) => {
           this.product = data;
+          // Cargar las imágenes del producto en la propiedad 'images'
+          if (this.product.photos && this.product.photos.length > 0) {
+            this.images = this.product.photos;
+          }
         },
         (error) => {
           console.error('Error al obtener detalles del producto:', error);
@@ -58,6 +64,18 @@ export class ProductDetailsComponent {
       );
 
     }
+  }
+
+  get currentImage(): string {
+    return this.images[this.currentIndex];
+  }
+
+  nextImage(): void {
+    this.currentIndex = (this.currentIndex + 1) % this.images.length;
+  }
+
+  prevImage(): void {
+    this.currentIndex = (this.currentIndex - 1 + this.images.length) % this.images.length;
   }
 }
 

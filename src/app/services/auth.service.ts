@@ -95,4 +95,39 @@ export class AuthService {
     return this.http.delete(url, { headers: headers });
   }
 
+  getUserProfile(userId: string): Observable<any> {
+    const url = `${this.url}/user/profile/${userId}`;
+    const headers = this.getHeaders();
+    return this.http.get(url, { headers: headers });
+  }
+
+  updateUserProfile(userId: string, data: any): Observable<any> {
+    const url = `${this.url}/user/profile/${userId}`;
+    const headers = this.getHeaders();
+    return this.http.put(url, data, { headers: headers });
+  }
+  
+  verifyPassword(userId: string, currentPasswordData: any): Observable<any> {
+    const url = `${this.url}/user/profile/verify-password/${userId}`;
+    const headers = this.getHeaders();
+    return this.http.post(url, currentPasswordData, { headers: headers });
+  }
+
+  updateUserPassword(userId: string, updatedPasswordData: any): Observable<any> {
+    const url = `${this.url}/user/profile/update-password/${userId}`;
+    const headers = this.getHeaders();
+    return this.http.put(url, updatedPasswordData, { headers: headers });
+  }
+
+  sendResetPasswordEmail(email: string): Observable<any> {
+    const url = `${this.url}/user/send-reset-password-email`;
+    const headers = this.getHeaders();
+    return this.http.post(url, { email }, { headers });
+  }
+
+  resetPassword(token: string, newPassword: string): Observable<any> {
+    const url = `${this.url}/user/reset-password`;
+    const headers = this.getHeaders();
+    return this.http.post(url, { token, newPassword }, { headers });
+  }
 }

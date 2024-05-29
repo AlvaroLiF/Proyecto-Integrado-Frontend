@@ -38,6 +38,9 @@ import localeEs from '@angular/common/locales/es';
 import localeEsExtra from '@angular/common/locales/extra/es';
 import { CategoriesComponent } from './components/categories/categories.component';
 import { CategoryProductsComponent } from './pages/category-products/category-products.component';
+import { ProfileComponent } from './pages/profile/profile.component';
+import { ResetPasswordRequestComponent } from './pages/reset-password-request/reset-password-request.component';
+import { ResetPasswordComponent } from './pages/reset-password/reset-password.component';
 
 
 registerLocaleData(localeEs, 'es', localeEsExtra);
@@ -68,9 +71,12 @@ registerLocaleData(localeEs, 'es', localeEsExtra);
     UserManagementComponent,
     UserOrdersComponent,
     CategoriesComponent,
-  CategoryProductsComponent,
+    CategoryProductsComponent,
+    ProfileComponent,
+    ResetPasswordRequestComponent,
+    ResetPasswordComponent,
   ],
-  
+
   imports: [
     BrowserModule,
     AppRoutingModule,

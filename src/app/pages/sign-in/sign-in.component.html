@@ -8,27 +8,38 @@
         </div>
         <div>
           <label for="username">Usuario</label>
+          <div class="password-input-container">
           <input id="username" type="text" formControlName="username" />
+          </div>
           <div *ngIf="signInForm.get('username')?.hasError('required') && signInForm.get('username')?.touched">
             El usuario es obligatorio.
           </div>
         </div>
         <div>
           <label for="password">Contraseña</label>
-          <input id="password" type="password" formControlName="password" />
-          <div *ngIf="signInForm.get('password')?.hasError('required') && signInForm.get('password')?.touched">
-            La contraseña es obligatoria.
-          </div>
-          <div *ngIf="signInForm.get('password')?.hasError('minlength') && signInForm.get('password')?.touched">
-            La contraseña debe tener al menos 6 caracteres.
-          </div>
-        </div>
+          <div class="password-input-container">
 
-        <div>
+            <input id="password" type="password" formControlName="password" />
+            <img [src]="showPassword ? 'assets/icons/eye-solid.svg' : 'assets/icons/eye-slash-solid.svg'"
+              (click)="togglePasswordVisibility()" class="toggle-password-visibility">
+          </div>
+          <div>
+            <div *ngIf="signInForm.get('password')?.hasError('required') && signInForm.get('password')?.touched">
+              La contraseña es obligatoria.
+            </div>
+            <div *ngIf="signInForm.get('password')?.hasError('minlength') && signInForm.get('password')?.touched">
+              La contraseña debe tener al menos 6 caracteres.
+            </div>
+          </div>
+
+
           <button type="submit" [disabled]="!signInForm.valid">Iniciar Sesión</button>
         </div>
       </form>
+
+      <span routerLink="/reset-password-request" class="center-link">¿Has olvidado tu contraseña?</span>
     </div>
+
   </div>
   <app-footer></app-footer>
 </body>

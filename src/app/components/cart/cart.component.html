@@ -10,28 +10,32 @@
     <div class="modal-content" (click)="($event.stopPropagation())">
       <span class="close" (click)="toggleCartDropdown()">&times;</span>
       <div *ngIf="cart.items.length > 0; else emptyCart">
-        <ul>
-          <li *ngFor="let item of cart.items">
-            <img class="item-photo"
-              [src]="item.product.photos && item.product.photos.length > 0 ? item.product.photos[0] : 'ruta_a_imagen_predeterminada.jpg'"
-              alt="{{ item.product.name }}">
-            <div>{{ item.product.name }}</div>
-            <div>Unidades: {{ item.quantity }}</div>
-            <div>Precio: {{ item.product.price | currency:'EUR':'symbol':'1.2-2':'es'}}</div>
-            
-            <img class="trash-icon" src="assets/icons/trash-can-solid.svg" alt="Eliminar"
-              (click)="removeFromCart(item.product._id)">
-          </li>
-        </ul>
-        <button (click)="clearCart(cart.user)">Vaciar el carrito</button>
+        <div class="cart-items">
+        <h1>Mi cesta</h1>
+                <ul>
+                    <li *ngFor="let item of cart.items">
+                        <img class="item-photo"
+                            [src]="item.product.photos && item.product.photos.length > 0 ? item.product.photos[0] : 'ruta_a_imagen_predeterminada.jpg'"
+                            alt="{{ item.product.name }}">
+                        <div class="item-details">
+                            <div>{{ item.product.name }}</div>
+                            <div>Unidades: {{ item.quantity }}</div>
+                            <div>Precio: {{ item.product.price }}€</div>
+                        </div>
+                        <img class="trash-icon" src="assets/icons/trash-can-solid.svg" alt="Eliminar"
+                            (click)="removeFromCart(item.product._id)">
+                    </li>
+                </ul>
+        </div>
         <div>Precio total: {{ cart.totalPrice | currency:'EUR':'symbol':'1.2-2':'es'}}</div>
-        <button mat-menu-item routerLink="/cart">Ver artículos en tu cesta</button>
+        <button (click)="clearCart(cart.user)">Vaciar el carrito</button>
+        <button routerLink="/user/cart">Ver artículos en tu cesta</button>
       </div>
       <ng-template #emptyCart>
         <div class="empty-cart">
-            <h2>Tu cesta está vacía</h2>
-            <p>No hay productos en tu cesta.</p>
-            <button (click)="goToHomePage()">Ir a la página de inicio</button>
+          <h2>Tu cesta está vacía</h2>
+          <p>No hay productos en tu cesta.</p>
+          <button (click)="goToHomePage()">Ir a la página de inicio</button>
         </div>
       </ng-template>
     </div>

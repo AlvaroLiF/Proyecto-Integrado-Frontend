@@ -4,11 +4,13 @@
     <h1 *ngIf="product">Detalles del Producto: {{ product.name }}</h1>
     <div class="section">
       <div *ngIf="product">
-        <img
-          [src]="product.photos && product.photos.length > 0 ? product.photos[0] : 'ruta_a_imagen_predeterminada.jpg'"
-          alt="{{ product.name }}">
+        <h1>{{ product.name }}</h1>
+        <div class="carousel-container">
+          <button (click)="prevImage()" class="carousel-btn prev-btn">&lt;</button>
+          <img class="carousel-img" [src]="currentImage" alt="{{ product.name }}">
+          <button (click)="nextImage()" class="carousel-btn next-btn">&gt;</button>
+        </div>
         <div>
-          <h3>{{ product.name }}</h3>
           <p>Precio: {{ product.price | currency:'EUR':'symbol':'1.2-2':'es' }}</p>
           <p>Descripción: {{ product.description }}</p>
           <p>Características: {{ product.features.join(', ') }}</p>

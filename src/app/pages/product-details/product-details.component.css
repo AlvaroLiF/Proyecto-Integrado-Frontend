@@ -46,3 +46,69 @@ button {
 button:hover {
   background: #464735;
 }
+
+.carousel-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.carousel-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: transparent;
+  border: none;
+  color: #fff;
+  font-size: 24px;
+  cursor: pointer;
+  z-index: 2;
+}
+
+.prev-btn {
+  left: 10px;
+}
+
+.next-btn {
+  right: 10px;
+}
+
+.carousel-img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+.carousel-btn {
+  background: #838563;
+  color: #fff;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 50px; /* Ancho ajustado */
+  transition: background 0.3s ease;
+}
+
+.carousel-btn:hover {
+  background: #464735;
+}
+
+/* Estilo para los botones del carrusel */
+.prev-btn,
+.next-btn {
+  background: #838563; /* Color azul */
+  margin: 0 10px; /* Margen entre los botones */
+}
+
+/* Estilo específico para el botón de flecha izquierda */
+.prev-btn {
+  float: left; /* Alinea a la izquierda */
+}
+
+/* Estilo específico para el botón de flecha derecha */
+.next-btn {
+  float: right; /* Alinea a la derecha */
+}
