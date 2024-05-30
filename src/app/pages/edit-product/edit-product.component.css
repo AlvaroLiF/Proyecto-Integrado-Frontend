@@ -60,22 +60,6 @@ button:hover {
     width: 100%;
 }
 
-form {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    max-width: 600px;
-    background-color: white;
-    padding: 20px;
-    border-radius: 10px;
-    box-sizing: border-box;
-    margin-bottom: 20px;
-}
-
-form div {
-    margin-bottom: 15px;
-}
-
 label {
     display: block;
     margin-bottom: 5px;

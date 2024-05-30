@@ -29,12 +29,12 @@ h1 {
 
 .panel {
     border: 1px solid #ccc;
-    /* Borde */
+    width: 40%;
     border-radius: 8px;
     text-align: center;
     background-color: white;
     padding: 50px;
-    width: 40%;
+    align-items: center;
 }
 
 .section {
@@ -69,22 +69,6 @@ button:hover {
     width: 100%;
 }
 
-form {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    max-width: 600px;
-    background-color: white;
-    padding: 20px;
-    border-radius: 10px;
-    box-sizing: border-box;
-    margin-bottom: 20px;
-}
-
-form div {
-    margin-bottom: 15px;
-}
-
 label {
     display: block;
     margin-bottom: 5px;
@@ -101,6 +85,6 @@ textarea {
     transition: border-color 0.3s ease;
 }
 
-textarea{
+textarea {
     height: 200px;
 }
