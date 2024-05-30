@@ -13,18 +13,28 @@
         <div>
           <p>Precio: {{ product.price | currency:'EUR':'symbol':'1.2-2':'es' }}</p>
           <p>Descripción: {{ product.description }}</p>
-          <p>Características: {{ product.features.join(', ') }}</p>
-          <p>Especificaciones:</p>
           <ul>
-            <li *ngFor="let category of getSpecificationKeys()">
-              {{ category }}:
-              <ul>
-                <li *ngFor="let spec of product.specifications[category] | keyvalue">
-                  {{ spec.key }}: {{ spec.value }}
-                </li>
-              </ul>
-            </li>
+            <li *ngFor="let feature of product.features">{{ feature }}</li>
           </ul>
+          <p>Especificaciones:</p>
+          <!-- Verificar si specifications es un array o un objeto -->
+          <ng-container *ngIf="isArray(product.specifications)">
+            <ul>
+              <li *ngFor="let specification of product.specifications">{{ specification }}</li>
+            </ul>
+          </ng-container>
+          <ng-container *ngIf="isObject(product.specifications)">
+            <ul>
+              <li *ngFor="let category of getSpecificationKeys()">
+                {{ category }}:
+                <ul>
+                  <li *ngFor="let spec of product.specifications[category] | keyvalue">
+                    {{ spec.key }}: {{ spec.value }}
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </ng-container>
         </div>
         <mat-form-field appearance="fill">
           <mat-label>Cantidad</mat-label>

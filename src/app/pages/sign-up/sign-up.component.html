@@ -9,7 +9,9 @@
 
         <div>
           <label for="username">Usuario</label>
-          <input id="username" type="text" formControlName="username" />
+          <div class="password-input-container">
+            <input id="username" type="text" formControlName="username" />
+          </div>
           <div *ngIf="signUpForm.get('username')?.hasError('required') && signUpForm.get('username')?.touched">
             El usuario es obligatorio.
           </div>
@@ -17,7 +19,9 @@
 
         <div>
           <label for="email">Email</label>
-          <input id="email" type="email" formControlName="email" />
+          <div class="password-input-container">
+            <input id="email" type="email" formControlName="email" />
+          </div>
           <div *ngIf="signUpForm.get('email')?.hasError('required') && signUpForm.get('email')?.touched">
             El email es obligatorio.
           </div>
@@ -32,7 +36,7 @@
             <input id="password" type="password" formControlName="password" />
             <img [src]="showPassword ? 'assets/icons/eye-solid.svg' : 'assets/icons/eye-slash-solid.svg'"
               (click)="togglePasswordVisibility()" class="toggle-password-visibility">
-            </div>
+          </div>
           <div *ngIf="signUpForm.get('password')?.hasError('required') && signUpForm.get('password')?.touched">
             La contraseña es obligatoria.
           </div>

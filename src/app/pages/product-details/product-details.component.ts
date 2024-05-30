@@ -77,5 +77,14 @@ export class ProductDetailsComponent {
   prevImage(): void {
     this.currentIndex = (this.currentIndex - 1 + this.images.length) % this.images.length;
   }
+
+  isArray(specifications: any): boolean {
+    return Array.isArray(specifications);
+  }
+  
+  isObject(specifications: any): boolean {
+    return typeof specifications === 'object' && !Array.isArray(specifications);
+  }
+  
 }
 

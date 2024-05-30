@@ -10,22 +10,17 @@ export class AddProductComponent {
 
   users!: any[];
   categories!: any[]; // Suponiendo que cada categoría tiene un id y un nombre
-  specificationsData: { [key: string]: { [key: string]: string } } = {};
-  specificationKey: string = '';
-  specificationValueKey: string = '';
-  specificationValueValue: string = '';
 
   productData = {
     name: '',
     price: 0,
     description: '',
     features: '',
-    specifications: {},
+    specifications: '',
     photos: '',
     category: '',
     featured: false
   };
-
 
   constructor(private productService: ProductService) { }
 
@@ -46,10 +41,15 @@ export class AddProductComponent {
   }
 
   onSubmit() {
-    console.log(this.productData);
-    this.productData.specifications = this.specificationsData;
+    // Procesar características y especificaciones
+    const processedData = {
+      ...this.productData,
+      features: this.splitAndTrim(this.productData.features),
+      specifications: this.splitAndTrim(this.productData.specifications),
+      photos: this.splitAndTrim(this.productData.photos),
+    };
 
-    this.productService.createProduct(this.productData)
+    this.productService.createProduct(processedData)
       .subscribe(
         () => {
           console.log('Producto creado exitosamente');
@@ -62,21 +62,8 @@ export class AddProductComponent {
       );
   }
 
-  addSpecification() {
-    console.log('specificationKey:', this.specificationKey);
-    console.log('specificationValue:', this.specificationValueKey);
-    if (this.specificationKey && this.specificationValueKey) {
-      if (!this.specificationsData[this.specificationKey]) {
-        this.specificationsData[this.specificationKey] = {}; // Inicializa como objeto vacío si es undefined
-      }
-      this.specificationsData[this.specificationKey][this.specificationValueKey] = this.specificationValueValue; // Asigna un valor vacío para la clave interna
-      // Limpiar los campos después de agregar la especificación
-      this.specificationKey = '';
-      this.specificationValueKey = '';
-      this.specificationValueValue = '';
-
-      console.log('Especificación agregada:', this.specificationsData);
-    }
+  splitAndTrim(input: string): string[] {
+    return input.split(',').map(item => item.trim()).filter(item => item !== '');
   }
-}
 
+}

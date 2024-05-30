@@ -10,22 +10,18 @@ export class EditProductComponent {
 
   categories!: any[];
   products!: any[];
-  specificationKey: string = '';
-  specificationValueKey: string = '';
-  specificationValueValue: string = '';
 
   productData = {
-    _id:'',
+    _id: '',
     name: '',
     price: 0,
     description: '',
     features: '',
-    specifications: {},
+    specifications: '',
     photos: '',
     category: '',
     featured: false
   };
-
 
   constructor(private productService: ProductService) { }
 
@@ -59,11 +55,25 @@ export class EditProductComponent {
   }
 
   editProduct(product: any): void {
-    this.productData = { ...product }; // Copiar los datos del producto para editarlos
+    // Copiar los datos del producto para editarlos
+    this.productData = { 
+      ...product,
+      features: product.features.join(', '),
+      specifications: product.specifications.join(', '),
+      photos: product.photos.join(', ')
+    }; 
   }
 
   updateProduct(): void {
-    this.productService.updateProduct(this.productData._id, this.productData).subscribe(
+    // Procesar características y especificaciones antes de enviar
+    const processedData = {
+      ...this.productData,
+      features: this.splitAndTrim(this.productData.features),
+      specifications: this.splitAndTrim(this.productData.specifications),
+      photos: this.splitAndTrim(this.productData.photos),
+    };
+
+    this.productService.updateProduct(this.productData._id, processedData).subscribe(
       (updatedProduct) => {
         console.log('Producto actualizado exitosamente', updatedProduct);
         this.getProducts(); // Actualiza la lista de productos después de editar
@@ -74,4 +84,7 @@ export class EditProductComponent {
     );
   }
 
+  splitAndTrim(input: string): string[] {
+    return input.split(',').map(item => item.trim()).filter(item => item !== '');
+  }
 }
