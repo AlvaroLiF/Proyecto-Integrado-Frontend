@@ -7,12 +7,14 @@
         <h2>Nombre de Usuario:</h2>
         <span *ngIf="editingField !== 'username'">{{ userProfile.username }}</span>
         <input *ngIf="editingField === 'username'" [(ngModel)]="userProfile.username">
-        <img class="edit-icon" src="assets/icons/pen-to-square-solid.svg" alt="Editar" (click)="editField('username')" *ngIf="!editing">
+        <img class="edit-icon" src="assets/icons/pen-to-square-solid.svg" alt="Editar" (click)="editField('username')"
+          *ngIf="!editing">
 
-        <h2>Correo Electrónico:</h2> 
+        <h2>Correo Electrónico:</h2>
         <span *ngIf="editingField !== 'email'">{{ userProfile.email }}</span>
         <input *ngIf="editingField === 'email'" [(ngModel)]="userProfile.email">
-        <img class="edit-icon" src="assets/icons/pen-to-square-solid.svg" alt="Editar" (click)="editField('email')" *ngIf="!editing">
+        <img class="edit-icon" src="assets/icons/pen-to-square-solid.svg" alt="Editar" (click)="editField('email')"
+          *ngIf="!editing">
 
         <button *ngIf="editingField" (click)="saveField()">Guardar Cambios</button>
         <button *ngIf="editing" (click)="cancelEdit()">Cancelar Cambios</button>
@@ -20,22 +22,29 @@
         <h2>Cambiar Contraseña</h2>
         <div *ngIf="passwordStep === 1">
           <div class="password-input-container">
-            <input [type]="showPassword ? 'text' : 'password'" [(ngModel)]="currentPassword" placeholder="Contraseña actual">
-            <img [src]="showPassword ? 'assets/icons/eye-solid.svg' : 'assets/icons/eye-slash-solid.svg'" (click)="togglePasswordVisibility()" class="toggle-password-visibility">
+            <input [type]="showPassword ? 'text' : 'password'" [(ngModel)]="currentPassword"
+              placeholder="Contraseña actual">
+            <img [src]="showPassword ? 'assets/icons/eye-solid.svg' : 'assets/icons/eye-slash-solid.svg'"
+              (click)="togglePasswordVisibility()" class="toggle-password-visibility">
           </div>
           <button (click)="verifyCurrentPassword()">Verificar Contraseña</button>
         </div>
         <div *ngIf="passwordStep === 2">
           <div class="password-input-container">
             <input [type]="showPassword ? 'text' : 'password'" [(ngModel)]="newPassword" placeholder="Nueva contraseña">
-            <img [src]="showPassword ? 'assets/icons/eye-solid.svg' : 'assets/icons/eye-slash-solid.svg'" (click)="togglePasswordVisibility()" class="toggle-password-visibility">
+            <img [src]="showPassword ? 'assets/icons/eye-solid.svg' : 'assets/icons/eye-slash-solid.svg'"
+              (click)="togglePasswordVisibility()" class="toggle-password-visibility">
           </div>
           <div class="password-input-container">
-            <input [type]="showPassword ? 'text' : 'password'" [(ngModel)]="confirmPassword" placeholder="Confirmar nueva contraseña">
-            <img [src]="showPassword ? 'assets/icons/eye-solid.svg' : 'assets/icons/eye-slash-solid.svg'" (click)="togglePasswordVisibility()" class="toggle-password-visibility">
+            <input [type]="showPassword ? 'text' : 'password'" [(ngModel)]="confirmPassword"
+              placeholder="Confirmar nueva contraseña">
+            <img [src]="showPassword ? 'assets/icons/eye-solid.svg' : 'assets/icons/eye-slash-solid.svg'"
+              (click)="togglePasswordVisibility()" class="toggle-password-visibility">
           </div>
           <button (click)="updatePassword()">Guardar Nueva Contraseña</button>
         </div>
+        <h2>Eliminar la cuenta</h2>
+        <button (click)="deleteAccount()" routerLink="/home">Borrar Cuenta</button>
       </div>
     </div>
   </div>

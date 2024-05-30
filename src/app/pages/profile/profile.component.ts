@@ -115,4 +115,21 @@ export class ProfileComponent implements OnInit {
       }
     );
   }
+
+  deleteAccount(): void {
+    // Lógica para eliminar la cuenta del usuario
+    const userId = this.authService.getUserId();
+    this.authService.deleteUser(userId).subscribe(
+      response => {
+        this.authService.logOut();
+        console.log('Cuenta de usuario eliminada:', response);
+        // Redirigir al usuario a una página de despedida o cerrar sesión, según tu lógica de aplicación
+      },
+      error => {
+        console.error('Error al eliminar la cuenta de usuario:', error);
+        this.snackBar.open('Error al eliminar la cuenta de usuario', 'Cerrar', { duration: 3000 });
+      }
+    );
+  }
+  
 }
