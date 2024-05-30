@@ -1,23 +1,25 @@
 <body>
   <app-header></app-header>
   <div class="content">
-    <h1 *ngIf="product">Detalles del Producto: {{ product.name }}</h1>
+    <h1 class="title" *ngIf="product">Detalles del Producto: {{ product.name }}</h1>
     <div class="section">
       <div *ngIf="product">
         <h1>{{ product.name }}</h1>
+        <h2>Precio: {{ product.price | currency:'EUR':'symbol':'1.2-2':'es' }}</h2>
         <div class="carousel-container">
           <button (click)="prevImage()" class="carousel-btn prev-btn">&lt;</button>
           <img class="carousel-img" [src]="currentImage" alt="{{ product.name }}">
           <button (click)="nextImage()" class="carousel-btn next-btn">&gt;</button>
         </div>
         <div>
-          <p>Precio: {{ product.price | currency:'EUR':'symbol':'1.2-2':'es' }}</p>
-          <p>Descripción: {{ product.description }}</p>
+          
+          <h3>Descripción: </h3>
+          <p>{{ product.description }}</p>
+          <h3>Características:</h3>
           <ul>
             <li *ngFor="let feature of product.features">{{ feature }}</li>
           </ul>
-          <p>Especificaciones:</p>
-          <!-- Verificar si specifications es un array o un objeto -->
+          <h3>Especificaciones:</h3>
           <ng-container *ngIf="isArray(product.specifications)">
             <ul>
               <li *ngFor="let specification of product.specifications">{{ specification }}</li>
