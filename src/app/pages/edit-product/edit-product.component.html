@@ -26,43 +26,64 @@
       </table>
     </div>
 
-    <div class="section" *ngIf="productData._id">
+    <div class="edit-section" *ngIf="productData._id">
       <h2>Editar Producto</h2>
       <form>
         <div class="form-group">
-          <label for="name">Nombre:</label>
-          <input type="text" class="form-control" id="name" [(ngModel)]="productData.name" name="name" required>
+            <label for="name">Nombre:</label>
+            <div class="password-input-container">
+                <input type="text" class="form-control" id="name" [(ngModel)]="productData.name" name="name"
+                    required>
+            </div>
         </div>
         <div class="form-group">
-          <label for="price">Precio:</label>
-          <input type="number" class="form-control" id="price" [(ngModel)]="productData.price" name="price" required>
+            <label for="price">Precio:</label>
+            <div class=password-input-container>
+                <input type="number" class="form-control" id="price" [(ngModel)]="productData.price"
+                    name="price" required>
+            </div>
         </div>
         <div class="form-group">
-          <label for="description">Descripción:</label>
-          <textarea class="form-control" id="description" [(ngModel)]="productData.description" name="description" required></textarea>
+            <label for="description">Descripción:</label>
+            <div class="password-input-container">
+                <textarea class="form-control" id="description" [(ngModel)]="productData.description"
+                    name="description" required></textarea>
+            </div>
         </div>
         <div class="form-group">
-          <label for="features">Características (separadas por comas):</label>
-          <textarea class="form-control" id="features" [(ngModel)]="productData.features" name="features"></textarea>
+            <label for="features">Características (separadas por comas):</label>
+            <div class="password-input-container">
+                <textarea class="form-control" id="features" [(ngModel)]="productData.features"
+                    name="features"></textarea>
+            </div>
         </div>
         <div class="form-group">
-          <label for="specifications">Especificaciones (separadas por comas):</label>
-          <textarea class="form-control" id="specifications" [(ngModel)]="productData.specifications" name="specifications"></textarea>
+            <label for="specifications">Especificaciones (separadas por comas):</label>
+            <div class="password-input-container">
+                <textarea class="form-control" id="specifications" [(ngModel)]="productData.specifications"
+                    name="specifications"></textarea>
+            </div>
         </div>
         <div class="form-group">
-          <label for="photos">Fotos (URLs separadas por comas):</label>
-          <input type="text" class="form-control" id="photos" [(ngModel)]="productData.photos" name="photos">
-        </div>
-
-        <div class="form-group">
-          <label for="category">Categoría:</label>
-          <select class="form-control" id="category" [(ngModel)]="productData.category" name="category">
-            <option *ngFor="let category of categories" [value]="category._id">{{ category.name }}</option>
-          </select>
+            <label for="photos">Fotos (URLs separadas por comas):</label>
+            <div class="password-input-container">
+                <input type="text" class="form-control" id="photos" [(ngModel)]="productData.photos"
+                    name="photos">
+            </div>
         </div>
         <div class="form-group">
-          <label for="featured">Destacado:</label>
-          <input type="checkbox" class="form-check-input" id="featured" [(ngModel)]="productData.featured" name="featured">
+            <label for="category">Categoría:</label>
+            <div class="password-input-container">
+                <select class="form-control" id="category" [(ngModel)]="productData.category" name="category">
+                    <option *ngFor="let category of categories" [value]="category._id">{{ category.name }}
+                    </option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="featured">Destacado:</label>
+            <input type="checkbox" class="form-check-input" id="featured" [(ngModel)]="productData.featured"
+                name="featured">
         </div>
         <button (click)="updateProduct()" class="btn btn-success">Actualizar Producto</button>
       </form>

@@ -44,7 +44,7 @@ h1 {
 
 .panel {
   border: 1px solid #ccc;
-  /* Borde */
+  text-align: center;
   border-radius: 8px;
   background-color: white;
   padding: 50px;

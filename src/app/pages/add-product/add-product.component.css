@@ -15,23 +15,29 @@ body {
     padding: 20px;
     width: 100%;
     box-sizing: border-box;
-    margin-bottom: 60px;
-    margin-top: 30px; /* Espacio para evitar superposición con el footer */
+    padding-bottom: 60px;
+    margin-top: 30px;
+    /* Espacio para evitar superposición con el footer */
+    background-color: #dfdece;
+
 }
 
-h1{
+h1 {
     text-align: center;
     margin-bottom: 60px;
 }
 
 .panel {
-    border: 1px solid #ccc; /* Borde */
+    border: 1px solid #ccc;
+    /* Borde */
     border-radius: 8px;
+    text-align: center;
     background-color: white;
     padding: 50px;
+    width: 40%;
 }
 
-.section{
+.section {
     margin-bottom: 20px
 }
 
@@ -44,8 +50,31 @@ button {
     cursor: pointer;
     width: 100%;
     transition: background 0.3s ease;
-  }
-  
-  button:hover {
+    margin-top: 10px;
+}
+
+button:hover {
     background: #464735;
-  }
+}
+
+.password-input-container {
+    position: relative;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+
+}
+
+.password-input-container input {
+    width: 100%;
+}
+
+textarea {
+    width: 100%;
+    height: 100px;
+    border-radius: 5px;
+}
+
+label {
+    font-weight: bold;
+}
