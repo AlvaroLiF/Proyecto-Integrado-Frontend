@@ -14,6 +14,7 @@ export class ResetPasswordComponent {
   confirmNewPassword: string = '';
   message: string = '';
   passwordReset: boolean = false;
+  showPassword = false;
 
   constructor(
     private authService: AuthService,
@@ -43,6 +44,10 @@ export class ResetPasswordComponent {
         this.snackBar.open(this.message, 'Cerrar', { duration: 3000 });
       }
     );
+  }
+
+  togglePasswordVisibility(): void {
+    this.showPassword = !this.showPassword;
   }
 
   goToLogin(): void {
