@@ -23,10 +23,10 @@ export class AddressComponent implements OnInit {
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
       country: ['', Validators.required],
-      mobile: ['', [Validators.required, Validators.pattern('^[0-9]{10,15}$')]],
+      mobile: ['', [Validators.required, Validators.pattern('^[0-9]{9}$')]],
       addressLine1: ['', Validators.required],
       addressLine2: [''],
-      postalCode: ['', Validators.required],
+      postalCode: ['', [Validators.required, Validators.pattern('^[0-9]{5}$')]],
       city: ['', Validators.required],
       state: ['', Validators.required],
       additionalInfo: [''],
@@ -56,7 +56,7 @@ export class AddressComponent implements OnInit {
 
   createShippingAddress(): void {
     if (this.shippingAddressForm.invalid) {
-      return; // Si el formulario no es válido, no proceder
+      return;
     }
 
     this.orderService.createShippingAddress(this.shippingAddressForm.value, this.getOrderId()).subscribe(
@@ -68,5 +68,19 @@ export class AddressComponent implements OnInit {
         console.error('Error al crear la dirección de envío:', error);
       }
     );
+  }
+
+  limitMobileInput(): void {
+    const mobileControl = this.shippingAddressForm.get('mobile');
+    if (mobileControl && mobileControl.value.length > 9) {
+      mobileControl.setValue(mobileControl.value.slice(0, 9));
+    }
+  }
+
+  limitPostalCodeInput(): void {
+    const postalCodeControl = this.shippingAddressForm.get('postalCode');
+    if (postalCodeControl && postalCodeControl.value.length > 5) {
+      postalCodeControl.setValue(postalCodeControl.value.slice(0, 5));
+    }
   }
 }

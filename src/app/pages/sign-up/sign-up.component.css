@@ -48,6 +48,7 @@ h1 {
   border-radius: 8px;
   background-color: white;
   padding: 50px;
+  width: 40%;
 }
 
 .section {
@@ -84,11 +85,31 @@ button:hover {
   top: 50%;
   width: 20px;
   height: 20px;
-  right: -5px;
+  right: 5px;
   transform: translateY(-50%);
   cursor: pointer;
 }
 
 .toggle-password-visibility {
   align-items: right;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+input,
+textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+  transition: border-color 0.3s ease;
+}
+
+textarea{
+  height: 200px;
 }

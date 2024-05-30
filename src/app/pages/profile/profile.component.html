@@ -7,14 +7,15 @@
         <h2>Nombre de Usuario:</h2>
         <span *ngIf="editingField !== 'username'">{{ userProfile.username }}</span>
         <input *ngIf="editingField === 'username'" [(ngModel)]="userProfile.username">
-        <img class="edit-icon" src="assets/icons/pen-to-square-solid.svg" alt="Editar" (click)="editField('username')">
+        <img class="edit-icon" src="assets/icons/pen-to-square-solid.svg" alt="Editar" (click)="editField('username')" *ngIf="!editing">
 
         <h2>Correo Electrónico:</h2> 
         <span *ngIf="editingField !== 'email'">{{ userProfile.email }}</span>
         <input *ngIf="editingField === 'email'" [(ngModel)]="userProfile.email">
-        <img class="edit-icon" src="assets/icons/pen-to-square-solid.svg" alt="Editar" (click)="editField('email')">
+        <img class="edit-icon" src="assets/icons/pen-to-square-solid.svg" alt="Editar" (click)="editField('email')" *ngIf="!editing">
 
         <button *ngIf="editingField" (click)="saveField()">Guardar Cambios</button>
+        <button *ngIf="editing" (click)="cancelEdit()">Cancelar Cambios</button>
 
         <h2>Cambiar Contraseña</h2>
         <div *ngIf="passwordStep === 1">

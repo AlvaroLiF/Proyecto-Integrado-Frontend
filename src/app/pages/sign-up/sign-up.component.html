@@ -3,9 +3,6 @@
   <div class="content">
     <div class="panel">
       <form [formGroup]="signUpForm" (ngSubmit)="onSubmit()">
-        <div *ngIf="errorMessage" class="error-message">
-          {{ errorMessage }}
-        </div>
 
         <div>
           <label for="username">Usuario</label>

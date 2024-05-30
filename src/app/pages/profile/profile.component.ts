@@ -16,6 +16,7 @@ export class ProfileComponent implements OnInit {
   newPassword: string = '';
   confirmPassword: string = '';
   passwordStep: number = 1;
+  editing: boolean = false; // Variable para controlar la edición
 
   constructor(private authService: AuthService, private snackBar: MatSnackBar) { }
 
@@ -37,6 +38,7 @@ export class ProfileComponent implements OnInit {
 
   editField(field: string): void {
     this.editingField = field;
+    this.editing = true; // Establecer editing a true cuando se activa el modo de edición
   }
 
   saveField(): void {
@@ -52,12 +54,18 @@ export class ProfileComponent implements OnInit {
         localStorage.setItem('userName', this.userProfile.username); // Actualizar el username en el localStorage
         this.snackBar.open('Perfil actualizado exitosamente', 'Cerrar', { duration: 3000 });
         this.editingField = null;
+        this.editing = false; // Establecer editing a false cuando se guardan los cambios
       },
       error => {
         console.error('Error al actualizar el perfil:', error);
         this.snackBar.open('Error al actualizar el perfil', 'Cerrar', { duration: 3000 });
       }
     );
+  }
+
+  cancelEdit(): void {
+    this.editingField = null;
+    this.editing = false; // Establecer editing a false cuando se cancela la edición
   }
 
   togglePasswordVisibility(): void {

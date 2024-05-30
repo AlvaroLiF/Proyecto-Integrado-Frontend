@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-sign-up',
@@ -10,11 +11,14 @@ import { Router } from '@angular/router';
 })
 export class SignUpComponent {
   signUpForm: FormGroup;
-  errorMessage: string | null = null;
+  errorMessage: string = ''; // Inicializar como cadena vacía
   showPassword = false;
 
-
-  constructor(private authService: AuthService, private router: Router) {
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private snackBar: MatSnackBar
+  ) {
     this.signUpForm = new FormGroup({
       username: new FormControl('', Validators.required),
       password: new FormControl('', [Validators.required, Validators.minLength(6)]),
@@ -27,7 +31,7 @@ export class SignUpComponent {
   }
 
   onSubmit() {
-    this.errorMessage = null; // Reset error message before submission
+    this.errorMessage = ''; // Reset error message before submission
 
     if (this.signUpForm.valid) {
       const username = this.signUpForm.controls['username'].value.replace(/\s+/g, '');
@@ -54,12 +58,14 @@ export class SignUpComponent {
             (error) => {
               console.error('Error al iniciar sesión:', error);
               this.errorMessage = 'Error al iniciar sesión.';
+              this.snackBar.open(this.errorMessage, 'Cerrar');
             }
           );
         },
         (error) => {
           console.error('Error al registrar usuario:', error);
           this.errorMessage = error.error.message || 'Error al registrar usuario.';
+          this.snackBar.open(this.errorMessage, 'Cerrar');
         }
       );
     }
