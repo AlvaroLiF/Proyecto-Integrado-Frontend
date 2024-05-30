@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { ProductService } from 'src/app/services/product.service';
 
 @Component({
@@ -6,11 +7,11 @@ import { ProductService } from 'src/app/services/product.service';
   templateUrl: './delete-product.component.html',
   styleUrls: ['./delete-product.component.css']
 })
-export class DeleteProductComponent {
+export class DeleteProductComponent implements OnInit {
 
   products!: any[];
 
-  constructor(private productService: ProductService) { }
+  constructor(private productService: ProductService, private snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
     this.getProducts();
@@ -32,13 +33,13 @@ export class DeleteProductComponent {
     this.productService.deleteProduct(productId).subscribe(
       () => {
         console.log('Producto eliminado exitosamente');
+        this.snackBar.open('Producto eliminado exitosamente', 'Cerrar', { duration: 3000 });
         this.getProducts(); // Actualiza la lista de productos después de eliminar
       },
       error => {
         console.error('Error al eliminar el producto:', error);
+        this.snackBar.open('Error al eliminar el producto', 'Cerrar', { duration: 3000 });
       }
     );
   }
-
-
 }

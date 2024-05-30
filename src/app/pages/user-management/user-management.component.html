@@ -21,8 +21,7 @@
               <td>{{ user.username }}</td>
               <td>{{ user.email }}</td>
               <td>
-                <span *ngFor="let role of user.roles">{{ role.name }}<span *ngIf="!isLast(user.roles, role)">,
-                  </span></span>
+                <span *ngFor="let role of user.roles">{{ role.name }}<span *ngIf="!isLast(user.roles, role)">, </span></span>
               </td>
               <td>{{ user.cart }}</td>
               <td>{{ user.orders }}</td>

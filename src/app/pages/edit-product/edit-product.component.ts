@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { ProductService } from 'src/app/services/product.service';
 
 @Component({
@@ -6,7 +7,7 @@ import { ProductService } from 'src/app/services/product.service';
   templateUrl: './edit-product.component.html',
   styleUrls: ['./edit-product.component.css']
 })
-export class EditProductComponent {
+export class EditProductComponent implements OnInit {
 
   categories!: any[];
   products!: any[];
@@ -23,7 +24,7 @@ export class EditProductComponent {
     featured: false
   };
 
-  constructor(private productService: ProductService) { }
+  constructor(private productService: ProductService, private snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
     this.getCategories();
@@ -76,15 +77,32 @@ export class EditProductComponent {
     this.productService.updateProduct(this.productData._id, processedData).subscribe(
       (updatedProduct) => {
         console.log('Producto actualizado exitosamente', updatedProduct);
+        this.snackBar.open('Producto actualizado exitosamente', 'Cerrar', { duration: 3000 });
         this.getProducts(); // Actualiza la lista de productos después de editar
+        this.resetForm();
       },
       error => {
         console.error('Error al actualizar el producto:', error);
+        this.snackBar.open('Error al actualizar el producto', 'Cerrar', { duration: 3000 });
       }
     );
   }
 
   splitAndTrim(input: string): string[] {
     return input.split(',').map(item => item.trim()).filter(item => item !== '');
+  }
+
+  resetForm() {
+    this.productData = {
+      _id: '',
+      name: '',
+      price: 0,
+      description: '',
+      features: '',
+      specifications: '',
+      photos: '',
+      category: '',
+      featured: false
+    };
   }
 }

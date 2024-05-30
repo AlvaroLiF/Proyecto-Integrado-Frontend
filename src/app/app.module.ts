@@ -41,6 +41,7 @@ import { CategoryProductsComponent } from './pages/category-products/category-pr
 import { ProfileComponent } from './pages/profile/profile.component';
 import { ResetPasswordRequestComponent } from './pages/reset-password-request/reset-password-request.component';
 import { ResetPasswordComponent } from './pages/reset-password/reset-password.component';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 
 registerLocaleData(localeEs, 'es', localeEsExtra);
@@ -89,7 +90,10 @@ registerLocaleData(localeEs, 'es', localeEsExtra);
     MatMenuModule,
     MatIconModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    BrowserModule,
+    BrowserAnimationsModule,
+    MatSnackBarModule
   ],
   providers: [{ provide: LOCALE_ID, useValue: 'es' }],
   bootstrap: [AppComponent]
