@@ -27,10 +27,10 @@
           </ng-container>
           <ng-container *ngIf="isObject(product.specifications)">
             <ul>
-              <li *ngFor="let category of getSpecificationKeys()">
+              <li class="category" *ngFor="let category of getSpecificationKeys()">
                 {{ category }}:
-                <ul>
-                  <li *ngFor="let spec of product.specifications[category] | keyvalue">
+                <ul class="category2">
+                  <li  *ngFor="let spec of product.specifications[category] | keyvalue">
                     {{ spec.key }}: {{ spec.value }}
                   </li>
                 </ul>

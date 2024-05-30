@@ -124,3 +124,13 @@ h2{
 h3{
   font-weight: bold;
 }
+
+.category {
+  font-weight: bold;
+}
+
+.category2{
+  font-weight: lighter;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
