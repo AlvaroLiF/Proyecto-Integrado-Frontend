@@ -11,7 +11,7 @@ export class HeaderComponent {
   constructor(private authService: AuthService) { }
 
   isLoggedIn(): boolean {
-    return this.authService.loggedIn();
+    return this.authService.isLoggedIn();
   }
 
   getUsername(): string {

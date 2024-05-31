@@ -20,6 +20,7 @@ import { CategoryProductsComponent } from './pages/category-products/category-pr
 import { ProfileComponent } from './pages/profile/profile.component';
 import { ResetPasswordRequestComponent } from './pages/reset-password-request/reset-password-request.component';
 import { ResetPasswordComponent } from './pages/reset-password/reset-password.component';
+import { AdminGuard } from './guards/admin.guard';
 
 const routes: Routes = [
   { path: 'signup', component: SignUpComponent },
@@ -27,23 +28,21 @@ const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'product-details/:id', component: ProductDetailsComponent },
-  { path: 'admin-home', component: AdminHomeComponent, canActivate: [AuthGuard] },
-  { path: 'admin-home/add-product', component: AddProductComponent, canActivate: [AuthGuard] },
-  { path: 'admin-home/edit-product', component: EditProductComponent, canActivate: [AuthGuard] },
-  { path: 'admin-home/delete-product', component: DeleteProductComponent, canActivate: [AuthGuard] },
-  { path: 'admin-home/user-management', component: UserManagementComponent, canActivate: [AuthGuard] },
+  { path: 'admin-home', component: AdminHomeComponent, canActivate: [AdminGuard] },
+  { path: 'admin-home/add-product', component: AddProductComponent, canActivate: [AdminGuard] },
+  { path: 'admin-home/edit-product', component: EditProductComponent, canActivate: [AdminGuard] },
+  { path: 'admin-home/delete-product', component: DeleteProductComponent, canActivate: [AdminGuard] },
+  { path: 'admin-home/user-management', component: UserManagementComponent, canActivate: [AdminGuard] },
   { path: 'search', component: SearchResultComponent },
-  { path: 'user/cart', component: CartPageComponent },
-  { path: 'order/address', component: AddressComponent },
-  { path: 'order/payment', component: PaymentComponent },
-  { path: 'order/resume', component: ResumeComponent },
-  { path: 'user/orders', component: UserOrdersComponent },
+  { path: 'user/cart', component: CartPageComponent, canActivate: [AuthGuard] },
+  { path: 'order/address', component: AddressComponent, canActivate: [AuthGuard] },
+  { path: 'order/payment', component: PaymentComponent, canActivate: [AuthGuard] },
+  { path: 'order/resume', component: ResumeComponent, canActivate: [AuthGuard] },
+  { path: 'user/orders', component: UserOrdersComponent, canActivate: [AuthGuard] },
   { path: 'category/:categoryName', component: CategoryProductsComponent },
-  { path: 'user/profile', component: ProfileComponent },
+  { path: 'user/profile', component: ProfileComponent, canActivate: [AuthGuard] },
   { path: 'reset-password-request', component: ResetPasswordRequestComponent },
   { path: 'reset-password/:token', component: ResetPasswordComponent },
-
-
 ];
 
 @NgModule({

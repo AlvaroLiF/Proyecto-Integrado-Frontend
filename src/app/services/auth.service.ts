@@ -49,7 +49,7 @@ export class AuthService {
     return localStorage.getItem('userId') || '';
   }
 
-  loggedIn(): boolean {
+  isLoggedIn(): boolean {
     return !!localStorage.getItem('token');
   }
 
@@ -59,7 +59,7 @@ export class AuthService {
     localStorage.removeItem('userRole');
     localStorage.removeItem('userName');
     localStorage.removeItem('orderId');
-
+    location.reload();
   }
 
   isAdmin(): boolean {
