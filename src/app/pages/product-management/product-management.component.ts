@@ -3,14 +3,14 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { ProductService } from 'src/app/services/product.service';
 
 @Component({
-  selector: 'app-edit-product',
-  templateUrl: './edit-product.component.html',
-  styleUrls: ['./edit-product.component.css']
+  selector: 'app-product-management',
+  templateUrl: './product-management.component.html',
+  styleUrls: ['./product-management.component.css']
 })
-export class EditProductComponent implements OnInit {
-
+export class ProductManagementComponent implements OnInit {
   categories!: any[];
   products!: any[];
+  mode: 'add' | 'edit' | 'delete' = 'add'; // Default to add mode
 
   productData = {
     _id: '',
@@ -55,31 +55,41 @@ export class EditProductComponent implements OnInit {
     );
   }
 
+  addProduct(): void {
+    const processedData = this.processData(this.productData);
+    this.productService.createProduct(processedData).subscribe(
+      () => {
+        console.log('Producto creado exitosamente');
+        this.snackBar.open('Producto creado exitosamente', 'Cerrar', { duration: 3000 });
+        this.getProducts();
+        this.resetForm();
+      },
+      error => {
+        console.error('Error al crear el producto:', error);
+        this.snackBar.open('Error al crear el producto', 'Cerrar', { duration: 3000 });
+      }
+    );
+  }
+
   editProduct(product: any): void {
-    // Copiar los datos del producto para editarlos
     this.productData = { 
       ...product,
       features: product.features.join(', '),
       specifications: product.specifications.join(', '),
       photos: product.photos.join(', ')
-    }; 
+    };
+    this.mode = 'edit';
   }
 
   updateProduct(): void {
-    // Procesar características y especificaciones antes de enviar
-    const processedData = {
-      ...this.productData,
-      features: this.splitAndTrim(this.productData.features),
-      specifications: this.splitAndTrim(this.productData.specifications),
-      photos: this.splitAndTrim(this.productData.photos),
-    };
-
+    const processedData = this.processData(this.productData);
     this.productService.updateProduct(this.productData._id, processedData).subscribe(
-      (updatedProduct) => {
-        console.log('Producto actualizado exitosamente', updatedProduct);
+      () => {
+        console.log('Producto actualizado exitosamente');
         this.snackBar.open('Producto actualizado exitosamente', 'Cerrar', { duration: 3000 });
-        this.getProducts(); // Actualiza la lista de productos después de editar
+        this.getProducts();
         this.resetForm();
+        this.mode = 'edit';
       },
       error => {
         console.error('Error al actualizar el producto:', error);
@@ -88,11 +98,34 @@ export class EditProductComponent implements OnInit {
     );
   }
 
+  deleteProduct(productId: string): void {
+    this.productService.deleteProduct(productId).subscribe(
+      () => {
+        console.log('Producto eliminado exitosamente');
+        this.snackBar.open('Producto eliminado exitosamente', 'Cerrar', { duration: 3000 });
+        this.getProducts();
+      },
+      error => {
+        console.error('Error al eliminar el producto:', error);
+        this.snackBar.open('Error al eliminar el producto', 'Cerrar', { duration: 3000 });
+      }
+    );
+  }
+
+  processData(data: any): any {
+    return {
+      ...data,
+      features: this.splitAndTrim(data.features),
+      specifications: this.splitAndTrim(data.specifications),
+      photos: this.splitAndTrim(data.photos),
+    };
+  }
+
   splitAndTrim(input: string): string[] {
     return input.split(',').map(item => item.trim()).filter(item => item !== '');
   }
 
-  resetForm() {
+  resetForm(): void {
     this.productData = {
       _id: '',
       name: '',
@@ -104,5 +137,10 @@ export class EditProductComponent implements OnInit {
       category: '',
       featured: false
     };
+    this.mode = 'add';
+  }
+
+  setMode(mode: 'add' | 'edit' | 'delete'): void {
+    this.mode = mode;
   }
 }

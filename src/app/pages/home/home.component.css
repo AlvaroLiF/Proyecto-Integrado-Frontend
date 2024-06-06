@@ -97,3 +97,39 @@ h2{
     border-top: 1px solid #ccc; /* Agrega una línea superior */
     margin: 20px 0; /* Espacio alrededor de la línea */
 }
+
+.pagination {
+    display: flex;
+    align-items: center; /* Centra verticalmente */
+    justify-content: center; /* Centra horizontalmente */
+  }
+  
+  .pagination p {
+    margin: 0; /* Elimina el margen */
+  }
+  
+  .pagination button {
+    background-color: white; /* Fondo blanco por defecto */
+    border: 1px solid #333; /* Añade un borde sólido */
+    border-radius: 4px; /* Añade bordes redondeados */
+    cursor: pointer;
+    font-size: 20px;
+    width: 30px; /* Define un ancho */
+    height: 30px; /* Define una altura */
+    display: flex;
+    align-items: center;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-bottom: 5px;
+    justify-content: center;
+    transition: background-color 0.3s ease; /* Transición suave para el cambio de color */
+  }
+  
+  .pagination button:hover {
+    background-color: #ddd; /* Cambia el fondo a gris al pasar el ratón */
+  }
+  
+  .pagination button:focus {
+    outline: none;
+  }
+  

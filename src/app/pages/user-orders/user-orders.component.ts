@@ -25,6 +25,7 @@ export class UserOrdersComponent {
       },
       (error) => {
         console.error('Error fetching orders:', error);
+        this.orders = [];
       }
     );
   }

@@ -1,60 +1,39 @@
 <body>
   <app-header-order></app-header-order>
   <div class="content">
-    <h1>Método de pago</h1>
-    <div class="form-and-summary">
-      <form [formGroup]="paymentMethodForm" (ngSubmit)="createPaymentMethod()">
-        <div>
-          <label for="cardNumber">Número de Tarjeta</label>
-          <input id="cardNumber" formControlName="cardNumber" (input)="limitCardNumberInput()">
-          <div *ngIf="paymentMethodForm.get('cardNumber')?.invalid && paymentMethodForm.get('cardNumber')?.touched">
-            Introduce un número de tarjeta válido de 16 dígitos.
+      <h1>Método de pago</h1>
+      <div class="form-and-summary">
+          <div class="payment-methods">
+              <h2>Métodos de Pago</h2>
+              <div *ngIf="paymentMethods && paymentMethods.length > 0; else noPaymentMethods">
+                <app-payment-method-card
+                *ngFor="let payment of paymentMethods"
+                [payment]="payment"
+                [isSelected]="payment.isSelected"
+                (select)="selectPaymentMethod(payment)"
+                (edit)="editPaymentMethod(payment)"
+                (delete)="deletePaymentMethod(payment)">
+            </app-payment-method-card>
+              </div>
+              <ng-template #noPaymentMethods>
+                  <p>No hay métodos de pago registrados.</p>
+              </ng-template>
+              <button (click)="openModal(false)" class="btn btn-primary">+ Añadir Nuevo Método de Pago</button>
+              <app-payment-method-modal
+                [showModal]="showModal"
+                [paymentMethodForm]="paymentMethodForm"
+                (closeModalEvent)="closeModal()"
+                (savePaymentEvent)="savePaymentMethod($event)">
+            </app-payment-method-modal>
           </div>
-        </div>
-
-        <div>
-          <label for="expirationDate">Fecha de Expiración (MM/AA)</label>
-          <input id="expirationDate" formControlName="expirationDate">
-          <div *ngIf="paymentMethodForm.get('expirationDate')?.touched && paymentMethodForm.get('expirationDate')?.errors">
-            <ng-container *ngIf="paymentMethodForm.get('expirationDate')?.errors?.['required']">
-              La fecha de expiración es obligatoria.
-            </ng-container>
-            <ng-container *ngIf="paymentMethodForm.get('expirationDate')?.errors?.['invalidFormat']">
-              Introduce una fecha de expiración válida en el formato MM/AA.
-            </ng-container>
-            <ng-container *ngIf="paymentMethodForm.get('expirationDate')?.errors?.['invalidExpirationDate']">
-              La fecha de expiración de la tarjeta es inválida.
-            </ng-container>
+          <div class="order-summary">
+              <h2>Resumen</h2>
+              <p>Subtotal de Artículos: {{ cart.totalPrice }}€</p>
+              <hr class="separator">
+              <h3>Total (Impuestos incluidos): {{ cart.totalPrice }}€</h3>
+              <button (click)="finalizeOrder()">Pagar y finalizar</button>
           </div>
-          
-        </div>
-        
-        <div>
-          <label for="securityCode">Código de Seguridad</label>
-          <input id="securityCode" formControlName="securityCode" (input)="limitSecurityCodeInput()">
-          <div *ngIf="paymentMethodForm.get('securityCode')?.invalid && paymentMethodForm.get('securityCode')?.touched">
-            Introduce un código de seguridad válido (3 dígitos).
-          </div>
-        </div>
-
-        <div>
-          <label for="cardholderName">Nombre del Titular</label>
-          <input id="cardholderName" formControlName="cardholderName">
-          <div
-            *ngIf="paymentMethodForm.get('cardholderName')?.invalid && paymentMethodForm.get('cardholderName')?.touched">
-            El nombre del titular de la tarjeta es obligatorio.
-          </div>
-        </div>
-      </form>
-
-      <div class="order-summary">
-        <h2>Resumen</h2>
-        <p>Subtotal de Artículos: {{ cart.totalPrice }}€</p>
-        <hr class="separator">
-        <h3>Total (Impuestos incluidos): {{ cart.totalPrice }}€</h3>
-        <button (click)="createPaymentMethod()">Guardar y Continuar</button>
       </div>
-    </div>
   </div>
 
   <app-footer></app-footer>

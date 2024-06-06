@@ -10,9 +10,10 @@ export class HomeComponent {
 
   products!: any[];
   featuredProducts!: any[];
-
   slideIndex = 0;
   containerWidth = 0;
+  currentPage = 1; // Página actual
+  itemsPerPage = 12;
 
   constructor(private productService: ProductService) { }
 
@@ -34,6 +35,8 @@ export class HomeComponent {
         console.error('Error al obtener productos destacados:', error);
       }
     );
+  }
+  loadProducts(): void {
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -67,8 +70,6 @@ export class HomeComponent {
     slideContainer.style.transform = `translateX(${newTransformValue}px)`;
   }
 
-  
-
   nextSlide() {
     this.showSlide(this.slideIndex + 1);
   }
@@ -77,4 +78,28 @@ export class HomeComponent {
     this.showSlide(this.slideIndex - 1);
   }
 
+  getCurrentPageProducts(): any[] {
+    const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+    const endIndex = startIndex + this.itemsPerPage;
+    return this.products.slice(startIndex, endIndex);
+  }
+
+  // Función para ir a la página siguiente
+  nextPage(): void {
+    const totalPages = Math.ceil(this.products.length / this.itemsPerPage);
+    if (this.currentPage < totalPages) {
+      this.currentPage++;
+    }
+  }
+
+  // Función para ir a la página anterior
+  prevPage(): void {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+    }
+  }
+
+  getTotalPages(): number {
+    return Math.ceil(this.products.length / this.itemsPerPage);
+  }
 }

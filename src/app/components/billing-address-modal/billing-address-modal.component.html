@@ -1,0 +1,89 @@
+<div class="modal-backdrop" [ngClass]="{'show': showModal}" [ngStyle]="{'display': showModal ? 'block' : 'none'}"></div>
+<div class="custom-modal modal" tabindex="-1" role="dialog" [ngClass]="{'show': showModal}" [ngStyle]="{'display': showModal ? 'block' : 'none'}">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Añadir Dirección de Facturación</h5>
+        <button type="button" class="close" aria-label="Close" (click)="closeModal()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="billingAddressForm">
+          <div>
+            <label for="firstName">Nombre</label>
+            <input id="firstName" formControlName="firstName">
+            <div *ngIf="billingAddressForm.get('firstName')?.invalid && billingAddressForm.get('firstName')?.touched">
+              Se requiere el nombre.
+            </div>
+          </div>
+          <div>
+            <label for="lastName">Apellido</label>
+            <input id="lastName" formControlName="lastName">
+            <div *ngIf="billingAddressForm.get('lastName')?.invalid && billingAddressForm.get('lastName')?.touched">
+              Se requiere el apellido.
+            </div>
+          </div>
+          <div>
+            <label for="country">País</label>
+            <input id="country" formControlName="country">
+            <div *ngIf="billingAddressForm.get('country')?.invalid && billingAddressForm.get('country')?.touched">
+              Se requiere el país.
+            </div>
+          </div>
+          <div>
+            <label for="mobile">Teléfono móvil</label>
+            <input id="mobile" formControlName="mobile" (input)="limitMobileInput()">
+            <div *ngIf="billingAddressForm.get('mobile')?.invalid && billingAddressForm.get('mobile')?.touched">
+              Introduce un número de teléfono móvil válido (9 dígitos).
+            </div>
+          </div>
+          <div>
+            <label for="addressLine1">Dirección línea 1</label>
+            <input id="addressLine1" formControlName="addressLine1">
+            <div *ngIf="billingAddressForm.get('addressLine1')?.invalid && billingAddressForm.get('addressLine1')?.touched">
+              Se requiere la dirección línea 1.
+            </div>
+          </div>
+          <div>
+            <label for="addressLine2">Dirección línea 2</label>
+            <input id="addressLine2" formControlName="addressLine2">
+          </div> 
+          <div>
+            <label for="postalCode">Código postal</label>
+            <input id="postalCode" formControlName="postalCode" (input)="limitPostalCodeInput()">
+            <div *ngIf="billingAddressForm.get('postalCode')?.invalid && billingAddressForm.get('postalCode')?.touched">
+              Introduce un código postal válido (5 dígitos).
+            </div>
+          </div> 
+          <div>
+            <label for="city">Ciudad</label>
+            <input id="city" formControlName="city">
+            <div *ngIf="billingAddressForm.get('city')?.invalid && billingAddressForm.get('city')?.touched">
+              Se requiere la ciudad.
+            </div>
+          </div>  
+          <div>
+            <label for="state">Población</label>
+            <input id="state" formControlName="state">
+            <div *ngIf="billingAddressForm.get('state')?.invalid && billingAddressForm.get('state')?.touched">
+              Se requiere la población.
+            </div>
+          </div>
+          <div>
+            <label for="additionalInfo">Información adicional</label>
+            <textarea id="additionalInfo" formControlName="additionalInfo"></textarea>
+          </div>
+          <div>
+            <label for="isDefault">Establecer como método de pago predeterminado</label>
+            <input type="checkbox" id="isDefault" formControlName="isDefault">
+        </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="closeModal()">Cerrar</button>
+        <button type="button" class="btn btn-primary" (click)="saveAddress()">Guardar</button>
+      </div>
+    </div>
+  </div>
+</div>
