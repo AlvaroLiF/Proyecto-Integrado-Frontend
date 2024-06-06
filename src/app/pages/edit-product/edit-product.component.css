@@ -29,7 +29,7 @@ h1 {
     border-radius: 8px;
     background-color: white;
     padding: 50px;
-    margin-bottom: 20px
+    margin-bottom: 20px;
 }
 
 button {
@@ -41,8 +41,51 @@ button {
     cursor: pointer;
     width: 100%;
     transition: background 0.3s ease;
+    margin-top: 10px;
 }
 
 button:hover {
     background: #464735;
+}
+
+.password-input-container {
+    position: relative;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+
+}
+
+.password-input-container input {
+    width: 100%;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+input,
+textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease;
+}
+
+textarea{
+    height: 200px;
+}
+
+.edit-section{
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: white;
+    padding: 50px;
+    margin-bottom: 20px;
+    width: 40%;
+    text-align: center;
 }

@@ -27,67 +27,21 @@ export class OrderService {
     );
   }
 
-  createShippingAddress(shippingAddress: any, userId: string): Observable<any> {
-    const url = `${this.url}/shipping-addresses`; // Ruta para crear la dirección de envío en el backend
+  //CUANDO SE TERMINE EL PEDIDO, ELIMINAR EL ORDERID DEL LOCALSTORAGE
+
+
+  createShippingAddress(shippingAddress: any, orderId: string): Observable<any> {
+    const url = `${this.url}/newShipping`; // Ruta para crear la dirección de envío en el backend
     const headers = this.authService.getHeaders();
-    const body = { ...shippingAddress, userId }; // Combina los datos de la dirección de envío con el ID del pedido
+    const body = { ...shippingAddress, orderId }; // Combina los datos de la dirección de envío con el ID del pedido
     return this.http.post(url, body, { headers: headers });
   }
 
-  updateShippingAddress(addressId: string, userId: string, address: any): Observable<any> {
-    const url = `${this.url}/shipping-address/${addressId}`;
+  createPaymentMethod(paymentMethod: any, orderId: string): Observable<any> {
+    const url = `${this.url}/newPayment`; // Ruta para crear la dirección de envío en el backend
     const headers = this.authService.getHeaders();
-    const body = {userId, ...address   }; // Combina los datos de la dirección de envío con el ID del pedido
-    return this.http.put(url, body, { headers: headers });
-  }
-
-  assignShippingAddress(orderId: string, addressId: string): Observable<any> {
-    const url = `${this.url}/assign-shipping-address-to-order`;
-    const headers = this.authService.getHeaders();
-    const body = {orderId, addressId   }; // Combina los datos de la dirección de envío con el ID del pedido
-    return this.http.put(url, body, { headers: headers });
-  }
-
-  createPaymentMethod(paymentMethod: any, userId: string): Observable<any> {
-    const url = `${this.url}/payment-methods`; // Ruta para crear la dirección de envío en el backend
-    const headers = this.authService.getHeaders();
-    const body = { ...paymentMethod, userId }; // Combina los datos de la dirección de envío con el ID del pedido
+    const body = { ...paymentMethod, orderId }; // Combina los datos de la dirección de envío con el ID del pedido
     return this.http.post(url, body, { headers: headers });
-  }
-
-  updatePaymentMethod(methodId: string, userId: string, payment: any): Observable<any> {
-    const url = `${this.url}/payment-method/${methodId}`;
-    const headers = this.authService.getHeaders();
-    const body = {userId, ...payment   }; // Combina los datos de la dirección de envío con el ID del pedido
-    return this.http.put(url, body, { headers: headers });
-  }
-
-  assignPaymentMethod(orderId: string, paymentMethodId: string): Observable<any> {
-    const url = `${this.url}/assign-payment-method`;
-    const headers = this.authService.getHeaders();
-    const body = {orderId, paymentMethodId   }; // Combina los datos de la dirección de envío con el ID del pedido
-    return this.http.put(url, body, { headers: headers });
-  }
-
-  createBillingAddress(shippingAddress: any, userId: string): Observable<any> {
-    const url = `${this.url}/billing-addresses`; // Ruta para crear la dirección de envío en el backend
-    const headers = this.authService.getHeaders();
-    const body = { ...shippingAddress, userId }; // Combina los datos de la dirección de envío con el ID del pedido
-    return this.http.post(url, body, { headers: headers });
-  }
-
-  updateBillingAddress(addressId: string, userId: string, address: any): Observable<any> {
-    const url = `${this.url}/billing-address/${addressId}`;
-    const headers = this.authService.getHeaders();
-    const body = {userId, ...address   }; // Combina los datos de la dirección de envío con el ID del pedido
-    return this.http.put(url, body, { headers: headers });
-  }
-
-  assignBillingAddress(orderId: string, addressId: string): Observable<any> {
-    const url = `${this.url}/assign-billing-address-to-order`;
-    const headers = this.authService.getHeaders();
-    const body = {orderId, addressId   }; // Combina los datos de la dirección de envío con el ID del pedido
-    return this.http.put(url, body, { headers: headers });
   }
 
   getOrderById(orderId: string): Observable<any> {
