@@ -108,5 +108,12 @@ export class OrderService {
     return this.http.get(url, { headers: headers });
   }
 
+  confirmPaymentAndSendEmail(orderId: string): Observable<any> {
+    const url = `${this.url}/orders/${orderId}/payment/confirm`; // URL para confirmar el pago y enviar el correo
+    const headers = this.authService.getHeaders();
+    const body = { orderId };
+    return this.http.post(url, body, { headers: headers });
+  }
+
 
 }

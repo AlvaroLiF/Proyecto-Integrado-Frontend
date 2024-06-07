@@ -164,22 +164,33 @@ export class PaymentComponent implements OnInit {
 
   finalizeOrder(): void {
     if (this.selectedPaymentMethod) {
-      const orderId = this.getOrderId(); // Implementa este método para obtener el ID del pedido actual
-  
-      this.orderService.assignPaymentMethod(orderId, this.selectedPaymentMethod._id).subscribe(
-        (response) => {
-          console.log('Método de pago asignado al pedido:', response);
-          // Navega a la página de confirmación o resumen del pedido
-          this.router.navigate(['order/resume']);
-        },
-        (error) => {
-          console.error('Error al asignar el método de pago:', error);
-        }
-      );
+        const orderId = this.getOrderId(); // Implementa este método para obtener el ID del pedido actual
+
+        this.orderService.assignPaymentMethod(orderId, this.selectedPaymentMethod._id).subscribe(
+            (response) => {
+                console.log('Método de pago asignado al pedido:', response);
+
+                // Confirmar el pago y enviar el correo electrónico
+                this.orderService.confirmPaymentAndSendEmail(orderId).subscribe(
+                    (response) => {
+                        console.log('Pago confirmado y correo enviado:', response);
+                        // Navega a la página de confirmación o resumen del pedido
+                        this.router.navigate(['order/resume']);
+                    },
+                    (error) => {
+                        console.error('Error al confirmar el pago y enviar el correo:', error);
+                    }
+                );
+            },
+            (error) => {
+                console.error('Error al asignar el método de pago:', error);
+            }
+        );
     } else {
-      alert('Por favor selecciona un método de pago.');
+        alert('Por favor selecciona un método de pago.');
     }
-  }
+}
+
   
 
 }
