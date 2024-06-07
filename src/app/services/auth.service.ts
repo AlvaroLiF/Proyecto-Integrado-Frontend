@@ -12,8 +12,8 @@ export class AuthService {
 
   constructor(private http: HttpClient, private afAuth: AngularFireAuth) { }
 
-  private url = 'http://localhost:3000';
-  //private url = 'https://componentx.onrender.com';
+  //private url = 'http://localhost:3000';
+  private url = 'https://componentx.onrender.com';
 
   private pendingCartItem: { productId: string, quantity: number } | null = null;
   

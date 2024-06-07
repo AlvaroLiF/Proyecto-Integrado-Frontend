@@ -15,8 +15,8 @@ export class CartService {
 
   constructor(private http: HttpClient, private authService: AuthService) { }
 
-  private url = 'http://localhost:3000';
-  //private url = 'https://componentx.onrender.com';
+  //private url = 'http://localhost:3000';
+  private url = 'https://componentx.onrender.com';
 
   addToCart(productId: string, quantity: number): Observable<any> {
     const userId = localStorage.getItem('userId');

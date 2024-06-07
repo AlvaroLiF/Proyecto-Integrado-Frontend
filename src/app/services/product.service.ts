@@ -10,8 +10,8 @@ export class ProductService {
 
   constructor(private http: HttpClient, private authService: AuthService) { }
   
-  private url = 'http://localhost:3000';
-  //private url = 'https://componentx.onrender.com';
+  //private url = 'http://localhost:3000';
+  private url = 'https://componentx.onrender.com';
 
   getAllProducts(): Observable<any> {
     const url = `${this.url}/products`;
