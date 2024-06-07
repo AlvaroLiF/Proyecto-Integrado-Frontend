@@ -13,8 +13,10 @@
                             alt="{{ item.product.name }}">
                         <div class="item-details">
                             <div>{{ item.product.name }}</div>
-                            <div>Unidades: {{ item.quantity }}</div>
-                            <div>Precio: {{ item.product.price }}€</div>
+                            <div>
+                                Unidades:
+                                <input *ngIf="item.product" type="number" [value]="item.quantity" (change)="updateQuantity(item.product._id, $event)" min="1" max="10" class="quantity-input">
+                              </div>                            <div>Precio: {{ item.product.price }}€</div>
                         </div>
                         <img class="trash-icon" src="assets/icons/trash-can-solid.svg" alt="Eliminar"
                             (click)="removeFromCart(item.product._id)">
@@ -24,9 +26,9 @@
             </div>
             <div class="order-summary">
                 <h2>Resumen</h2>
-                <p>Subtotal artículos {{ cart.totalPrice }}€</p>
+                <p>Subtotal artículos {{ cart.totalPrice | currency:'EUR':'symbol':'1.2-2':'es' }}</p>
                 <hr class="separator">
-                <h3>Total (Impuestos incluidos) {{ cart.totalPrice }}€</h3>
+                <h3>Total (Impuestos incluidos) {{ cart.totalPrice | currency:'EUR':'symbol':'1.2-2':'es' }}</h3>
                 <button (click)="createOrder()" routerLink="/order/address">Realizar pedido</button>
             </div>
         </div>

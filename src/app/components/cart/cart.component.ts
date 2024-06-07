@@ -1,5 +1,6 @@
 import { Component, HostListener } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from 'src/app/services/auth.service';
 import { CartService } from 'src/app/services/cart.service';
 
 @Component({
@@ -13,7 +14,7 @@ export class CartComponent {
   showCartDropdown: boolean = false;
   distinctProductCount: number = 0;
 
-  constructor(private cartService: CartService, private router: Router) { }
+  constructor(private cartService: CartService, private router: Router, private authService: AuthService) { }
 
   ngOnInit() {
     this.cartService.cart$.subscribe(
@@ -59,6 +60,33 @@ export class CartComponent {
       }
     );
   }
+
+  updateQuantity(productId: string | undefined, event: Event): void {
+    if (!productId) {
+      console.error('Product ID is undefined');
+      return;
+    }
+
+    const inputElement = event.target as HTMLInputElement;
+    let quantity = Number(inputElement.value);
+
+    // Asegúrate de que la cantidad esté dentro del rango permitido
+    if (quantity < 1) {
+      quantity = 1;
+    } else if (quantity > 10) {
+      quantity = 10;
+    }
+
+    this.cartService.updateCartItemQuantity(this.authService.getUserId() , productId, quantity).subscribe(
+      (updatedCart) => {
+        this.cart = updatedCart;
+      },
+      (error) => {
+        console.error('Error al actualizar la cantidad:', error);
+      }
+    );
+  }
+  
 
   goToHomePage() {
     if (this.router.url === '/home') {

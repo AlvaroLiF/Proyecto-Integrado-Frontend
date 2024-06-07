@@ -135,3 +135,10 @@ button:hover {
         /* Reset flex-grow for small screens */
     }
 }
+
+.quantity-input {
+    width: 30px; /* Ajusta este valor según sea necesario */
+    padding: 2px;
+    margin-left: 10px;
+  }
+  

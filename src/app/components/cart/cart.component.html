@@ -11,23 +11,25 @@
       <span class="close" (click)="toggleCartDropdown()">&times;</span>
       <div *ngIf="cart.items.length > 0; else emptyCart">
         <div class="cart-items">
-        <h1>Mi cesta</h1>
-                <ul>
-                    <li *ngFor="let item of cart.items">
-                        <img class="item-photo"
-                            [src]="item.product.photos && item.product.photos.length > 0 ? item.product.photos[0] : 'assets/images/1934-pccom-ready-amd-ryzen-7-5800x-32gb-1tb-ssd-rtx-4060-ti-comprar.webp'"
-                            alt="{{ item.product.name }}">
-                        <div class="item-details">
-                            <div>{{ item.product.name }}</div>
-                            <div>Unidades: {{ item.quantity }}</div>
-                            <div>Precio: {{ item.product.price }}€</div>
-                        </div>
-                        <img class="trash-icon" src="assets/icons/trash-can-solid.svg" alt="Eliminar"
-                            (click)="removeFromCart(item.product._id)">
-                    </li>
-                </ul>
+          <h1>Mi cesta</h1>
+          <ul>
+            <li *ngFor="let item of cart.items">
+              <img class="item-photo"
+                   [src]="item.product?.photos?.length ? item.product.photos[0] : 'assets/images/1934-pccom-ready-amd-ryzen-7-5800x-32gb-1tb-ssd-rtx-4060-ti-comprar.webp'"
+                   alt="{{ item.product?.name }}">
+              <div class="item-details">
+                <div>{{ item.product?.name }}</div>
+                <div>
+                  Unidades:
+                  <input *ngIf="item.product" type="number" [value]="item.quantity" (change)="updateQuantity(item.product._id, $event)" min="1" max="10" class="quantity-input">
+                </div>
+                <div>Precio: {{ item.product?.price }}€</div>
+              </div>
+              <img class="trash-icon" src="assets/icons/trash-can-solid.svg" alt="Eliminar" (click)="removeFromCart(item.product?._id)">
+            </li>
+          </ul>
         </div>
-        <div>Precio total: {{ cart.totalPrice | currency:'EUR':'symbol':'1.2-2':'es'}}</div>
+        <div>Precio total: {{ cart.totalPrice | currency:'EUR':'symbol':'1.2-2':'es' }}</div>
         <button (click)="clearCart(cart.user)">Vaciar el carrito</button>
         <button routerLink="/user/cart">Ver artículos en tu cesta</button>
       </div>

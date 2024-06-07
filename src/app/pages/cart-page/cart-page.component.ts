@@ -1,4 +1,5 @@
 import { Component, HostListener, OnInit } from '@angular/core';
+import { AuthService } from 'src/app/services/auth.service';
 import { CartService } from 'src/app/services/cart.service';
 import { OrderService } from 'src/app/services/order.service';
 
@@ -12,7 +13,7 @@ export class CartPageComponent implements OnInit {
   cart: any;
   totalItemCount: number = 0;
 
-  constructor(private cartService: CartService, private orderService: OrderService) { }
+  constructor(private cartService: CartService, private orderService: OrderService, private authService:AuthService) { }
 
   ngOnInit() {
     this.cartService.cart$.subscribe(
@@ -70,6 +71,32 @@ export class CartPageComponent implements OnInit {
 
   calculateTotalItemCount(): void {
     this.totalItemCount = this.cart.items.reduce((total: number, item: any) => total + item.quantity, 0);
+  }
+
+  updateQuantity(productId: string | undefined, event: Event): void {
+    if (!productId) {
+      console.error('Product ID is undefined');
+      return;
+    }
+
+    const inputElement = event.target as HTMLInputElement;
+    let quantity = Number(inputElement.value);
+
+    // Asegúrate de que la cantidad esté dentro del rango permitido
+    if (quantity < 1) {
+      quantity = 1;
+    } else if (quantity > 10) {
+      quantity = 10;
+    }
+
+    this.cartService.updateCartItemQuantity(this.authService.getUserId() , productId, quantity).subscribe(
+      (updatedCart) => {
+        this.cart = updatedCart;
+      },
+      (error) => {
+        console.error('Error al actualizar la cantidad:', error);
+      }
+    );
   }
 
 }

@@ -56,9 +56,23 @@
   </div>
     <div class="order-summary">
       <h2>Resumen</h2>
-      <p>Subtotal artículos {{ cart.totalPrice }}€</p>
+      <p>Subtotal artículos {{ cart.totalPrice | currency:'EUR':'symbol':'1.2-2':'es' }}</p>
+      <div class="cart-items">
+        <ul>
+            <li *ngFor="let item of cart.items">
+                <img class="item-photo"
+                    [src]="item.product.photos && item.product.photos.length > 0 ? item.product.photos[0] : 'assets/images/1934-pccom-ready-amd-ryzen-7-5800x-32gb-1tb-ssd-rtx-4060-ti-comprar.webp'"
+                    alt="{{ item.product.name }}">
+                <div class="item-details">
+                    <div>{{ item.product.name }}</div>
+                    <div>Unidades: {{ item.quantity }}</div>
+                    <div>Precio: {{ item.product.price }}€</div>
+                </div>
+            </li>
+        </ul>
+    </div>
       <hr class="separator">
-      <h3>Total (Impuestos incluidos) {{ cart.totalPrice }}€</h3>
+      <h3>Total (Impuestos incluidos) {{ cart.totalPrice | currency:'EUR':'symbol':'1.2-2':'es' }}</h3>
       <button (click)="saveAndContinue()">Guardar y Continuar</button>
     </div>
   </div>
