@@ -89,35 +89,49 @@ export class SignInComponent {
       const result = await this.authService.loginWithGoogle();
       const token = await result.user?.getIdToken() || '';
       localStorage.setItem('token', token);
-  
+
       const uid = result.user?.uid || '';
       const email = result.user?.email || '';
       const name = result.user?.displayName || '';
-  
+
       const userData = {
         uid: uid,
         email: email,
         name: name
       };
-  
+
       this.authService.sendUserDataToBackend(userData).subscribe(
         (response) => {
           const userId = response.user._id;
           localStorage.setItem('userId', userId);
-  
+
           const userRole = response.user.roles;
           localStorage.setItem('userRole', userRole);
-  
+
           const userName = response.user.username;
           localStorage.setItem('userName', userName);
-  
+
           if (userRole.includes("ROLE_ADMIN")) {
             this.router.navigate(['/admin-home']);
           } else {
             this.router.navigate(['/home']);
           }
-  
+
           console.log('Inicio de sesión con Google exitoso');
+
+          const pendingCartItem = this.authService.getPendingCartItem();
+          if (pendingCartItem) {
+            this.cartService.addToCart(pendingCartItem.productId, pendingCartItem.quantity).subscribe(
+              (response) => {
+                console.log('Producto pendiente añadido al carrito:', response);
+                this.authService.clearPendingCartItem();
+                this.cartService.openCart();
+              },
+              (error) => {
+                console.error('Error al agregar producto pendiente al carrito:', error);
+              }
+            );
+          }
         },
         (error) => {
           console.error('Error al iniciar sesión con Google:', error);
