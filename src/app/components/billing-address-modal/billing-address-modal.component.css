@@ -1,6 +1,5 @@
-/* Asegúrate de incluir este estilo en tu archivo CSS o SCSS global o específico del componente */
 .custom-modal {
-    position: fixed;
+  position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -8,26 +7,104 @@
   padding: 20px;
   z-index: 10000;
   border-radius: 10px;
-  }
-  
-  .custom-modal .modal-dialog {
-    max-width: 500px;
-    margin: auto;
-  }
-  
-  .custom-modal .modal-content {
-    background-color: #ffffff; /* Fondo blanco para el formulario */
-    padding: 20px; /* Añadir padding si es necesario */
-    border-radius: 8px; /* Borde redondeado opcional */
-  }
-  
-  .modal-backdrop {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    z-index: 1040;
-  }
-  
+}
+
+.custom-modal .modal-dialog {
+  margin: auto;
+}
+
+.custom-modal .modal-content {
+  padding: 20px;
+  border-radius: 8px;
+}
+
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1040;
+}
+
+/* Estilos específicos para botones */
+.custom-modal .btn {
+  padding: 10px 20px;
+  margin-right: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.custom-modal .btn-primary {
+  background-color: #007bff;
+  color: #fff;
+}
+
+.custom-modal .btn-primary:hover {
+  background-color: #0056b3;
+}
+
+.custom-modal .btn-secondary {
+  background-color: #6c757d;
+  color: #fff;
+}
+
+.custom-modal .btn-secondary:hover {
+  background-color: #5a6268;
+}
+
+/* Estilos del formulario */
+/* Estilos del formulario dentro del modal */
+.custom-modal form {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.custom-modal form .form-group {
+  margin-bottom: 0; /* remove bottom margin to avoid extra space between rows */
+}
+
+.custom-modal form .form-group .row {
+  margin-bottom: 15px; /* Add some spacing between rows */
+  display: flex; /* Use flexbox to align items horizontally */
+}
+
+.custom-modal form .form-group .col {
+  padding-right: 10px; /* Add some spacing between columns */
+  flex: 1; /* Distribute space evenly among columns */
+}
+
+.custom-modal form .form-group .col:last-child {
+  padding-right: 0; /* Remove padding from the last column to avoid extra spacing */
+}
+
+.custom-modal form .form-group label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: #333;
+  flex: 1; /* Allow labels to take up space */
+}
+
+.custom-modal form .form-group input,
+.custom-modal form .form-group textarea,
+.custom-modal form .form-group select {
+  width: calc(100% - 10px); /* Make inputs take up remaining space */
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.custom-modal form .form-group input[type="checkbox"] {
+  width: auto; /* Reset width for checkboxes */
+}
+
+.custom-modal form .form-group .form-error {
+  clear: both; /* Clear floating elements to avoid overlapping */
+  margin-top: 5px; /* Add some spacing between error messages */
+}
