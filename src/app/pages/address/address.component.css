@@ -26,11 +26,6 @@ h1 {
     margin-bottom: 60px;
 }
 
-h2{
-    text-align: center;
-    margin-top: 30px;
-}
-
 form {
     display: flex;
     flex-direction: column;
@@ -54,8 +49,7 @@ label {
     font-weight: bold;
 }
 
-input,
-textarea {
+input, textarea {
     width: 100%;
     padding: 10px;
     border: 1px solid #ccc;
@@ -64,8 +58,7 @@ textarea {
     transition: border-color 0.3s ease;
 }
 
-input:focus,
-textarea:focus {
+input:focus, textarea:focus {
     border-color: #838563;
 }
 
@@ -94,28 +87,17 @@ button:hover {
     background: #464735;
 }
 
-.form-and-summary {
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    width: 100%;
-    max-width: 1200px;
-    margin: 0 auto;
-    gap: 20px;
-    box-sizing: border-box;
-    padding: 0 20px; /* Añadir relleno a los lados para mantener el espaciado */
-}
-
 .order-summary {
-        margin-top: 80px;
-
-    flex: 1;
+    width: 100%;
     max-width: 600px;
     background-color: white;
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     text-align: center;
 }
 
@@ -126,8 +108,15 @@ button:hover {
     margin: 20px 0;
 }
 
-.addresses {
-    flex: 1;
+.form-and-summary {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    box-sizing: border-box;
+    gap: 20px;
 }
 
 /* Responsivo */

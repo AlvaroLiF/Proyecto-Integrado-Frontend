@@ -29,25 +29,14 @@
       </div>
     </section>
 
-    <section>
+    <section class="featured-products">
       <div *ngIf="products && products.length > 0">
         <h2>Productos</h2>
         <hr class="separator">
         <div class="card-container-2">
-          <div *ngFor="let product of getCurrentPageProducts()" class="product-card">
+          <div *ngFor="let product of products" class="product-card">
             <app-product-card [product]="product"></app-product-card>
           </div>
-        </div>
-        <div class="pagination">
-          <!-- Flecha a la izquierda si hay una página atrás -->
-          <button *ngIf="currentPage > 1" (click)="prevPage()">&#10094;
-          </button>
-          <!-- Texto que muestra la página actual y el total de páginas -->
-          <p>Página {{currentPage}} de {{getTotalPages()}}</p>
-          <!-- Flecha a la derecha si hay una página adelante -->
-          <button *ngIf="getCurrentPageProducts().length === itemsPerPage" (click)="nextPage()">
-            &#10095;
-          </button>
         </div>
       </div>
 

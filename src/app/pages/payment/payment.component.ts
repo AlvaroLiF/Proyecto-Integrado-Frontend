@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AuthService } from 'src/app/services/auth.service';
 import { CartService } from 'src/app/services/cart.service';
 import { OrderService } from 'src/app/services/order.service';
 
@@ -13,28 +12,22 @@ import { OrderService } from 'src/app/services/order.service';
 export class PaymentComponent implements OnInit {
   cart: any;
   paymentMethodForm: FormGroup;
-  paymentMethods: any[] = [];
-  showModal: boolean = false;
-  isEditing: boolean = false;
-  editingPaymentId: string | null = null;
-  selectedPaymentMethod: any = null;
 
   constructor(
     private fb: FormBuilder,
+    private router: Router,
     private orderService: OrderService,
-    private cartService: CartService,
-    private authService: AuthService,
-    private router: Router
+    private cartService: CartService
   ) {
     this.paymentMethodForm = this.fb.group({
       cardNumber: ['', [Validators.required, Validators.pattern('^[0-9]{16}$')]],
       expirationDate: ['', [
         Validators.required,
-        Validators.pattern('^(0[1-9]|1[0-2])/[0-9]{2}$') // MM/YY format
+        Validators.pattern('^(0[1-9]|1[0-2])/[0-9]{2}$'), // MM/YY format
+        this.validateExpirationDate.bind(this) // Custom validator
       ]],
       securityCode: ['', [Validators.required, Validators.pattern('^[0-9]{3}$')]],
       cardholderName: ['', Validators.required],
-      isDefault: [false]
     });
   }
 
@@ -49,7 +42,6 @@ export class PaymentComponent implements OnInit {
       }
     );
     this.getCart();
-    this.loadPaymentMethods();
   }
 
   getCart(): void {
@@ -60,65 +52,22 @@ export class PaymentComponent implements OnInit {
     return localStorage.getItem('orderId') || '';
   }
 
-  loadPaymentMethods(): void {
-    this.authService.getUserPaymentMethods(this.authService.getUserId()).subscribe(
-      (methods) => {
-        this.paymentMethods = methods;
-        this.sortPaymentMethods(); // Ordena los métodos de pago
-      },
-      (error) => {
-        console.error('Error al cargar los métodos de pago:', error);
-      }
-    );
-  }
-
-  sortPaymentMethods(): void {
-    this.paymentMethods.sort((a, b) => {
-      if (a.isDefault && !b.isDefault) {
-        return -1;
-      } else if (!a.isDefault && b.isDefault) {
-        return 1;
-      } else {
-        return 0;
-      }
-    });
-  }
-
-  openModal(isEditing: boolean, payment?: any): void {
-    this.showModal = true;
-    if (isEditing && payment) {
-      this.editingPaymentId = payment._id;
-      this.paymentMethodForm.patchValue(payment);
-    } else {
-      this.editingPaymentId = null;
-      this.paymentMethodForm.reset();
+  createPaymentMethod(): void {
+    if (this.paymentMethodForm.invalid) {
+      return; // Si el formulario no es válido, no proceder
     }
-  }
 
-  closeModal(): void {
-    this.showModal = false;
-    this.paymentMethodForm.reset();
-  }
-
-  editPaymentMethod(payment: any): void {
-    this.openModal(true, payment);
-  }
-
-
-  savePaymentMethod(payment: any): void {
-    if (this.editingPaymentId) {
-      this.updatePaymentMethod(payment);
-    } else {
-      this.createPaymentMethod(payment);
+    // Validar fecha de expiración
+    const expirationDateControl = this.paymentMethodForm.get('expirationDate');
+    if (!expirationDateControl) {
+      console.error('El control de fecha de expiración no está definido.');
+      return;
     }
-  }
 
-  createPaymentMethod(payment: any): void {
-    this.orderService.createPaymentMethod(payment, this.authService.getUserId()).subscribe(
+    this.orderService.createPaymentMethod(this.paymentMethodForm.value, this.getOrderId()).subscribe(
       (response) => {
         console.log('Método de pago creado:', response);
-        this.loadPaymentMethods();
-        this.closeModal();
+        this.router.navigate(['order/resume']);
       },
       (error) => {
         console.error('Error al crear el método de pago:', error);
@@ -126,60 +75,56 @@ export class PaymentComponent implements OnInit {
     );
   }
 
-  updatePaymentMethod(payment: any): void {
-    this.orderService.updatePaymentMethod(this.editingPaymentId!, this.authService.getUserId(), payment).subscribe(
-      (response) => {
-        console.log('Método de pago actualizado:', response);
-        this.loadPaymentMethods();
-        this.closeModal();
-      },
-      (error) => {
-        console.error('Error al actualizar el método de pago:', error);
-      }
-    );
-  }
-
-  deletePaymentMethod(payment: any): void {
-    this.authService.deleteUserPaymentMethod(this.authService.getUserId(), payment._id).subscribe(
-      (response) => {
-        console.log('Método de pago eliminado:', response);
-        this.loadPaymentMethods();
-      },
-      (error) => {
-        console.error('Error al eliminar el método de pago:', error);
-      }
-    );
-  }
-
-  selectPaymentMethod(payment: any): void {
-    this.selectedPaymentMethod = payment;
-    this.updateSelectedMethod(); // Actualiza el estado de selección
-  }
-
-  updateSelectedMethod(): void {
-    this.paymentMethods.forEach(payment => {
-      payment.isSelected = (payment._id === this.selectedPaymentMethod._id);
-    });
-  }
-
-  finalizeOrder(): void {
-    if (this.selectedPaymentMethod) {
-      const orderId = this.getOrderId(); // Implementa este método para obtener el ID del pedido actual
+  // Validador personalizado para la fecha de expiración
+  validateExpirationDate(control: FormControl): { [key: string]: boolean } | null {
+    const currentDate = new Date();
+    const currentYear = currentDate.getFullYear();
+    const currentMonth = currentDate.getMonth() + 1;
   
-      this.orderService.assignPaymentMethod(orderId, this.selectedPaymentMethod._id).subscribe(
-        (response) => {
-          console.log('Método de pago asignado al pedido:', response);
-          // Navega a la página de confirmación o resumen del pedido
-          this.router.navigate(['order/resume']);
-        },
-        (error) => {
-          console.error('Error al asignar el método de pago:', error);
-        }
-      );
-    } else {
-      alert('Por favor selecciona un método de pago.');
+    if (!control.value) {
+      return { 'required': true };
+    }
+  
+    const parts = control.value.split('/');
+    if (parts.length !== 2) {
+      return { 'invalidFormat': true };
+    }
+  
+    const month = parseInt(parts[0], 10);
+    let year = parseInt(parts[1], 10);
+  
+    if (isNaN(month) || isNaN(year)) {
+      return { 'invalidFormat': true };
+    }
+  
+    // Ajustar el año para que esté en el rango correcto
+    if (year < 100) {
+      year += Math.floor(currentYear / 100) * 100; // Convertir el año de dos dígitos a cuatro dígitos
+      if (year > currentYear + 10) {
+        year -= 100; // Si el año es más de 10 años en el futuro, resta 100 para ajustarlo al siglo actual
+      }
+    }
+  
+    if (year < currentYear || (year == currentYear && month < currentMonth)) {
+      return { 'invalidExpirationDate': true };
+    }
+  
+    return null;
+  }
+  
+  
+
+  limitCardNumberInput(): void {
+    const cardNumberControl = this.paymentMethodForm.get('cardNumber');
+    if (cardNumberControl && cardNumberControl.value.length > 16) {
+      cardNumberControl.setValue(cardNumberControl.value.slice(0, 16));
     }
   }
-  
 
+  limitSecurityCodeInput(): void {
+    const securityCodeControl = this.paymentMethodForm.get('securityCode');
+    if (securityCodeControl && securityCodeControl.value.length > 3) {
+      securityCodeControl.setValue(securityCodeControl.value.slice(0, 3));
+    }
+  }
 }

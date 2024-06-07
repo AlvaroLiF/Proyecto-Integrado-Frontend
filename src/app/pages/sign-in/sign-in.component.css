@@ -64,7 +64,6 @@
     width: 100%;
     transition: background 0.3s ease;
     margin-bottom: 10px;
-    margin-top: 10px;
   }
 
   button:hover {
@@ -95,10 +94,9 @@
     align-items: right;
 }
 
-.center-link{
+span{
  align-items: center;
   cursor: pointer;
-  font-weight: bold;
 }
 
 label {
@@ -119,15 +117,4 @@ textarea {
 
 textarea{
   height: 200px;
-}
-
-span{
-  align-items: center;
-  font-weight: bold;
-}
-
-.google-icon {
-  width: 20px;
-  height: 20px;
-  margin-left: 10px;
 }
