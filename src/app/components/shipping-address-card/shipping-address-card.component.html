@@ -1,0 +1,14 @@
+<div class="card" [ngClass]="{'selected': isSelected}">
+    <div class="card-body">
+        <p *ngIf="address.isDefault" class="default-label">Predeterminada </p>
+        <p><strong>{{ address.firstName }} {{ address.lastName }}</strong></p>
+        <div class="card-text">
+            {{ formatAddress(address) }}
+            <p class="space">
+                <button *ngIf="showSelectButton" (click)="selectAddress()" id="btn-select" class="btn">Seleccionar</button>
+                <button (click)="editAddress()" id="btn-edit" class="btn">Editar</button>
+                <button (click)="deleteAddress()" id="btn-delete" class="btn">Eliminar</button>
+            </p>
+        </div>
+    </div>
+</div>

@@ -17,11 +17,14 @@ export class ProfileComponent implements OnInit {
   confirmPassword: string = '';
   passwordStep: number = 1;
   editing: boolean = false; // Variable para controlar la edición
+  shippingAddresses: any[] = [];
+
 
   constructor(private authService: AuthService, private snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
     this.getUserProfile();
+    this.loadShippingAddresses();
   }
 
   getUserProfile(): void {
@@ -131,5 +134,32 @@ export class ProfileComponent implements OnInit {
       }
     );
   }
+
+  loadShippingAddresses(): void {
+    this.authService.getUserShippingAddresses(this.authService.getUserId()).subscribe(
+      (addresses) => {
+        this.shippingAddresses = addresses.sort((a: { isDefault: number; }, b: { isDefault: number; }) => b.isDefault - a.isDefault);
+      },
+      (error) => {
+        console.error('Error al cargar las direcciones de envío:', error);
+      }
+    );
+  }
+
+  editAddress(address: any): void {
+    // Lógica para editar la dirección
+  }
+
+  deleteAddress(address: any): void {
+    this.authService.deleteUserShippingAddress(this.authService.getUserId(), address._id).subscribe(
+      () => {
+        this.loadShippingAddresses(); // Recargar las direcciones de envío
+      },
+      (error) => {
+        console.error('Error al eliminar la dirección de envío:', error);
+      }
+    );
+  }
+
   
 }

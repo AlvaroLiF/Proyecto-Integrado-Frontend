@@ -1,83 +1,68 @@
 <body>
   <app-header-order></app-header-order>
   <div class="content">
-      <h1>Dirección de envío</h1>
-      <div class="form-and-summary">
-      <form [formGroup]="shippingAddressForm">
-        <div>
-          <label for="firstName">Nombre</label>
-          <input id="firstName" formControlName="firstName">
-          <div *ngIf="shippingAddressForm.get('firstName')?.invalid && shippingAddressForm.get('firstName')?.touched">
-            Se requiere el nombre.
-          </div>
-        </div>
-        <div>
-          <label for="lastName">Apellido</label>
-          <input id="lastName" formControlName="lastName">
-          <div *ngIf="shippingAddressForm.get('lastName')?.invalid && shippingAddressForm.get('lastName')?.touched">
-            Se requiere el apellido.
-          </div>
-        </div>
-        <div>
-          <label for="country">País</label>
-          <input id="country" formControlName="country">
-          <div *ngIf="shippingAddressForm.get('country')?.invalid && shippingAddressForm.get('country')?.touched">
-            Se requiere el país.
-          </div>
-        </div>
-        <div>
-          <label for="mobile">Teléfono móvil</label>
-          <input id="mobile" formControlName="mobile" (input)="limitMobileInput()">
-          <div *ngIf="shippingAddressForm.get('mobile')?.invalid && shippingAddressForm.get('mobile')?.touched">
-            Introduce un número de teléfono móvil válido (9 dígitos).
-          </div>
-        </div>
-        <div>
-          <label for="addressLine1">Dirección línea 1</label>
-          <input id="addressLine1" formControlName="addressLine1">
-          <div
-            *ngIf="shippingAddressForm.get('addressLine1')?.invalid && shippingAddressForm.get('addressLine1')?.touched">
-            Se requiere la dirección línea 1.
-          </div>
-        </div>
-        <div>
-          <label for="addressLine2">Dirección línea 2</label>
-          <input id="addressLine2" formControlName="addressLine2">
-        </div> 
-        <div>
-          <label for="postalCode">Código postal</label>
-          <input id="postalCode" formControlName="postalCode" (input)="limitPostalCodeInput()">
-          <div *ngIf="shippingAddressForm.get('postalCode')?.invalid && shippingAddressForm.get('postalCode')?.touched">
-            Introduce un código postal válido (5 dígitos).
-          </div>
-        </div> 
-        <div>
-          <label for="city">Ciudad</label>
-          <input id="city" formControlName="city">
-          <div *ngIf="shippingAddressForm.get('city')?.invalid && shippingAddressForm.get('city')?.touched">
-            Se requiere la ciudad.
-          </div>
-        </div>  
-        <div>
-          <label for="state">Población</label>
-          <input id="state" formControlName="state">
-          <div *ngIf="shippingAddressForm.get('state')?.invalid && shippingAddressForm.get('state')?.touched">
-            Se requiere la población.
-          </div>
-        </div>
-        <div>
-          <label for="additionalInfo">Información adicional</label>
-          <textarea id="additionalInfo" formControlName="additionalInfo"></textarea>
-        </div>
-      </form>
-      <div class="order-summary">
-        <h2>Resumen</h2>
-        <p>Subtotal artículos {{ cart.totalPrice }}€</p>
-        <hr class="separator">
-        <h3>Total (Impuestos incluidos) {{ cart.totalPrice }}€</h3>
-        <button (click)="createShippingAddress()">Guardar y continuar</button>
+    <h1>Dirección de envío</h1>
+    <div class="form-and-summary">
+      <div class="addresses">
+    <div class="profile">
+      <h2>Direcciones de Envío</h2>
+      <div *ngIf="shippingAddresses && shippingAddresses.length > 0; else noShippingAddresses">
+        <app-shipping-address-card
+          *ngFor="let address of shippingAddresses"
+          [address]="address"
+          [isSelected]="address.isSelected"
+          (select)="selectShippingAddress(address)"
+          (edit)="editShippingAddress(address)"
+          (delete)="deleteShippingAddress(address)">
+        </app-shipping-address-card>
       </div>
+      <ng-template #noShippingAddresses>
+        <p>No hay direcciones de envío registradas.</p>
+      </ng-template>
+      <button (click)="openShippingModal(false)" class="btn btn-primary add-address-btn">+ Añadir otra dirección</button>
+    </div>
+
+    <div class="profile">
+      <h2>Direcciones de facturación</h2>
+      <div *ngIf="billingAddresses && billingAddresses.length > 0; else noBillingAddresses">
+        <app-shipping-address-card
+        *ngFor="let address of billingAddresses"
+        [address]="address"
+        [isSelected]="address.isSelected"
+        (select)="selectBillingAddress(address)"
+        (edit)="editShippingAddress(address)"
+        (delete)="deleteShippingAddress(address)">
+        </app-shipping-address-card>
+      </div>
+      <ng-template #noBillingAddresses>
+        <p>No hay direcciones de facturación registradas.</p>
+      </ng-template>
+      <button (click)="openBillingModal(false)" class="btn btn-primary add-address-btn">+ Añadir otra dirección</button>
+    </div>
+
+    <app-shipping-address-modal
+      [showModal]="showShippingModal"
+      [shippingAddressForm]="shippingAddressForm"
+      (closeModalEvent)="closeModal()"
+      (saveAddressEvent)="saveShipAddress($event)">
+    </app-shipping-address-modal>
+
+    <app-billing-address-modal
+      [showModal]="showBillingModal"
+      [billingAddressForm]="billingAddressForm"
+      (closeModalEvent)="closeModal()"
+      (saveAddressEvent)="saveBillAddress($event)">
+    </app-billing-address-modal>
+  </div>
+    <div class="order-summary">
+      <h2>Resumen</h2>
+      <p>Subtotal artículos {{ cart.totalPrice }}€</p>
+      <hr class="separator">
+      <h3>Total (Impuestos incluidos) {{ cart.totalPrice }}€</h3>
+      <button (click)="saveAndContinue()">Guardar y Continuar</button>
     </div>
   </div>
+</div>
+
   <app-footer></app-footer>
 </body>

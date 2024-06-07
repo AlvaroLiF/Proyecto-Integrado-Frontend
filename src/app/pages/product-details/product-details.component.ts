@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AuthService } from 'src/app/services/auth.service';
 import { CartService } from 'src/app/services/cart.service';
 import { ProductService } from 'src/app/services/product.service';
 
@@ -8,41 +9,48 @@ import { ProductService } from 'src/app/services/product.service';
   templateUrl: './product-details.component.html',
   styleUrls: ['./product-details.component.css']
 })
-export class ProductDetailsComponent {
-
+export class ProductDetailsComponent implements OnInit {
   productId: string | null | undefined;
   product: any;
   selectedQuantity: number = 1;
   quantities: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-  images: string[] = []; // Carga las imágenes del producto aquí
+  images: string[] = [];
   currentIndex: number = 0;
+  private defaultImage = 'assets/images/1934-pccom-ready-amd-ryzen-7-5800x-32gb-1tb-ssd-rtx-4060-ti-comprar.webp'; // Ruta a la imagen predeterminada
 
-
-  constructor(private route: ActivatedRoute, private productService: ProductService, private router: Router, private cartService: CartService) { }
+  constructor(
+    private route: ActivatedRoute,
+    private productService: ProductService,
+    private router: Router,
+    private cartService: CartService,
+    private authService: AuthService
+  ) { }
 
   ngOnInit(): void {
-    // Obtén el ID del producto de los parámetros de la URL
     this.productId = this.route.snapshot.paramMap.get('id');
-
-    // Verifica si el ID no es nulo antes de llamar al servicio
+  
     if (this.productId !== null) {
-      // Llama al servicio para obtener los detalles del producto
       this.productService.getProductDetails(this.productId).subscribe(
         (data) => {
           this.product = data;
-          // Cargar las imágenes del producto en la propiedad 'images'
           if (this.product.photos && this.product.photos.length > 0) {
             this.images = this.product.photos;
+          } else {
+            // Si no hay fotos, establecer la imagen predeterminada
+            this.images = [this.defaultImage];
           }
         },
         (error) => {
           console.error('Error al obtener detalles del producto:', error);
+          // Si hay un error, establecer la imagen predeterminada
+          this.images = [this.defaultImage];
         }
       );
     } else {
       console.error('ID del producto es nulo.');
     }
   }
+  
 
   getSpecificationKeys(): string[] {
     const keys = Object.keys(this.product.specifications);
@@ -51,20 +59,23 @@ export class ProductDetailsComponent {
 
   addToCart(productId: string, quantity: number): void {
     if (productId && quantity) {
-      this.cartService.addToCart(productId, quantity).subscribe(
-        (response) => {
-          console.log('Producto añadido al carrito:', response);
-          // Aquí puedes redirigir al usuario a la página del carrito o mostrar un mensaje de éxito
-          this.cartService.openCart();
-        },
-        (error) => {
-          console.error('Error al agregar producto al carrito:', error);
-          // Aquí puedes mostrar un mensaje de error al usuario
+        if (this.authService.isLoggedIn()) {
+            this.cartService.addToCart(productId, quantity).subscribe(
+                (response) => {
+                    console.log('Producto añadido al carrito:', response);
+                    this.cartService.openCart();
+                },
+                (error) => {
+                    console.error('Error al agregar producto al carrito:', error);
+                }
+            );
+        } else {
+          this.authService.setPendingCartItem({ productId, quantity });
+          this.router.navigate(['/signin']);
         }
-      );
-
     }
-  }
+}
+
 
   get currentImage(): string {
     return this.images[this.currentIndex];
@@ -81,10 +92,8 @@ export class ProductDetailsComponent {
   isArray(specifications: any): boolean {
     return Array.isArray(specifications);
   }
-  
+
   isObject(specifications: any): boolean {
     return typeof specifications === 'object' && !Array.isArray(specifications);
   }
-  
 }
-

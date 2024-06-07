@@ -1,0 +1,78 @@
+<div class="modal-backdrop" [ngClass]="{'show': showModal}" [ngStyle]="{'display': showModal ? 'block' : 'none'}"></div>
+<div class="custom-modal modal" tabindex="-1" role="dialog" [ngClass]="{'show': showModal}"
+    [ngStyle]="{'display': showModal ? 'block' : 'none'}">
+    <div class="modal-dialog" role="document"><button type="button" class="close" aria-label="Close"
+            (click)="closeModal()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Añadir Método de Pago</h5>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="paymentMethodForm">
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col">
+                                <label for="cardNumber">Número de Tarjeta</label>
+                                <input id="cardNumber" formControlName="cardNumber" (input)="limitCardNumberInput()">
+                                <div *ngIf="paymentMethodForm.get('cardNumber')?.invalid && paymentMethodForm.get('cardNumber')?.touched">
+                                    Introduce un número de tarjeta válido de 16 dígitos.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col">
+                                <label for="expirationDate">Fecha de Expiración (MM/AA)</label>
+                                <input id="expirationDate" formControlName="expirationDate">
+                                <div *ngIf="paymentMethodForm.get('expirationDate')?.touched && paymentMethodForm.get('expirationDate')?.errors">
+                                    <ng-container *ngIf="paymentMethodForm.get('expirationDate')?.errors?.['required']">
+                                        La fecha de expiración es obligatoria.
+                                    </ng-container>
+                                    <ng-container *ngIf="paymentMethodForm.get('expirationDate')?.errors?.['invalidFormat']">
+                                        Introduce una fecha de expiración válida en el formato MM/AA.
+                                    </ng-container>
+                                    <ng-container *ngIf="paymentMethodForm.get('expirationDate')?.errors?.['invalidExpirationDate']">
+                                        La fecha de expiración de la tarjeta es inválida.
+                                    </ng-container>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col">
+                                <label for="securityCode">Código de Seguridad</label>
+                                <input id="securityCode" formControlName="securityCode" (input)="limitSecurityCodeInput()">
+                                <div *ngIf="paymentMethodForm.get('securityCode')?.invalid && paymentMethodForm.get('securityCode')?.touched">
+                                    Introduce un código de seguridad válido (3 dígitos).
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col">
+                                <label for="cardholderName">Titular de la Cuenta</label>
+                                <input id="cardholderName" formControlName="cardholderName">
+                                <div *ngIf="paymentMethodForm.get('cardholderName')?.invalid && paymentMethodForm.get('cardholderName')?.touched">
+                                    El titular de la cuenta es obligatorio.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="isDefault">Establecer como método de pago predeterminado</label>
+                        <input type="checkbox" id="isDefault" formControlName="isDefault">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" (click)="closeModal()">Cerrar</button>
+                <button type="button" class="btn btn-primary" (click)="savePaymentMethod()">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>

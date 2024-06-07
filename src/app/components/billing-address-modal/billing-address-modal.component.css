@@ -1,0 +1,33 @@
+/* Asegúrate de incluir este estilo en tu archivo CSS o SCSS global o específico del componente */
+.custom-modal {
+    position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #dfdece;
+  padding: 20px;
+  z-index: 10000;
+  border-radius: 10px;
+  }
+  
+  .custom-modal .modal-dialog {
+    max-width: 500px;
+    margin: auto;
+  }
+  
+  .custom-modal .modal-content {
+    background-color: #ffffff; /* Fondo blanco para el formulario */
+    padding: 20px; /* Añadir padding si es necesario */
+    border-radius: 8px; /* Borde redondeado opcional */
+  }
+  
+  .modal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1040;
+  }
+  

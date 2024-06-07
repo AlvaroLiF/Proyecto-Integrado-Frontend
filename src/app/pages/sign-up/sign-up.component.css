@@ -65,6 +65,7 @@ button {
   cursor: pointer;
   width: 100%;
   transition: background 0.3s ease;
+  margin-top: 10px;
 }
 
 button:hover {
@@ -111,6 +112,12 @@ textarea {
   transition: border-color 0.3s ease;
 }
 
-textarea{
+textarea {
   height: 200px;
+}
+
+.google-icon {
+  width: 20px;
+  height: 20px;
+  margin-left: 10px;
 }
