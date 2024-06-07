@@ -27,9 +27,6 @@ import { HeaderOrderComponent } from './components/header-order/header-order.com
 import { AddressComponent } from './pages/address/address.component';
 import { PaymentComponent } from './pages/payment/payment.component';
 import { ResumeComponent } from './pages/resume/resume.component';
-import { AddProductComponent } from './pages/add-product/add-product.component';
-import { EditProductComponent } from './pages/edit-product/edit-product.component';
-import { DeleteProductComponent } from './pages/delete-product/delete-product.component';
 import { UserManagementComponent } from './pages/user-management/user-management.component';
 import { UserOrdersComponent } from './pages/user-orders/user-orders.component';
 import { LOCALE_ID } from '@angular/core';
@@ -42,6 +39,17 @@ import { ProfileComponent } from './pages/profile/profile.component';
 import { ResetPasswordRequestComponent } from './pages/reset-password-request/reset-password-request.component';
 import { ResetPasswordComponent } from './pages/reset-password/reset-password.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { AngularFireModule } from '@angular/fire/compat';
+import { AngularFireAuthModule } from '@angular/fire/compat/auth';
+import { environment } from '../environments/environment';
+import { ShippingAddressCardComponent } from './components/shipping-address-card/shipping-address-card.component';
+import { ShippingAddressModalComponent } from './components/shipping-address-modal/shipping-address-modal.component';
+import { AddressesComponent } from './pages/addresses/addresses.component';
+import { PaymentMethodCardComponent } from './components/payment-method-card/payment-method-card.component';
+import { PaymentMethodModalComponent } from './components/payment-method-modal/payment-method-modal.component';
+import { BillingAddressModalComponent } from './components/billing-address-modal/billing-address-modal.component';
+import { ProductManagementComponent } from './pages/product-management/product-management.component';
+
 
 
 registerLocaleData(localeEs, 'es', localeEsExtra);
@@ -66,9 +74,6 @@ registerLocaleData(localeEs, 'es', localeEsExtra);
     AddressComponent,
     PaymentComponent,
     ResumeComponent,
-    AddProductComponent,
-    EditProductComponent,
-    DeleteProductComponent,
     UserManagementComponent,
     UserOrdersComponent,
     CategoriesComponent,
@@ -76,6 +81,13 @@ registerLocaleData(localeEs, 'es', localeEsExtra);
     ProfileComponent,
     ResetPasswordRequestComponent,
     ResetPasswordComponent,
+    ShippingAddressCardComponent,
+    ShippingAddressModalComponent,
+    AddressesComponent,
+    PaymentMethodCardComponent,
+    PaymentMethodModalComponent,
+    BillingAddressModalComponent,
+    ProductManagementComponent,
   ],
 
   imports: [
@@ -93,7 +105,10 @@ registerLocaleData(localeEs, 'es', localeEsExtra);
     ReactiveFormsModule,
     BrowserModule,
     BrowserAnimationsModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFireAuthModule
+
   ],
   providers: [{ provide: LOCALE_ID, useValue: 'es' }],
   bootstrap: [AppComponent]

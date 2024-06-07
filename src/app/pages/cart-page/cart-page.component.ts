@@ -1,4 +1,4 @@
-import { Component, HostListener } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { CartService } from 'src/app/services/cart.service';
 import { OrderService } from 'src/app/services/order.service';
 
@@ -7,19 +7,19 @@ import { OrderService } from 'src/app/services/order.service';
   templateUrl: './cart-page.component.html',
   styleUrls: ['./cart-page.component.css']
 })
-export class CartPageComponent {
+export class CartPageComponent implements OnInit {
 
   cart: any;
-  distinctProductCount: number = 0;
+  totalItemCount: number = 0;
 
-  constructor(private cartService: CartService, private orderService:OrderService) { }
+  constructor(private cartService: CartService, private orderService: OrderService) { }
 
   ngOnInit() {
     this.cartService.cart$.subscribe(
       (data) => {
         this.cart = data;
         console.log(this.cart);
-        this.calculateDistinctProductCount();
+        this.calculateTotalItemCount();
       },
       (error) => {
         console.error('Error al obtener el carrito:', error);
@@ -36,6 +36,7 @@ export class CartPageComponent {
     this.cartService.removeFromCart(productId).subscribe(
       () => {
         console.log("Producto eliminado del carrito.");
+        this.calculateTotalItemCount(); // Actualiza la cantidad total de artículos
       },
       (error) => {
         console.error('Error al eliminar del carrito:', error);
@@ -59,6 +60,7 @@ export class CartPageComponent {
     this.cartService.clearCart(userId).subscribe(
       () => {
         console.log("Carrito vaciado.");
+        this.totalItemCount = 0; // Resetea la cantidad total de artículos
       },
       (error) => {
         console.error('Error al vaciar el carrito:', error);
@@ -66,13 +68,8 @@ export class CartPageComponent {
     );
   }
 
-  calculateDistinctProductCount(): void {
-    const uniqueProductIds = new Set<string>();
-    this.cart.items.forEach((item: any) => {
-      uniqueProductIds.add(item.product._id); // Agrega el ID del producto al conjunto
-    });
-    this.distinctProductCount = uniqueProductIds.size; // Obtiene la longitud del conjunto
+  calculateTotalItemCount(): void {
+    this.totalItemCount = this.cart.items.reduce((total: number, item: any) => total + item.quantity, 0);
   }
 
 }
-

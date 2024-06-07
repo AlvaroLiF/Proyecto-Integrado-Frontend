@@ -1,0 +1,67 @@
+.card {
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin: 20px 0;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.card-body {
+    display: flex;
+    flex-direction: column;
+}
+
+.card-text {
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between; /* Alinea los elementos a los extremos */
+    align-items: center; /* Centra verticalmente */
+}
+
+.default-label {
+    color: #28a745;
+    font-weight: bold;
+}
+
+.btn {
+    margin-left: 10px;
+}
+
+.selected {
+    border: 2px solid #007bff; /* Cambia esto a lo que prefieras */
+    background-color: #f0f8ff; /* Cambia esto a lo que prefieras */
+  }
+
+  #btn-select {
+    background-color: #838563;
+    color: #fff;
+    border-radius: 10px;
+}
+
+#btn-select:hover {
+    background-color: #464735;
+}
+
+#btn-edit {
+    background-color: #007bff;
+    color: #fff;
+    border-radius: 10px;
+
+}
+
+#btn-edit:hover {
+    background-color: #03366d;
+}
+
+#btn-delete {
+    background-color: #dc3545;
+    color: #fff;
+    border-radius: 10px;
+
+}
+
+#btn-delete:hover {
+    background-color: #a71d2a;
+}

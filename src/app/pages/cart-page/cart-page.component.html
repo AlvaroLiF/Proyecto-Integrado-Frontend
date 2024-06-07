@@ -2,14 +2,14 @@
     <app-header></app-header>
     <div class="content">
         <h1>Pedido</h1>
-         <div class="cart-and-summary" *ngIf="cart.items.length > 0; else emptyCart">
+        <div class="cart-and-summary" *ngIf="cart.items.length > 0; else emptyCart">
             <div class="cart-items">
                 <h1>Mi cesta</h1>
-                <span class="product-count">{{ distinctProductCount }} artículos</span>
+                <span class="product-count">{{ totalItemCount }} artículos</span>
                 <ul>
                     <li *ngFor="let item of cart.items">
                         <img class="item-photo"
-                            [src]="item.product.photos && item.product.photos.length > 0 ? item.product.photos[0] : 'ruta_a_imagen_predeterminada.jpg'"
+                            [src]="item.product.photos && item.product.photos.length > 0 ? item.product.photos[0] : 'assets/images/1934-pccom-ready-amd-ryzen-7-5800x-32gb-1tb-ssd-rtx-4060-ti-comprar.webp'"
                             alt="{{ item.product.name }}">
                         <div class="item-details">
                             <div>{{ item.product.name }}</div>
@@ -39,4 +39,4 @@
         </ng-template>
     </div>
     <app-footer></app-footer>
-  </body>
+</body>
