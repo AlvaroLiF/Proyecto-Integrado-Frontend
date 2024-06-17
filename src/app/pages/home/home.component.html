@@ -13,7 +13,7 @@
             <button class="carousel-button prev" (click)="prevSlide()">&#10094;</button>
             <div class="carousel-container">
               <div class="carousel-slide">
-                <div *ngFor="let product of products" class="product-card">
+                <div *ngFor="let product of featuredProducts" class="product-card">
                   <app-product-card [product]="product"></app-product-card>
                 </div>
               </div>

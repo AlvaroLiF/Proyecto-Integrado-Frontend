@@ -7,14 +7,15 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-
+    width: 100%; /* Asegurarse de que el header ocupe todo el ancho */
+    box-sizing: border-box;
 }
 
 .logo img {
     height: 65px;
+    max-width: 100%; /* Asegurarse de que la imagen no desborde */
     border-radius: 20px;
 }
-
 .search {
     display: flex;
     align-items: center;
@@ -55,4 +56,32 @@ header {
 
 .user-actions .login-links a {
     margin-right: 10px;
+}
+
+@media (max-width: 768px) {
+    header {
+        flex-direction: column; /* Permitir que el header se ajuste en una columna en pantallas pequeñas */
+        align-items: flex-start; /* Alinear los elementos al inicio */
+    }
+
+    .search {
+        width: 100%; /* Asegurarse de que la búsqueda ocupe todo el ancho disponible */
+        margin-right: 0;
+        margin-bottom: 10px;
+    }
+
+    .user-actions {
+        width: 100%; /* Asegurarse de que las acciones de usuario ocupen todo el ancho disponible */
+        justify-content: space-between; /* Espaciado entre elementos */
+        margin-left: 0;
+    }
+
+    .user-actions a, .user-actions button {
+        margin-right: 10px;
+    }
+
+    .userName {
+        margin-bottom: 0; /* Eliminar márgenes adicionales */
+        padding: 5px; /* Ajustar padding para pantallas pequeñas */
+    }
 }

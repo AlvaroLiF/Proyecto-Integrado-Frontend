@@ -1,39 +1,46 @@
+/* Aplicar box-sizing a todos los elementos */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
 body {
     margin: 0;
     padding: 0;
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-    
+    width: 100%; /* Asegurarse de que el body ocupe todo el ancho */
+    overflow-x: hidden; /* Evitar el desplazamiento horizontal */
 }
 
 .content {
     flex: 1;
     padding: 20px;
     background-color: #dfdece;
+    width: 100%; /* Asegurarse de que el contenido ocupe todo el ancho */
+    box-sizing: border-box;
 }
 
-.card-container {
+.card-container, .card-container-2 {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
+    width: 100%; /* Asegurarse de que el contenedor de tarjetas ocupe todo el ancho */
 }
-
-.card-container-2 {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: flex-start; /* Alinea las tarjetas al inicio */
-  }
 
 .card-container-2 > div {
     flex: 0 1 calc(16.66% - 10px); /* 16.66% del contenedor menos un pequeño margen */
     max-width: calc(16.66% - 10px);
     box-sizing: border-box;
     margin-bottom: 20px; /* Espacio entre filas */
-  }
+}
 
 section {
     margin-bottom: 40px;
+    width: 100%; /* Asegurarse de que las secciones ocupen todo el ancho */
+    box-sizing: border-box;
 }
 
 .product-carousel {
@@ -44,24 +51,28 @@ section {
     overflow: hidden;
     display: flex;
     align-items: center;
+    box-sizing: border-box;
 }
 
 .carousel-container {
     width: 100%;
     display: flex;
     overflow: hidden;
+    box-sizing: border-box;
 }
 
 .carousel-slide {
     display: flex;
     transition: transform 0.5s ease-in-out;
+    width: 100%; /* Asegurarse de que el slide ocupe todo el ancho */
+    box-sizing: border-box;
 }
 
 .product-card {
     min-width: 300px;
     margin: 10px;
     margin-right: -10px; /* Ajuste para compensar el espacio entre las tarjetas */
-
+    box-sizing: border-box;
 }
 
 .carousel-button {
@@ -88,7 +99,7 @@ section {
     background-color: rgba(0, 0, 0, 0.7);
 }
 
-h2{
+h2 {
     text-align: center;
 }
 
@@ -102,13 +113,15 @@ h2{
     display: flex;
     align-items: center; /* Centra verticalmente */
     justify-content: center; /* Centra horizontalmente */
-  }
-  
-  .pagination p {
+    width: 100%; /* Asegurarse de que la paginación ocupe todo el ancho */
+    box-sizing: border-box;
+}
+
+.pagination p {
     margin: 0; /* Elimina el margen */
-  }
-  
-  .pagination button {
+}
+
+.pagination button {
     background-color: white; /* Fondo blanco por defecto */
     border: 1px solid #333; /* Añade un borde sólido */
     border-radius: 4px; /* Añade bordes redondeados */
@@ -123,13 +136,12 @@ h2{
     margin-bottom: 5px;
     justify-content: center;
     transition: background-color 0.3s ease; /* Transición suave para el cambio de color */
-  }
-  
-  .pagination button:hover {
+}
+
+.pagination button:hover {
     background-color: #ddd; /* Cambia el fondo a gris al pasar el ratón */
-  }
-  
-  .pagination button:focus {
+}
+
+.pagination button:focus {
     outline: none;
-  }
-  
+}
