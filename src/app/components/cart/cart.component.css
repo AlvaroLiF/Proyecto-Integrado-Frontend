@@ -96,6 +96,7 @@
   background-color: #dfdece;
   padding: 20px;
   z-index: 10000; /* Asegura que el contenido esté sobre el fondo oscuro */
+  width: 50%;
 }
 
 .close {
