@@ -54,7 +54,7 @@ export class HomeComponent {
   }
 
   showSlide(index: number) {
-    const totalSlides = this.products.length - 3;
+    const totalSlides = this.featuredProducts.length - 3;
 
     if (index >= totalSlides) {
       this.slideIndex = 0; // Volver al principio si nos desplazamos más allá del último producto
